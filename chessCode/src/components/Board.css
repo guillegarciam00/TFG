@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#board{
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
+    width: 45vw;
+    height: 45vw;
+    background-color: rgb(94, 94, 94);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+
+span {
+    flex-basis: 12.3%;
+    height: 12.3%;
+    /* border: 2px solid black; */
+}
+
+.white_square{
+    background-color: #eeeed2; 
+}
+
+.dark_square{
+    background-color: #769655; 
+}
