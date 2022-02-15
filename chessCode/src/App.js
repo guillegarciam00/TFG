@@ -6,16 +6,39 @@ import './App.css';
 
 function App() {
 
+  const [screen, setScreen] = useState(1);
+
+
   useEffect(() => {
-    console.log("ggegw")
-    console.disableYellowBox = true;
-    console.log = console.warn = console.error = () => { };
+
   }, []);
+
+  function deletePiece(data) {
+    console.log(data)
+    data.coord = ""
+    // console.log(chessBoard);
+
+  }
+
+  function changeScreen(){
+    setScreen(1 - screen);
+  }
+
+
 
   return (
     <div className="App">
       <div id="main">
-        <Board />
+        <button type="button" onClick={() => changeScreen()}> pulsa</button>
+
+        {screen === 1 &&
+          <Board deletePiece={deletePiece} />
+        }
+        {screen === 0 &&
+          <h1>nada</h1>
+        }
+
+
       </div>
 
     </div>
