@@ -20,7 +20,7 @@ function App() {
 
   }
 
-  function changeScreen(){
+  function changeScreen() {
     setScreen(1 - screen);
   }
 
@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <div id="main">
-        <button type="button" onClick={() => changeScreen()}> pulsa</button>
+        <button type="button" onClick={() => changeScreen()}> Reinicia</button>
 
         {screen === 1 &&
           <Board deletePiece={deletePiece} />
