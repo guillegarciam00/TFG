@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-.hide {
+#hide {
     display: none;
 }
 
@@ -30,6 +30,12 @@
     background-color: #769655;
 }
 
+#selected {
+    background-color: rgb(100, 187, 209);
+    box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);
+    
+}
+
 #board>div {
     flex-basis: 12.3%;
     height: 12.3%;
@@ -43,10 +49,26 @@ span {
     margin-top: 70%;
     position: absolute;
     margin-bottom: 66.7%;
-    margin-left: 3%;
+    margin-left: 2.6%;
+}
+
+#id {
+    font-size: 0.5em;
+    margin-top: 70%;
+    position: absolute;
+    margin-bottom: 66.7%;
+    margin-left: -2%;
 }
 
 
 .piece {
     width: 70%;
+}
+
+.piece:hover {
+    cursor: grab;
+}
+
+.piece:active {
+    /* cursor: grabbing; */
 }

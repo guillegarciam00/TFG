@@ -29,11 +29,17 @@ function App() {
   return (
     <div className="App">
       <div id="main">
-        <button type="button" onClick={() => changeScreen()}> Reinicia</button>
 
+        <div id="header">
+          <div id="refresh">
+            <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>
+          </div>
+        </div>
         {screen === 1 &&
+
           <Board deletePiece={deletePiece} />
         }
+
         {screen === 0 &&
           <h1>nada</h1>
         }
