@@ -19,7 +19,6 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-
 }
 
 .light_square {
@@ -32,6 +31,12 @@
 
 #selected {
     background-color: rgb(100, 187, 209);
+    box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);
+    
+}
+
+#death {
+    background-color: rgb(192, 78, 78);
     box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);
     
 }
@@ -53,7 +58,7 @@ span {
 }
 
 #id {
-    font-size: 0.5em;
+    font-size: 0.6em;
     margin-top: 70%;
     position: absolute;
     margin-bottom: 66.7%;
@@ -63,12 +68,18 @@ span {
 
 .piece {
     width: 70%;
+
 }
 
-.piece:hover {
+ .piece:hover {
     cursor: grab;
-}
+} 
 
 .piece:active {
     /* cursor: grabbing; */
+}
+
+::selection {
+    background-color: rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
 }
