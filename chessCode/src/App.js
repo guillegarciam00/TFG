@@ -6,45 +6,50 @@ import './App.css';
 
 function App() {
 
-  const [screen, setScreen] = useState(1);
+
+  const [optPosibles, setOptPosibles] = useState(true);
+  const [optPeligro, setOptPeligro] = useState(true);
+
 
 
   useEffect(() => {
 
   }, []);
 
-  function deletePiece(data) {
-    console.log(data)
-    data.coord = ""
-    // console.log(chessBoard);
 
-  }
+  function changeOpt (data){
+    switch (data) {
+      case "posibles":
+        setOptPosibles(!optPosibles)
+        break;
+        case "peligro":
+          setOptPeligro(!optPeligro);
+          break;
 
-  function changeScreen() {
-    setScreen(1 - screen);
-  }
+    }
+  };
 
 
   return (
     <div className="App">
-      <div id="main">
 
-        <div id="header">
-          <div id="refresh">
-            <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>
-          </div>
+      <div id="header">
+        <div id="refresh">
+          <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>
         </div>
-        {screen === 1 &&
-
-          <Board deletePiece={deletePiece} />
-        }
-
-        {screen === 0 &&
-          <h1>nada</h1>
-        }
-
-
       </div>
+      <div id="main">
+        <div id="mainBoard">
+          <Board optPosibles={optPosibles} optPeligro={optPeligro} />
+        </div>
+        <div id="options">
+          <input type="checkbox" name="optPeligro" checked={optPosibles} onChange={(e) => changeOpt("posibles")} id="miElementoCheckbox" value="PELIGRO"></input>
+          <label htmlFor="optPeligro"> POSIBLES</label> <br></br>
+          <input type="checkbox" name="optPeligro" checked={optPeligro} onChange={(e) => changeOpt("peligro")}  id="miElementoCheckbox" value="PELIGRO"></input>
+          <label htmlFor="optPeligro"> PELIGRO</label>
+        </div>
+      </div>
+
 
     </div>
   );

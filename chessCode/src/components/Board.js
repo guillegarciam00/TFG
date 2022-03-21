@@ -1,30 +1,29 @@
 import { React, useState, useEffect, useRef } from 'react';
 import "./Board.css";
-import bBishop from "./images/bBishop.png";
-import wBishop from "./images/wBishop.png";
-import bPawn from "./images/bPawn.png";
-import wPawn from "./images/wPawn.png";
-import bKing from "./images/bKing.png";
-import wKing from "./images/wKing.png";
-import bKnight from "./images/bKnight.png";
-import wKnight from "./images/wKnight.png";
-import bQueen from "./images/bQueen.png";
-import wQueen from "./images/wQueen.png";
-import bRook from "./images/bRook.png";
-import wRook from "./images/wRook.png";
+import { Deaths } from "./Deaths";
+import { Square } from './Square';
 
 export function Board(props) {
 
 
     const [chessBoard, setChessBoard] = useState([]);
+    const [prevChessBoard, setPrevChessBoard] = useState([]);
+    const [auxChessBoard, setAuxChessBoard] = useState([]);
+
+    const [wdeathPieces, setWDeathPieces] = useState([]);
+    const [bdeathPieces, setBDeathPieces] = useState([]);
+
+
     const [word, setWord] = useState("-");
     const [lastSquare, setLastSquare] = useState("");
     const moviendo = useRef(0);
     const turno = useRef(0);  //  0 --> blancas || 1 --> negras
 
     var bPawnMoves = [[0, -1]]
+    var bPawnnMoves = [[0, -1], [0, -2]]
     var bPawnEat = [[-1, -1], [1, -1]]
     var wPawnMoves = [[0, 1]]
+    var wPawnnMoves = [[0, 1], [0, 2]]
     var wPawnEat = [[-1, 1], [1, 1]]
     var BishopMoves = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
     var KingMoves = [[-1, 1], [0, 1], [-1, -1], [-1, 0], [1, 0], [1, 1], [0, -1], [1, -1]]
@@ -46,15 +45,16 @@ export function Board(props) {
         var numbers = [7, 6, 5, 4, 3, 2, 1, 0]
 
 
+        // var blackPieces = ["bPawn", "bKing", "bQueen", "bBishop", "bKnight", "bRook"]
 
-        var allPieces = [[wRook, "wRook"], [wKnight, "wKnight"], [wBishop, "wBishop"], [wKing, "wKing"], [wQueen, "wQueen"], [wBishop, "wBishop"], [wKnight, "wKnight"], [wRook, "wRook"],
-        [wPawn, "wPawn"], [wPawn, "wPawn"], [wPawn, "wPawn"], [wPawn, "wPawn"], [wPawn, "wPawn"], [wPawn, "wPawn"], [wPawn, "wPawn"], [wPawn, "wPawn"],
+
+
+        var allPieces = ["wRook", "wKnight", "wBishop", "wKing", "wQueen", "wBishop", "wKnight", "wRook", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "",
-        [bPawn, "bPawn"], [bPawn, "bPawn"], [bPawn, "bPawn"], [bPawn, "bPawn"], [bPawn, "bPawn"], [bPawn, "bPawn"], [bPawn, "bPawn"], [bPawn, "bPawn"],
-        [bRook, "bRook"], [bKnight, "bKnight"], [bBishop, "bBishop"], [bKing, "bKing"], [bQueen, "bQueen"], [bBishop, "bBishop"], [bKnight, "bKnight"], [bRook, "bRook"]]
+            "bPawnn", "bPawnn", "bPawnn", "bPawnn", "bPawnn", "bPawnn", "bPawnn", "bPawnn", "bRook", "bKnight", "bBishop", "bKing", "bQueen", "bBishop", "bKnight", "bRook"]
 
         for (let i = 0; i < 64; i++) {
 
@@ -64,7 +64,7 @@ export function Board(props) {
                 aux--
             }
 
-            var pi = allPieces.pop()
+            var allPi = allPieces.pop()
 
             if (aux % 2 !== 0) {
                 let square = {
@@ -72,8 +72,9 @@ export function Board(props) {
                     "color": "light_square",
                     "selected": "none",
                     "coord": [letters[lett], numbers[numb]],
-                    "image": pi[0],
-                    "piece": pi[1]
+                    "image": "",
+                    "piece": allPi,
+                    "warning": ""
                 }
                 auxArray.push(square)
 
@@ -83,8 +84,9 @@ export function Board(props) {
                     "color": "dark_square",
                     "selected": "none",
                     "coord": [letters[lett], numbers[numb]],
-                    "image": pi[0],
-                    "piece": pi[1]
+                    "image": "",
+                    "piece": allPi,
+                    "warning": ""
                 }
                 auxArray.push(square)
             }
@@ -97,11 +99,10 @@ export function Board(props) {
     }, []);
 
 
-
     function movePiece(data) {
         var array = chessBoard
-
         if (moviendo.current === 0) {
+
             if (chessBoard[data.id].piece !== undefined && chessBoard[data.id].piece !== "") {
 
                 if ((turno.current === 0 && "w" === chessBoard[data.id].piece.charAt(0)) || (turno.current === 1 && "b" === chessBoard[data.id].piece.charAt(0))) {
@@ -125,19 +126,42 @@ export function Board(props) {
 
             //se limpian las casillas de los posibles movimientos
             clearSelected()
+           
 
             var posibles = posiblesMovimientos(lastSquare)
+            var movimiento = false
 
             //se comprueba si es posible hacer el movimiento
-            if (posibles.empty.includes(data.id) || posibles.death.includes(data.id)) {
+            if (posibles.empty.includes(data.id)) {
+                movimiento = true
+
+            } else if (posibles.death.includes(data.id)) {
+                eliminacion(array[data.id].piece)
+                movimiento = true
+            }
+
+            if (movimiento) {
                 array[data.id].image = lastSquare.image
                 array[data.id].piece = lastSquare.piece
                 array[lastSquare.id].image = ""
                 array[lastSquare.id].piece = ""
 
+                if (data.piece.indexOf('awnn') > -1) {
+                    array[data.id].piece = data.piece.charAt(0) + "Pawn"
+                }
+
+                clearWarnings()
+
+                if (turno.current === 0) {
+                    //casillas a evitar
+                    casillasPeligrosas()
+                }
+
+            
+
             } else {
                 //si no es posible el movimiento, todo vuelve a la normalidad
-                array[lastSquare.id].iFmage = lastSquare.image
+                array[lastSquare.id].image = lastSquare.image
                 array[lastSquare.id].piece = lastSquare.piece
                 turno.current = 1 - turno.current
             }
@@ -146,6 +170,10 @@ export function Board(props) {
             setWord("-")
             document.getElementById(lastSquare.id).style.opacity = 1;
             moviendo.current = 0
+
+
+
+
         }
         // console.log(array)
     }
@@ -155,6 +183,8 @@ export function Board(props) {
         switch (data.piece) {
             case "bBishop":
             case "wBishop": return specialMoves(data, BishopMoves)
+            case "bPawnn": return [bPawnnMoves, bPawnEat]
+            case "wPawnn": return [wPawnnMoves, wPawnEat]
             case "bPawn": return [bPawnMoves, bPawnEat]
             case "wPawn": return [wPawnMoves, wPawnEat]
             case "bKing":
@@ -172,18 +202,25 @@ export function Board(props) {
     //movimientos de la torre, reina y alfil
     function specialMoves(data, moves) {
         var aux = [];
+        var comido = 0
         var moveX = data.coord[0];
         var moveY = data.coord[1];
 
         var i = 0
         while (i < moves.length) {
+            comido = 0
             moveX = moveX + moves[i][0];
             moveY = moveY + moves[i][1];
 
             if (moveX < 8 && moveX >= 0 && moveY < 8 && moveY >= 0) {
                 let idcoor = idDesdeCoord(moveX, moveY);
-                if (chessBoard[idcoor].piece === "" || chessBoard[idcoor].piece === undefined) {
+                if ((chessBoard[idcoor].piece === "" || chessBoard[idcoor].piece === undefined)) {
                     aux.push([moveX - data.coord[0], moveY - data.coord[1]]);
+
+                } else if (chessBoard[idcoor].piece.charAt(0) !== data.piece.charAt(0) && comido === 0) {
+                    aux.push([moveX - data.coord[0], moveY - data.coord[1]]);
+                    comido = 1
+                    i++;
                 } else {
                     moveX = data.coord[0];
                     moveY = data.coord[1];
@@ -198,11 +235,14 @@ export function Board(props) {
         return aux;
     }
 
-
     function pintarCasillas(data) {
+
         var array = posiblesMovimientos(data)
-        for (let i = 0; i < array.empty.length; i++)
-            chessBoard[array.empty[i]].selected = "selected"
+        if (props.optPosibles) {
+            for (let i = 0; i < array.empty.length; i++)
+                chessBoard[array.empty[i]].selected = "selected"
+        }
+
 
         for (let i = 0; i < array.death.length; i++)
             chessBoard[array.death[i]].selected = "death"
@@ -215,6 +255,7 @@ export function Board(props) {
                 return i
     }
 
+    //devuelve un objeto con 2 arrays = 'empty': id's de las casillas libres || 'death': id's de las casillas donde puedes comer una pieza
     function posiblesMovimientos(data) {
 
         let array = {
@@ -243,7 +284,6 @@ export function Board(props) {
                 let moveY = data.coord[1] + setMoves(data)[1][i][1]
                 for (let j = 0; j < chessBoard.length; j++)
                     if (chessBoard[j].coord[0] === moveX && chessBoard[j].coord[1] === moveY && (chessBoard[j].piece !== undefined) && chessBoard[j].piece !== "") {
-                        console.log(chessBoard[j])
                         if ((chessBoard[j].piece.charAt(0) !== data.piece.charAt(0))) {
                             array.death.push(j)
                         }
@@ -275,27 +315,85 @@ export function Board(props) {
         }
     }
 
+    function clearWarnings() {
+        for (var i = 0; i < chessBoard.length; i++) {
+            chessBoard[i].warning = ""
+        }
+    }
 
+    function eliminacion(piece) {
+        if (piece.charAt(0) === "w") {
+            var array = wdeathPieces
+            array.push(piece)
+            setWDeathPieces(array)
+        } else {
+            var array = bdeathPieces
+            array.push(piece)
+            setBDeathPieces(array)
+        }
+    }
+
+    function casillasPeligrosas() {
+        if (props.optPeligro) {
+            for (let i = 0; i < chessBoard.length; i++) {
+                if (chessBoard[i].piece.charAt(0) === "b") {
+
+                    if (chessBoard[i].piece.indexOf('awn') > -1) {
+                        for (let j = 0; j < bPawnEat.length; j++) {
+                            let x = chessBoard[i].coord[0] + bPawnEat[j][0]
+                            let y = chessBoard[i].coord[1] + bPawnEat[j][1]
+                            if (x < 8 && x >= 0 && y < 8 && y >= 0)
+                                chessBoard[idDesdeCoord(x, y)].warning = "red"
+                        }
+                    } else {
+                        var array = (posiblesMovimientos(chessBoard[i])).empty
+                        for (let j = 0; j < array.length; j++) {
+
+                            chessBoard[array[j]].warning = "red"
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
     return (
         <div>
+            {/* <h1>{word}</h1> */}
+            <div id="GameBoard">
+                <div id="board">
+                    {chessBoard.map((payload) => (
+                        <Square
+                            key={payload.id}
+                            payload={payload}
+                            movePiece={movePiece}
+                        />
+                    ))}
 
-            <h1>{word}</h1>
+                </div>
 
-            <div id="board">
-                {chessBoard.map((payload) => {
-                    return (
-                        <div key={payload.id} className="square" class={payload.color} id={payload.selected} onClick={() => movePiece(payload)}>
-                            <img className="piece" id={payload.id} src={payload.image} alt="" />
-                            <span id="hide" >{payload.id}</span>
-                            <span id="id">{payload.coord[0]},{payload.coord[1]}</span>
-                        </div>
-                    )
-                })}
+                <div className='cementerio' id="white_deaths">
+                    {wdeathPieces.map((payload) => (
+                        <Deaths
+                            keyy={(Math.random() + 1).toString(36).substring(7)}
+                            piece={payload}
+                        />
+
+                    ))}
+                </div>
+
+                <div className='cementerio' id="black_deaths">
+                    {bdeathPieces.map((payload) => (
+                        <Deaths
+                            keyy={(Math.random() + 1).toString(36).substring(7)}
+                            piece={payload}
+                        />
+
+                    ))}
+                </div>
 
             </div>
-
 
 
         </div >

@@ -8,12 +8,14 @@
 }
 
 #board {
+    /* flex: 0 0 100%; */
+    border-color: 2px solid red;
     margin-top: 20px;
     margin-left: 20px;
     padding: 3px;
     border-radius: 8px;
-    width: 35vw;
-    height: 35vw;
+    width: 30vw;
+    height: 30vw;
     background-color: rgb(94, 94, 94);
     display: flex;
     flex-wrap: wrap;
@@ -21,25 +23,42 @@
     align-content: center;
 }
 
+
+
 .light_square {
     background-color: #eeeed2;
+
 }
 
 .dark_square {
     background-color: #769655;
+
 }
 
 #selected {
     background-color: rgb(100, 187, 209);
-    box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);
-    
+    /* box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0); */
+
 }
 
-#death {
-    background-color: rgb(192, 78, 78);
-    box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);
-    
+/* WARNING */
+
+.avisos {
+    position: absolute;
+    margin-bottom: -2.5%;
+    margin-left: 2.5%;
+    width: 7px;
+    height: 7px;
 }
+
+#red {
+    background: url("./images/red.png") bottom right no-repeat;
+    background-size: 100%;
+}
+
+
+
+/* ///////////////// */
 
 #board>div {
     flex-basis: 12.3%;
@@ -49,31 +68,22 @@
     align-items: center;
 }
 
-span {
-    font-size: 0.65em;
-    margin-top: 70%;
-    position: absolute;
-    margin-bottom: 66.7%;
-    margin-left: 2.6%;
-}
-
 #id {
-    font-size: 0.6em;
+    font-size: 0.5em;
     margin-top: 70%;
     position: absolute;
-    margin-bottom: 66.7%;
+    margin-bottom: 66.8%;
     margin-left: -2%;
 }
 
 
 .piece {
-    width: 70%;
-
+    width: 80%;
 }
 
- .piece:hover {
+.piece:hover {
     cursor: grab;
-} 
+}
 
 .piece:active {
     /* cursor: grabbing; */
@@ -82,4 +92,52 @@ span {
 ::selection {
     background-color: rgb(255, 0, 0);
     color: rgb(0, 0, 0);
+}
+
+
+
+
+/*//////////////////// DEATHS ///////////////////////////*/
+
+#GameBoard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.cementerio {
+    /* flex: 0 0 40%; */
+    border: 1px solid black;
+    margin-top: 5%;
+    /* width: 200px;
+    height: 60px; */
+
+    width: 30vw;
+    height: 8vw;
+    background-color: #769655;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+
+#pieceDeath {
+    flex: 0 0 20%;
+    margin-right: -8%;
+}
+
+.imagePieceDeath {
+    width: 40%;
+
+}
+
+
+
+
+#death {
+    background-color: rgb(192, 78, 78);
+    /* box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0); */
+
 }
