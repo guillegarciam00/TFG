@@ -3,6 +3,10 @@ import "./Board.css";
 import { Deaths } from "./Deaths";
 import { Square } from './Square';
 
+
+
+
+
 export function Board(props) {
 
 
@@ -32,7 +36,10 @@ export function Board(props) {
     var RookMoves = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 
 
+
+
     useEffect(() => {
+
 
         var auxArray = []
         var lett = 0
@@ -100,13 +107,15 @@ export function Board(props) {
 
 
     function movePiece(data) {
+
         var array = chessBoard
         if (moviendo.current === 0) {
 
             if (chessBoard[data.id].piece !== undefined && chessBoard[data.id].piece !== "") {
 
                 if ((turno.current === 0 && "w" === chessBoard[data.id].piece.charAt(0)) || (turno.current === 1 && "b" === chessBoard[data.id].piece.charAt(0))) {
-                    pintarCasillas(data)
+                    pintarCasillasPosibles(data)
+                    casillasPeligrosas(data)
 
                     for (var i = 0; i < array.length; i++) {
                         if (array[i].coord === data.coord) {
@@ -117,7 +126,7 @@ export function Board(props) {
                     }
 
                     moviendo.current = 1
-                    document.getElementById(data.id).style.opacity = 0.4;
+                    document.getElementById(data.id).style.opacity = 0.3;
                     turno.current = 1 - turno.current
                 }
             }
@@ -126,7 +135,7 @@ export function Board(props) {
 
             //se limpian las casillas de los posibles movimientos
             clearSelected()
-           
+
 
             var posibles = posiblesMovimientos(lastSquare)
             var movimiento = false
@@ -136,7 +145,7 @@ export function Board(props) {
                 movimiento = true
 
             } else if (posibles.death.includes(data.id)) {
-                eliminacion(array[data.id].piece)
+                eliminarPieza(array[data.id].piece)
                 movimiento = true
             }
 
@@ -152,18 +161,20 @@ export function Board(props) {
 
                 clearWarnings()
 
-                if (turno.current === 0) {
-                    //casillas a evitar
-                    casillasPeligrosas()
+                if (turno.current === 1) {
+                    isJaque()
                 }
 
-            
+
 
             } else {
+
                 //si no es posible el movimiento, todo vuelve a la normalidad
                 array[lastSquare.id].image = lastSquare.image
                 array[lastSquare.id].piece = lastSquare.piece
                 turno.current = 1 - turno.current
+
+                clearWarnings()
             }
 
             setChessBoard(array)
@@ -235,7 +246,7 @@ export function Board(props) {
         return aux;
     }
 
-    function pintarCasillas(data) {
+    function pintarCasillasPosibles(data) {
 
         var array = posiblesMovimientos(data)
         if (props.optPosibles) {
@@ -301,7 +312,12 @@ export function Board(props) {
                         if (chessBoard[j].piece === undefined || chessBoard[j].piece === "") {
                             array.empty.push(j)
                         } else if (chessBoard[j].piece.charAt(0) !== data.piece.charAt(0)) {
-                            array.death.push(j)
+                            // if (chessBoard[j].piece === "bKing") {
+                            //     jaquemate(chessBoard[j])
+                            // } else {
+                                array.death.push(j)
+                            // }
+
                         }
                     }
             }
@@ -321,7 +337,7 @@ export function Board(props) {
         }
     }
 
-    function eliminacion(piece) {
+    function eliminarPieza(piece) {
         if (piece.charAt(0) === "w") {
             var array = wdeathPieces
             array.push(piece)
@@ -333,9 +349,14 @@ export function Board(props) {
         }
     }
 
-    function casillasPeligrosas() {
-        if (props.optPeligro) {
+    function casillasPeligrosas(data) {
+        if (props.optPeligro && "w" === data.piece.charAt(0)) {
+
+            var blacks = []
+            var peligrosas = []
+
             for (let i = 0; i < chessBoard.length; i++) {
+            
                 if (chessBoard[i].piece.charAt(0) === "b") {
 
                     if (chessBoard[i].piece.indexOf('awn') > -1) {
@@ -343,18 +364,72 @@ export function Board(props) {
                             let x = chessBoard[i].coord[0] + bPawnEat[j][0]
                             let y = chessBoard[i].coord[1] + bPawnEat[j][1]
                             if (x < 8 && x >= 0 && y < 8 && y >= 0)
-                                chessBoard[idDesdeCoord(x, y)].warning = "red"
+                                blacks.push(idDesdeCoord(x, y))
                         }
                     } else {
                         var array = (posiblesMovimientos(chessBoard[i])).empty
                         for (let j = 0; j < array.length; j++) {
-
-                            chessBoard[array[j]].warning = "red"
+                            blacks.push(array[j])
                         }
                     }
+                    
+
                 }
             }
+
+            var whites = posiblesMovimientos(chessBoard[data.id]).empty
+
+            for (let j = 0; j < whites.length; j++) {
+                if (blacks.includes(whites[j])) {
+                    peligrosas.push(whites[j])
+                }
+            }
+            pintarCasillasPeligrosas(peligrosas)
         }
+    }
+
+    function pintarCasillasPeligrosas(array) {
+        for (let j = 0; j < array.length; j++) {
+            chessBoard[array[j]].warning = "peligro"
+        }
+    }
+
+    function isJaque(){
+        for (let i = 0; i < chessBoard.length; i++) {
+            
+            if (chessBoard[i].piece.charAt(0) === "w") {
+                console.log(chessBoard[i].piece)
+
+                if (chessBoard[i].piece.indexOf('awn') > -1) {
+                    for (let j = 0; j < wPawnEat.length; j++) {
+                        let x = chessBoard[i].coord[0] + wPawnEat[j][0]
+                        let y = chessBoard[i].coord[1] + wPawnEat[j][1]
+                        if (x < 8 && x >= 0 && y < 8 && y >= 0)
+                            if (chessBoard[idDesdeCoord(x, y)].piece === "bKing")
+                                jaque(chessBoard[i], chessBoard[idDesdeCoord(x, y)])
+                    }
+                } else {
+                    var array = (posiblesMovimientos(chessBoard[i])).death
+                    for (let j = 0; j < array.length; j++) {
+                        console.log(array)
+                        if (chessBoard[array[j]].piece === "bKing")
+                            jaque(chessBoard[i], chessBoard[array[j]])
+                    }
+                }
+               
+
+            }
+        }
+    }
+
+    function jaque(wData, bData){
+        chessBoard[wData.id].selected = "jaque"
+        chessBoard[bData.id].selected = "jaque"
+    }
+
+
+    function jaquemate(data) {
+        chessBoard[data.id].selected = "jaquemate"
     }
 
 
