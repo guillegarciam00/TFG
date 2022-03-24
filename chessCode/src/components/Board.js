@@ -116,6 +116,10 @@ export function Board(props) {
                 if ((turno.current === 0 && "w" === chessBoard[data.id].piece.charAt(0)) || (turno.current === 1 && "b" === chessBoard[data.id].piece.charAt(0))) {
                     pintarCasillasPosibles(data)
                     casillasPeligrosas(data)
+                    if (turno.current === 0) {
+                        limpiarisJaque()
+                        isJaque(data.piece)
+                    }
 
                     for (var i = 0; i < array.length; i++) {
                         if (array[i].coord === data.coord) {
@@ -161,29 +165,27 @@ export function Board(props) {
 
                 clearWarnings()
 
-                if (turno.current === 1) {
-                    isJaque()
+
+                if (turno.current === 0) {
+                    isJaque("all")
                 }
 
-
-
             } else {
-
                 //si no es posible el movimiento, todo vuelve a la normalidad
                 array[lastSquare.id].image = lastSquare.image
                 array[lastSquare.id].piece = lastSquare.piece
                 turno.current = 1 - turno.current
 
                 clearWarnings()
+                if (turno.current === 0) {
+                    isJaque("all")
+                }
             }
 
             setChessBoard(array)
             setWord("-")
             document.getElementById(lastSquare.id).style.opacity = 1;
             moviendo.current = 0
-
-
-
 
         }
         // console.log(array)
@@ -243,6 +245,7 @@ export function Board(props) {
                 i++;
             }
         }
+
         return aux;
     }
 
@@ -271,7 +274,8 @@ export function Board(props) {
 
         let array = {
             "empty": [],
-            "death": []
+            "death": [],
+            "pawnEatEmpty": []
         }
 
         if (data.piece.indexOf('awn') > -1) {
@@ -301,33 +305,46 @@ export function Board(props) {
                     }
             }
 
+            for (let j = 0; j < setMoves(data)[1].length; j++) {
+                let x = chessBoard[data.id].coord[0] + setMoves(data)[1][j][0]
+                let y = chessBoard[data.id].coord[1] + setMoves(data)[1][j][1]
+                let coor = idDesdeCoord(x, y)
+                if (x < 8 && x >= 0 && y < 8 && y >= 0 && (chessBoard[coor].piece !== undefined || chessBoard[coor].piece !== ""))
+                    array.pawnEatEmpty.push(coor)
+            }
+
         } else {
 
             for (let i = 0; i < setMoves(data).length; i++) {
                 let moveX = data.coord[0] + setMoves(data)[i][0]
                 let moveY = data.coord[1] + setMoves(data)[i][1]
 
-                for (let j = 0; j < chessBoard.length; j++)
+                for (let j = 0; j < chessBoard.length; j++) {
                     if (chessBoard[j].coord[0] === moveX && chessBoard[j].coord[1] === moveY) {
                         if (chessBoard[j].piece === undefined || chessBoard[j].piece === "") {
                             array.empty.push(j)
                         } else if (chessBoard[j].piece.charAt(0) !== data.piece.charAt(0)) {
-                            // if (chessBoard[j].piece === "bKing") {
-                            //     jaquemate(chessBoard[j])
-                            // } else {
-                                array.death.push(j)
-                            // }
-
+                            array.death.push(j)
                         }
                     }
+                }
             }
         }
+
         return array
     }
 
     function clearSelected() {
         for (var i = 0; i < chessBoard.length; i++) {
             chessBoard[i].selected = "none"
+        }
+    }
+
+    function limpiarisJaque() {
+        for (var i = 0; i < chessBoard.length; i++) {
+            if (chessBoard[i].selected === "jaque") {
+                chessBoard[i].selected = ""
+            }
         }
     }
 
@@ -354,26 +371,20 @@ export function Board(props) {
 
             var blacks = []
             var peligrosas = []
+            var array = []
 
             for (let i = 0; i < chessBoard.length; i++) {
-            
+
                 if (chessBoard[i].piece.charAt(0) === "b") {
-
                     if (chessBoard[i].piece.indexOf('awn') > -1) {
-                        for (let j = 0; j < bPawnEat.length; j++) {
-                            let x = chessBoard[i].coord[0] + bPawnEat[j][0]
-                            let y = chessBoard[i].coord[1] + bPawnEat[j][1]
-                            if (x < 8 && x >= 0 && y < 8 && y >= 0)
-                                blacks.push(idDesdeCoord(x, y))
-                        }
-                    } else {
-                        var array = (posiblesMovimientos(chessBoard[i])).empty
-                        for (let j = 0; j < array.length; j++) {
-                            blacks.push(array[j])
-                        }
+                        array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
                     }
-                    
+                    array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
+                    array = array.concat((posiblesMovimientos(chessBoard[i])).death)
 
+                    for (let j = 0; j < array.length; j++) {
+                        blacks.push(array[j])
+                    }
                 }
             }
 
@@ -394,37 +405,66 @@ export function Board(props) {
         }
     }
 
-    function isJaque(){
-        for (let i = 0; i < chessBoard.length; i++) {
-            
-            if (chessBoard[i].piece.charAt(0) === "w") {
-                console.log(chessBoard[i].piece)
+    function isJaque(pieza) {
+        if (props.optJaque) {
+            var jaquePosicionInicial
+            var jaquePosicionFinal
+            var jaqueking
+            for (let i = 0; i < chessBoard.length; i++) {
 
-                if (chessBoard[i].piece.indexOf('awn') > -1) {
-                    for (let j = 0; j < wPawnEat.length; j++) {
-                        let x = chessBoard[i].coord[0] + wPawnEat[j][0]
-                        let y = chessBoard[i].coord[1] + wPawnEat[j][1]
-                        if (x < 8 && x >= 0 && y < 8 && y >= 0)
-                            if (chessBoard[idDesdeCoord(x, y)].piece === "bKing")
-                                jaque(chessBoard[i], chessBoard[idDesdeCoord(x, y)])
-                    }
+                if (pieza === "all") {
+                    var bool = chessBoard[i].piece.charAt(0) === "w"
                 } else {
-                    var array = (posiblesMovimientos(chessBoard[i])).death
+                    var bool = chessBoard[i].piece === pieza
+                }
+
+                if (bool) {
+                    var array = []
+
+                    if (chessBoard[i].piece.indexOf('awn') > -1) {
+                        array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
+                    }
+                    array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
+                    array = array.concat((posiblesMovimientos(chessBoard[i])).death)
+
+
                     for (let j = 0; j < array.length; j++) {
-                        console.log(array)
-                        if (chessBoard[array[j]].piece === "bKing")
-                            jaque(chessBoard[i], chessBoard[array[j]])
+                        var square = {
+                            "id": chessBoard[array[j]].id,
+                            "color": chessBoard[array[j]].color,
+                            "selected": chessBoard[array[j]].selected,
+                            "coord": chessBoard[array[j]].coord,
+                            "image": chessBoard[array[j]].image,
+                            "piece": chessBoard[i].piece,
+                            "warning": chessBoard[array[j]].warning
+                        }
+                        var arrayFuturo = (posiblesMovimientos(square)).death
+                        for (let k = 0; k < arrayFuturo.length; k++) {
+                            if (chessBoard[arrayFuturo[k]].piece === "bKing") {
+                                jaquePosicionInicial = chessBoard[i]
+                                if (pieza === "all") {
+                                    jaque(jaquePosicionInicial)
+                                } else {
+                                    jaquePosicionFinal = square
+                                    jaqueking = chessBoard[arrayFuturo[k]]
+                                    jaqueAll(jaquePosicionInicial, jaquePosicionFinal, jaqueking)
+                                }
+                            }
+                        }
                     }
                 }
-               
-
             }
         }
     }
 
-    function jaque(wData, bData){
-        chessBoard[wData.id].selected = "jaque"
-        chessBoard[bData.id].selected = "jaque"
+    function jaque(inicial) {
+        chessBoard[inicial.id].selected = "jaque"
+    }
+
+    function jaqueAll(inicial, final, king) {
+        chessBoard[inicial.id].selected = "jaque"
+        chessBoard[final.id].selected = "jaque"
+        chessBoard[king.id].selected = "jaque"
     }
 
 

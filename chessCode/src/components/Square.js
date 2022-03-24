@@ -1,16 +1,16 @@
 import {useState, useEffect, useRef } from 'react';
-import bBishop from "./images/bBishop.png";
-import wBishop from "./images/wBishop.png";
-import bPawn from "./images/bPawn.png";
-import wPawn from "./images/wPawn.png";
-import bKing from "./images/bKing.png";
-import wKing from "./images/wKing.png";
-import bKnight from "./images/bKnight.png";
-import wKnight from "./images/wKnight.png";
-import bQueen from "./images/bQueen.png";
-import wQueen from "./images/wQueen.png";
-import bRook from "./images/bRook.png";
-import wRook from "./images/wRook.png";
+import bBishop from "./images/piezas/bBishop.png";
+import wBishop from "./images/piezas/wBishop.png";
+import bPawn from "./images/piezas/bPawn.png";
+import wPawn from "./images/piezas/wPawn.png";
+import bKing from "./images/piezas/bKing.png";
+import wKing from "./images/piezas/wKing.png";
+import bKnight from "./images/piezas/bKnight.png";
+import wKnight from "./images/piezas/wKnight.png";
+import bQueen from "./images/piezas/bQueen.png";
+import wQueen from "./images/piezas/wQueen.png";
+import bRook from "./images/piezas/bRook.png";
+import wRook from "./images/piezas/wRook.png";
 
 var allPieces = [[wRook, "wRook"], [wKnight, "wKnight"], [wBishop, "wBishop"], [wKing, "wKing"], [wQueen, "wQueen"], [wBishop, "wBishop"], [wKnight, "wKnight"], [wRook, "wRook"], [wPawn, "wPawn"],
 [bPawn, "bPawn"], [bRook, "bRook"], [bKnight, "bKnight"], [bBishop, "bBishop"], [bKing, "bKing"], [bQueen, "bQueen"], [bBishop, "bBishop"], [bKnight, "bKnight"], [bRook, "bRook"], [wPawn, "wPawnn"], [bPawn, "bPawnn"]]
