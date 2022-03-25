@@ -37,7 +37,9 @@ export const Square = (props) => {
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
             <span id="id" >{payload.id}</span>
             <span id="hide">{payload.coord[0]},{payload.coord[1]}</span>
-            <div className='avisos' id={payload.warning}></div>
+            <div className='jaque' id={payload.jaque}></div>
+            <div className='eliminar' id={payload.eliminar}></div>
+            <div className='peligrosa' id={payload.peligrosa}></div>
         </div>
     );
 };

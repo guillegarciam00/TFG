@@ -43,20 +43,53 @@
 
 }
 
-/* WARNING */
+/* JAQUE */
 
-.avisos {
+.jaque {
     position: absolute;
     margin: 0;
-    width: 2vw;
-    height: 2vw;
+    width: 3vw;
+    height: 3vw;
 }
 
-#peligro {
-    background: url("./images/avisos/red.png")  center no-repeat;
+#piezaJaque{
+    background: url("./images/avisos/shine.png")  center no-repeat;
     background-size: 100%;
     opacity: 0.7;
 }
+
+/* ELIMINAR */
+
+.eliminar {
+    position: absolute;
+    margin: 0;
+    width: 3vw;
+    height: 3vw;
+}
+
+#comer{
+    background: url("./images/avisos/comer.png")  center no-repeat;
+    background-size: 100%;
+    opacity: 0.7;
+}
+
+/* PELIGROSAS */
+
+.peligrosa {
+    position: absolute;
+    margin-bottom: -2.5%;
+    margin-left: 2.5%;
+    width: 1vw;
+    height: 1vw;
+  }
+  
+  #peligro {
+    background: url("./images/avisos/red.png") bottom right no-repeat;
+    background-size: 100%;
+  }
+
+
+
 
 
 
@@ -124,6 +157,7 @@
 #pieceDeath {
     flex: 0 0 20%;
     margin-right: -8%;
+    margin-left: 5%;
 }
 
 .imagePieceDeath {
@@ -131,22 +165,19 @@
 
 }
 
-
-
-
 #death {
     background-color: rgb(192, 78, 78);
-    /* box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0); */
-
-}
-
-
-#jaque{
-    background-color: rgb(255, 174, 0);
     box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0);
+
 }
 
 #jaquemate{
     background-color: rgba(238, 255, 0);
     box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0);
 }
+
+#jaque{
+    background-color: rgb(255, 174, 0);
+    box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0);
+}
+

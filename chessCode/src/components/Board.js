@@ -11,8 +11,8 @@ export function Board(props) {
 
 
     const [chessBoard, setChessBoard] = useState([]);
-    const [prevChessBoard, setPrevChessBoard] = useState([]);
-    const [auxChessBoard, setAuxChessBoard] = useState([]);
+    // const [prevChessBoard, setPrevChessBoard] = useState([]);
+    // const [auxChessBoard, setAuxChessBoard] = useState([]);
 
     const [wdeathPieces, setWDeathPieces] = useState([]);
     const [bdeathPieces, setBDeathPieces] = useState([]);
@@ -22,6 +22,7 @@ export function Board(props) {
     const [lastSquare, setLastSquare] = useState("");
     const moviendo = useRef(0);
     const turno = useRef(0);  //  0 --> blancas || 1 --> negras
+    const real = useRef(true);
 
     var bPawnMoves = [[0, -1]]
     var bPawnnMoves = [[0, -1], [0, -2]]
@@ -81,7 +82,9 @@ export function Board(props) {
                     "coord": [letters[lett], numbers[numb]],
                     "image": "",
                     "piece": allPi,
-                    "warning": ""
+                    "jaque": "",
+                    "eliminar": "",
+                    "peligrosa": ""
                 }
                 auxArray.push(square)
 
@@ -93,7 +96,9 @@ export function Board(props) {
                     "coord": [letters[lett], numbers[numb]],
                     "image": "",
                     "piece": allPi,
-                    "warning": ""
+                    "jaque": "",
+                    "eliminar": "",
+                    "peligrosa": ""
                 }
                 auxArray.push(square)
             }
@@ -114,7 +119,7 @@ export function Board(props) {
             if (chessBoard[data.id].piece !== undefined && chessBoard[data.id].piece !== "") {
 
                 if ((turno.current === 0 && "w" === chessBoard[data.id].piece.charAt(0)) || (turno.current === 1 && "b" === chessBoard[data.id].piece.charAt(0))) {
-                    pintarCasillasPosibles(data)
+                    pintarCasillasPosiblesyPeligrosas(data)
                     casillasPeligrosas(data)
                     if (turno.current === 0) {
                         limpiarisJaque()
@@ -189,6 +194,7 @@ export function Board(props) {
 
         }
         // console.log(array)
+        isJaqueMate()
     }
 
     //devuelve un array con los posibles movimientos de cada figura
@@ -221,23 +227,22 @@ export function Board(props) {
 
         var i = 0
         while (i < moves.length) {
-            comido = 0
             moveX = moveX + moves[i][0];
             moveY = moveY + moves[i][1];
 
             if (moveX < 8 && moveX >= 0 && moveY < 8 && moveY >= 0) {
                 let idcoor = idDesdeCoord(moveX, moveY);
+
                 if ((chessBoard[idcoor].piece === "" || chessBoard[idcoor].piece === undefined)) {
                     aux.push([moveX - data.coord[0], moveY - data.coord[1]]);
-
-                } else if (chessBoard[idcoor].piece.charAt(0) !== data.piece.charAt(0) && comido === 0) {
-                    aux.push([moveX - data.coord[0], moveY - data.coord[1]]);
-                    comido = 1
-                    i++;
                 } else {
+                    if (chessBoard[idcoor].piece.charAt(0) !== data.piece.charAt(0)) {
+                        aux.push([moveX - data.coord[0], moveY - data.coord[1]]);
+                    }
                     moveX = data.coord[0];
                     moveY = data.coord[1];
                     i++;
+
                 }
             } else {
                 moveX = data.coord[0];
@@ -245,22 +250,22 @@ export function Board(props) {
                 i++;
             }
         }
-
         return aux;
+
     }
 
-    function pintarCasillasPosibles(data) {
+    function pintarCasillasPosiblesyPeligrosas(data) {
 
         var array = posiblesMovimientos(data)
         if (props.optPosibles) {
             for (let i = 0; i < array.empty.length; i++)
                 chessBoard[array.empty[i]].selected = "selected"
+
+            for (let i = 0; i < array.death.length; i++){
+                chessBoard[array.death[i]].selected = "selected"
+                chessBoard[array.death[i]].eliminar = "comer"
+            }
         }
-
-
-        for (let i = 0; i < array.death.length; i++)
-            chessBoard[array.death[i]].selected = "death"
-
     }
 
     function idDesdeCoord(x, y) {
@@ -269,7 +274,7 @@ export function Board(props) {
                 return i
     }
 
-    //devuelve un objeto con 2 arrays = 'empty': id's de las casillas libres || 'death': id's de las casillas donde puedes comer una pieza
+    //devuelve un objeto con 3 arrays = 'empty': id's de las casillas libres || 'death': id's de las casillas donde puedes comer una pieza || 'pawnEatEmpty': casillas vacias donde pueden moverse los peones en diagonal
     function posiblesMovimientos(data) {
 
         let array = {
@@ -305,6 +310,7 @@ export function Board(props) {
                     }
             }
 
+            //casillas que el peon podria comerse si hubiera una pieza
             for (let j = 0; j < setMoves(data)[1].length; j++) {
                 let x = chessBoard[data.id].coord[0] + setMoves(data)[1][j][0]
                 let y = chessBoard[data.id].coord[1] + setMoves(data)[1][j][1]
@@ -330,13 +336,14 @@ export function Board(props) {
                 }
             }
         }
-
         return array
     }
 
     function clearSelected() {
         for (var i = 0; i < chessBoard.length; i++) {
-            chessBoard[i].selected = "none"
+            chessBoard[i].selected = ""
+            chessBoard[i].peligrosa = ""
+            chessBoard[i].eliminar = ""
         }
     }
 
@@ -344,13 +351,15 @@ export function Board(props) {
         for (var i = 0; i < chessBoard.length; i++) {
             if (chessBoard[i].selected === "jaque") {
                 chessBoard[i].selected = ""
+            } else if (chessBoard[i].jaque === "piezaJaque") {
+                chessBoard[i].jaque = ""
             }
         }
     }
 
     function clearWarnings() {
         for (var i = 0; i < chessBoard.length; i++) {
-            chessBoard[i].warning = ""
+            chessBoard[i].jaque = ""
         }
     }
 
@@ -360,10 +369,13 @@ export function Board(props) {
             array.push(piece)
             setWDeathPieces(array)
         } else {
-            var array = bdeathPieces
+            array = bdeathPieces
             array.push(piece)
             setBDeathPieces(array)
         }
+
+        if (piece.indexOf('ing') > -1)
+            props.victoria(piece.charAt(0))
     }
 
     function casillasPeligrosas(data) {
@@ -378,9 +390,11 @@ export function Board(props) {
                 if (chessBoard[i].piece.charAt(0) === "b") {
                     if (chessBoard[i].piece.indexOf('awn') > -1) {
                         array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
+                    } else {
+                        array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
                     }
-                    array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
                     array = array.concat((posiblesMovimientos(chessBoard[i])).death)
+
 
                     for (let j = 0; j < array.length; j++) {
                         blacks.push(array[j])
@@ -401,11 +415,12 @@ export function Board(props) {
 
     function pintarCasillasPeligrosas(array) {
         for (let j = 0; j < array.length; j++) {
-            chessBoard[array[j]].warning = "peligro"
+            chessBoard[array[j]].peligrosa = "peligro"
         }
     }
 
     function isJaque(pieza) {
+        real.current = false
         if (props.optJaque) {
             var jaquePosicionInicial
             var jaquePosicionFinal
@@ -415,28 +430,24 @@ export function Board(props) {
                 if (pieza === "all") {
                     var bool = chessBoard[i].piece.charAt(0) === "w"
                 } else {
-                    var bool = chessBoard[i].piece === pieza
+                    bool = chessBoard[i].piece === pieza
                 }
 
                 if (bool) {
                     var array = []
 
-                    if (chessBoard[i].piece.indexOf('awn') > -1) {
-                        array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
-                    }
-                    array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
+                    // if (chessBoard[i].piece.indexOf('awn') > -1) {
+                    //     // array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
+                    // } else {
                     array = array.concat((posiblesMovimientos(chessBoard[i])).death)
-
+                    array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
+                    // }
 
                     for (let j = 0; j < array.length; j++) {
                         var square = {
                             "id": chessBoard[array[j]].id,
-                            "color": chessBoard[array[j]].color,
-                            "selected": chessBoard[array[j]].selected,
                             "coord": chessBoard[array[j]].coord,
-                            "image": chessBoard[array[j]].image,
                             "piece": chessBoard[i].piece,
-                            "warning": chessBoard[array[j]].warning
                         }
                         var arrayFuturo = (posiblesMovimientos(square)).death
                         for (let k = 0; k < arrayFuturo.length; k++) {
@@ -457,19 +468,32 @@ export function Board(props) {
         }
     }
 
+    function isJaqueMate() {
+        for (let i = 0; i < chessBoard.length; i++) {
+            if (chessBoard[i].piece.charAt(0) === "w") {
+                var array = (posiblesMovimientos(chessBoard[i])).death
+                for (let j = 0; j < array.length; j++) {
+                    if (chessBoard[array[j]].piece === "bKing")
+                        jaquemate(chessBoard[i], chessBoard[array[j]])
+                }
+            }
+        }
+    }
+
     function jaque(inicial) {
-        chessBoard[inicial.id].selected = "jaque"
+        chessBoard[inicial.id].jaque = "piezaJaque"
     }
 
     function jaqueAll(inicial, final, king) {
-        chessBoard[inicial.id].selected = "jaque"
+        chessBoard[inicial.id].jaque = "piezaJaque"
         chessBoard[final.id].selected = "jaque"
-        chessBoard[king.id].selected = "jaque"
+        // chessBoard[king.id].selected = "jaque"
     }
 
 
-    function jaquemate(data) {
+    function jaquemate(data, king) {
         chessBoard[data.id].selected = "jaquemate"
+        chessBoard[king.id].selected = "jaquemate"
     }
 
 

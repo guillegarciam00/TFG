@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Board } from "./components/Board";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import './App.css';
 
@@ -33,6 +32,14 @@ function App() {
     }
   };
 
+  function victoria(color){
+    if(color === "w"){
+      alert("GANAN LAS BLANCAS")
+    } else {
+      alert("GANAN LAS BLANCAS")
+    }
+  }
+
 
   return (
     <div className="App">
@@ -44,7 +51,7 @@ function App() {
       </div>
       <div id="main">
         <div id="mainBoard">
-          <Board optPosibles={optPosibles} optPeligro={optPeligro} optJaque={optJaque} />
+          <Board optPosibles={optPosibles} optPeligro={optPeligro} optJaque={optJaque} victoria={victoria} />
         </div>
         <div id="options">
           <input type="checkbox" name="optPeligro" checked={optPosibles} onChange={(e) => changeOpt("posibles")} id="miElementoCheckbox" ></input>
@@ -68,8 +75,8 @@ export default App;
 // 
 // BUGS
 // 
-//  la reina hace algunos posibles movimientos extraños
-//  se tiene en cuenta el doble movimiento del peon inicial, para marcar esa casilla como peligrosa
+//  
+//  
 //  
 // 
 // 
