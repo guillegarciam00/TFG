@@ -31,7 +31,6 @@ export const Square = (props) => {
         return "error"
     }
 
-
     return (
         <div key={props.id} className={payload.color} id={payload.selected} onClick={() => props.movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />

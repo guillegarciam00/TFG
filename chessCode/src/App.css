@@ -1,7 +1,16 @@
 .App {
   text-align: center;
   min-height: 100vh;
-  background: url("./components/images/home/background.jpg");
+
+}
+
+#mainBack {
+  background: url("./components/images/home/mainBackground.jpg");
+  background-size: cover;
+}
+
+#inicioBack {
+  background: url("./components/images/home/InicioBackground2.jpg");
   background-size: cover;
 }
 
@@ -59,3 +68,8 @@
   height: 25px;
 
 }
+
+
+/*///////////////   INICIO   //////////////////  */
+
+

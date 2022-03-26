@@ -101,6 +101,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -user-drag: none;
+    -webkit-touch-callout: none;
 }
 
 #id {
@@ -116,11 +123,11 @@
     width: 80%;
 }
 
-.piece:hover {
-    cursor: grab;
+#board>img:hover {
+    cursor: pointer;
 }
 
-.piece:active {
+#board>img:active {
     cursor: grabbing;
 }
 

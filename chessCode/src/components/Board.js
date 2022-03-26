@@ -3,12 +3,7 @@ import "./Board.css";
 import { Deaths } from "./Deaths";
 import { Square } from './Square';
 
-
-
-
-
 export function Board(props) {
-
 
     const [chessBoard, setChessBoard] = useState([]);
     // const [prevChessBoard, setPrevChessBoard] = useState([]);
@@ -16,6 +11,8 @@ export function Board(props) {
 
     const [wdeathPieces, setWDeathPieces] = useState([]);
     const [bdeathPieces, setBDeathPieces] = useState([]);
+
+    const { optPosibles, optJaque, optPeligro, victoria } = props
 
 
     const [word, setWord] = useState("-");
@@ -221,7 +218,6 @@ export function Board(props) {
     //movimientos de la torre, reina y alfil
     function specialMoves(data, moves) {
         var aux = [];
-        var comido = 0
         var moveX = data.coord[0];
         var moveY = data.coord[1];
 
@@ -257,11 +253,11 @@ export function Board(props) {
     function pintarCasillasPosiblesyPeligrosas(data) {
 
         var array = posiblesMovimientos(data)
-        if (props.optPosibles) {
+        if (optPosibles) {
             for (let i = 0; i < array.empty.length; i++)
                 chessBoard[array.empty[i]].selected = "selected"
 
-            for (let i = 0; i < array.death.length; i++){
+            for (let i = 0; i < array.death.length; i++) {
                 chessBoard[array.death[i]].selected = "selected"
                 chessBoard[array.death[i]].eliminar = "comer"
             }
@@ -280,6 +276,7 @@ export function Board(props) {
         let array = {
             "empty": [],
             "death": [],
+            "same": [],
             "pawnEatEmpty": []
         }
 
@@ -306,6 +303,8 @@ export function Board(props) {
                     if (chessBoard[j].coord[0] === moveX && chessBoard[j].coord[1] === moveY && (chessBoard[j].piece !== undefined) && chessBoard[j].piece !== "") {
                         if ((chessBoard[j].piece.charAt(0) !== data.piece.charAt(0))) {
                             array.death.push(j)
+                        } else {
+                            array.same.push(j)
                         }
                     }
             }
@@ -331,6 +330,8 @@ export function Board(props) {
                             array.empty.push(j)
                         } else if (chessBoard[j].piece.charAt(0) !== data.piece.charAt(0)) {
                             array.death.push(j)
+                        } else {
+                            array.same.push(j)
                         }
                     }
                 }
@@ -375,15 +376,16 @@ export function Board(props) {
         }
 
         if (piece.indexOf('ing') > -1)
-            props.victoria(piece.charAt(0))
+            victoria(piece.charAt(0))
     }
 
     function casillasPeligrosas(data) {
-        if (props.optPeligro && "w" === data.piece.charAt(0)) {
+        if (optPeligro && "w" === data.piece.charAt(0)) {
 
             var blacks = []
             var peligrosas = []
             var array = []
+            var whites = []
 
             for (let i = 0; i < chessBoard.length; i++) {
 
@@ -394,6 +396,7 @@ export function Board(props) {
                         array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
                     }
                     array = array.concat((posiblesMovimientos(chessBoard[i])).death)
+                    array = array.concat((posiblesMovimientos(chessBoard[i])).same)
 
 
                     for (let j = 0; j < array.length; j++) {
@@ -402,9 +405,12 @@ export function Board(props) {
                 }
             }
 
-            var whites = posiblesMovimientos(chessBoard[data.id]).empty
+            whites = whites.concat((posiblesMovimientos(chessBoard[data.id])).empty)
+            whites = whites.concat((posiblesMovimientos(chessBoard[data.id])).death)
 
+            console.log(data.piece)
             for (let j = 0; j < whites.length; j++) {
+                console.log(whites[j])
                 if (blacks.includes(whites[j])) {
                     peligrosas.push(whites[j])
                 }
@@ -421,7 +427,7 @@ export function Board(props) {
 
     function isJaque(pieza) {
         real.current = false
-        if (props.optJaque) {
+        if (optJaque) {
             var jaquePosicionInicial
             var jaquePosicionFinal
             var jaqueking

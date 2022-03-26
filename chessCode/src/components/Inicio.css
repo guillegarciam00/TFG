@@ -1,0 +1,88 @@
+#fondo {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.644);
+    z-index: 1000;
+}
+
+/* *:hover{
+    cursor:default
+} */
+
+#popUp {
+    position: fixed;
+    width: 55vw;
+    height: 25vw;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    padding: 50px;
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+h1{
+    margin-top: -3%;
+}
+
+#buttonClose {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+    padding: 3px;
+    background-color: black;
+    color: white;
+}
+
+#buttonClose:hover {
+    cursor: pointer;
+}
+
+#opciones {
+    /* border: 1px solid red; */
+    position: fixed;
+    top: 25%;
+    left: 15%;
+    width: 50vw;
+    height: 25vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#whitePieces,
+#blackPieces {
+    width: 15vw;
+    height: 20vw;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+#whitePieces:hover,
+#blackPieces:hover {
+    background-color: rgba(197, 195, 57, 0.671);
+    background-size: 95%;
+    cursor: pointer;
+}
+
+#whitePieces {
+
+    background: url("./images/inicio/white.png") no-repeat;
+    background-size: 90%;
+    background-color: rgba(0, 0, 0, 0.411);
+    background-position: center;
+}
+
+
+
+#blackPieces {
+    background: url("./images/inicio/black.png") no-repeat;
+    background-size: 90%;
+    background-color: rgba(0, 0, 0, 0.411);
+    background-position: center;
+}
