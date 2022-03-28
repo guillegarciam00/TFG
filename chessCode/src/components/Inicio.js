@@ -2,10 +2,7 @@ import { React, useState } from 'react'
 import ReactDom from 'react-dom'
 import "./Inicio.css";
 
-export function Inicio({ open, whites, blacks, screenPopUp, screenPopUpPiezas, screenPopUpInstr }) {
-    if (!open) return null;
-
-
+export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPopUpInstr }) {
     return (
         <>
             <div id="fondo"> </div>

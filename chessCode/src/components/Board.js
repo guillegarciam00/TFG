@@ -182,12 +182,18 @@ export function Board(props) {
                 if (turno.current === 0) {
                     isJaque("all")
                 }
+
+                
             }
 
             setChessBoard(array)
             setWord("-")
             document.getElementById(lastSquare.id).style.opacity = 1;
             moviendo.current = 0
+
+            if(data.piece.charAt(0) === lastSquare.piece.charAt(0) &&  data.id !== lastSquare.id){
+                movePiece(data)
+            }
 
         }
         // console.log(array)
@@ -408,9 +414,7 @@ export function Board(props) {
             whites = whites.concat((posiblesMovimientos(chessBoard[data.id])).empty)
             whites = whites.concat((posiblesMovimientos(chessBoard[data.id])).death)
 
-            console.log(data.piece)
             for (let j = 0; j < whites.length; j++) {
-                console.log(whites[j])
                 if (blacks.includes(whites[j])) {
                     peligrosas.push(whites[j])
                 }

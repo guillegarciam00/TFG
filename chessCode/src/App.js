@@ -14,9 +14,6 @@ export default function App() {
 
   const [appId, setAppId] = useState("inicioBack");
 
-
-  const [isOpen, setIsOpen] = useState(true)
-
   const [screen, setScreen] = useState("inicio");
   const [screenPopUp, setScrenPopUp] = useState("piezas");
 
@@ -53,7 +50,6 @@ export default function App() {
 
   function startGame(color) {
     setMyColor(color)
-    setIsOpen(false)
     setScreen("main")
     setAppId("mainBack")
   }
@@ -75,8 +71,6 @@ export default function App() {
         <div id="inicio">
           <>
             <Inicio
-              open={isOpen}
-              onClose={() => startGame("whites")}
               whites={() => startGame("whites")}
               blacks={() => startGame("blacks")}
               screenPopUp={screenPopUp}
