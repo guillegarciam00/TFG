@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+        border-collapse: collapse;
+}
+
+#hide {
+    display: none;
+}
+
+#GameBoard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* ////////////////   TABLERO  //////////////////// */
+
+#board {
+    /* flex: 0 0 100%; */
+    border-color: 2px solid red;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding: 3px;
+    border-radius: 8px;
+    width: 35vw;
+    height: 35vw;
+    background-color: rgb(94, 94, 94);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+

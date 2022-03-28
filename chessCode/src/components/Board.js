@@ -1,9 +1,12 @@
 import { React, useState, useEffect, useRef } from 'react';
-import "./Board.css";
+import "./style/Board.css";
+import "./style/Square.css";
 import { Deaths } from "./Deaths";
 import { Square } from './Square';
 
 export function Board(props) {
+
+    const { optPosibles, optJaque, optPeligro, optMuerte, victoria, myColor, rivalColor } = props
 
     const [chessBoard, setChessBoard] = useState([]);
     // const [prevChessBoard, setPrevChessBoard] = useState([]);
@@ -11,48 +14,51 @@ export function Board(props) {
 
     const [wdeathPieces, setWDeathPieces] = useState([]);
     const [bdeathPieces, setBDeathPieces] = useState([]);
-
-    const { optPosibles, optJaque, optPeligro, victoria } = props
-
-
-    const [word, setWord] = useState("-");
     const [lastSquare, setLastSquare] = useState("");
+    // eslint-disable-next-line
+    const [word, setWord] = useState("-");
+
     const moviendo = useRef(0);
-    const turno = useRef(0);  //  0 --> blancas || 1 --> negras
+    const turno = useRef(myColor);  //  w --> blancas || b --> negras
+
     const real = useRef(true);
 
-    var bPawnMoves = [[0, -1]]
-    var bPawnnMoves = [[0, -1], [0, -2]]
-    var bPawnEat = [[-1, -1], [1, -1]]
-    var wPawnMoves = [[0, 1]]
-    var wPawnnMoves = [[0, 1], [0, 2]]
-    var wPawnEat = [[-1, 1], [1, 1]]
+    //Movimientos de las piezas
+
+    if(myColor === "w"){
+        var bPawnMoves = [[0, -1]]
+        var bPawnnMoves = [[0, -1], [0, -2]]
+        var bPawnEat = [[-1, -1], [1, -1]]
+        var wPawnMoves = [[0, 1]]
+        var wPawnnMoves = [[0, 1], [0, 2]]
+        var wPawnEat = [[-1, 1], [1, 1]]
+    
+    } else {
+        wPawnMoves = [[0, -1]]
+        wPawnnMoves = [[0, -1], [0, -2]]
+        wPawnEat = [[-1, -1], [1, -1]]
+        bPawnMoves = [[0, 1]]
+        bPawnnMoves = [[0, 1], [0, 2]]
+        bPawnEat = [[-1, 1], [1, 1]]
+    }
+
     var BishopMoves = [[1, 1], [-1, -1], [1, -1], [-1, 1]]
     var KingMoves = [[-1, 1], [0, 1], [-1, -1], [-1, 0], [1, 0], [1, 1], [0, -1], [1, -1]]
     var KnightMoves = [[-1, 2], [1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1]]
     var QueenMoves = [[-1, 0], [0, 1], [1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]
     var RookMoves = [[-1, 0], [0, 1], [1, 0], [0, -1]]
 
-
-
-
+    //Codigo que se ejecuta al comienzo, genera todo el tablero inicial
     useEffect(() => {
-
 
         var auxArray = []
         var lett = 0
         var numb = 0
         var aux = 1
-
         // var letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
         // var numbers = [8, 7, 6, 5, 4, 3, 2, 1]
         var letters = [0, 1, 2, 3, 4, 5, 6, 7]
         var numbers = [7, 6, 5, 4, 3, 2, 1, 0]
-
-
-        // var blackPieces = ["bPawn", "bKing", "bQueen", "bBishop", "bKnight", "bRook"]
-
-
 
         var allPieces = ["wRook", "wKnight", "wBishop", "wKing", "wQueen", "wBishop", "wKnight", "wRook", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn",
             "", "", "", "", "", "", "", "",
@@ -69,7 +75,12 @@ export function Board(props) {
                 aux--
             }
 
-            var allPi = allPieces.pop()
+            if (myColor === "w") {
+                var allPi = allPieces.pop()
+            } else {
+                allPi = allPieces[i]
+            }
+
 
             if (aux % 2 !== 0) {
                 let square = {
@@ -101,24 +112,26 @@ export function Board(props) {
             }
             aux++
             lett++
-
         }
         setChessBoard(auxArray)
-
     }, []);
 
 
+    //Funcion principal que controla el movimiento de las piezas 
     function movePiece(data) {
 
         var array = chessBoard
+
+        //Turno mio
         if (moviendo.current === 0) {
+            clearSelected()
 
             if (chessBoard[data.id].piece !== undefined && chessBoard[data.id].piece !== "") {
 
-                if ((turno.current === 0 && "w" === chessBoard[data.id].piece.charAt(0)) || (turno.current === 1 && "b" === chessBoard[data.id].piece.charAt(0))) {
+                if ((turno.current === chessBoard[data.id].piece.charAt(0))) {
                     pintarCasillasPosiblesyPeligrosas(data)
                     casillasPeligrosas(data)
-                    if (turno.current === 0) {
+                    if (turno.current === myColor) {
                         limpiarisJaque()
                         isJaque(data.piece)
                     }
@@ -132,16 +145,20 @@ export function Board(props) {
                     }
 
                     moviendo.current = 1
-                    document.getElementById(data.id).style.opacity = 0.3;
-                    turno.current = 1 - turno.current
+                    document.getElementById(data.id).style.opacity = 0.25;
+
+                    if (turno.current === "w") {
+                        turno.current = "b"
+                    } else {
+                        turno.current = "w"
+                    }
+
                 }
             }
 
         } else {
-
-            //se limpian las casillas de los posibles movimientos
+            //Turno del rival
             clearSelected()
-
 
             var posibles = posiblesMovimientos(lastSquare)
             var movimiento = false
@@ -167,8 +184,7 @@ export function Board(props) {
 
                 clearWarnings()
 
-
-                if (turno.current === 0) {
+                if (turno.current === myColor) {
                     isJaque("all")
                 }
 
@@ -176,14 +192,18 @@ export function Board(props) {
                 //si no es posible el movimiento, todo vuelve a la normalidad
                 array[lastSquare.id].image = lastSquare.image
                 array[lastSquare.id].piece = lastSquare.piece
-                turno.current = 1 - turno.current
+                if (turno.current === "w") {
+                    turno.current = "b"
+                } else {
+                    turno.current = "w"
+                }
 
                 clearWarnings()
-                if (turno.current === 0) {
+                if (turno.current === myColor) {
                     isJaque("all")
                 }
 
-                
+
             }
 
             setChessBoard(array)
@@ -191,13 +211,16 @@ export function Board(props) {
             document.getElementById(lastSquare.id).style.opacity = 1;
             moviendo.current = 0
 
-            if(data.piece.charAt(0) === lastSquare.piece.charAt(0) &&  data.id !== lastSquare.id){
+            if (data.piece.charAt(0) === lastSquare.piece.charAt(0) && data.id !== lastSquare.id) {
                 movePiece(data)
             }
 
+            // console.log(array)
+            if (turno.current === myColor) {
+                misPiezasAmenzadas(rivalColor)
+            }
+
         }
-        // console.log(array)
-        isJaqueMate()
     }
 
     //devuelve un array con los posibles movimientos de cada figura
@@ -270,6 +293,7 @@ export function Board(props) {
         }
     }
 
+    //Dado unas coordenadas, devulve el id del cuadrado que lo contiene
     function idDesdeCoord(x, y) {
         for (var i = 0; i < chessBoard.length; i++)
             if (chessBoard[i].coord[0] === x && chessBoard[i].coord[1] === y)
@@ -296,6 +320,7 @@ export function Board(props) {
                 for (let j = 0; j < chessBoard.length; j++)
                     if (chessBoard[j].coord[0] === moveX && chessBoard[j].coord[1] === moveY) {
                         if (chessBoard[j].piece === undefined || chessBoard[j].piece === "") {
+                  
                             array.empty.push(j)
                         }
                     }
@@ -385,8 +410,10 @@ export function Board(props) {
             victoria(piece.charAt(0))
     }
 
+
+    //Casillas las cuales si muevo la pieza ahi, está amenzada por otra
     function casillasPeligrosas(data) {
-        if (optPeligro && "w" === data.piece.charAt(0)) {
+        if (optPeligro && myColor === data.piece.charAt(0)) {
 
             var blacks = []
             var peligrosas = []
@@ -395,7 +422,7 @@ export function Board(props) {
 
             for (let i = 0; i < chessBoard.length; i++) {
 
-                if (chessBoard[i].piece.charAt(0) === "b") {
+                if (chessBoard[i].piece.charAt(0) === rivalColor) {
                     if (chessBoard[i].piece.indexOf('awn') > -1) {
                         array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
                     } else {
@@ -429,6 +456,8 @@ export function Board(props) {
         }
     }
 
+
+    //Calcula si tengo posibilidad de hacer jaque en la proxima jugada
     function isJaque(pieza) {
         real.current = false
         if (optJaque) {
@@ -438,20 +467,15 @@ export function Board(props) {
             for (let i = 0; i < chessBoard.length; i++) {
 
                 if (pieza === "all") {
-                    var bool = chessBoard[i].piece.charAt(0) === "w"
+                    var bool = chessBoard[i].piece.charAt(0) === myColor
                 } else {
                     bool = chessBoard[i].piece === pieza
                 }
 
                 if (bool) {
                     var array = []
-
-                    // if (chessBoard[i].piece.indexOf('awn') > -1) {
-                    //     // array = array.concat((posiblesMovimientos(chessBoard[i])).pawnEatEmpty)
-                    // } else {
                     array = array.concat((posiblesMovimientos(chessBoard[i])).death)
                     array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
-                    // }
 
                     for (let j = 0; j < array.length; j++) {
                         var square = {
@@ -461,7 +485,7 @@ export function Board(props) {
                         }
                         var arrayFuturo = (posiblesMovimientos(square)).death
                         for (let k = 0; k < arrayFuturo.length; k++) {
-                            if (chessBoard[arrayFuturo[k]].piece === "bKing") {
+                            if (chessBoard[arrayFuturo[k]].piece === rivalColor + "King") {
                                 jaquePosicionInicial = chessBoard[i]
                                 if (pieza === "all") {
                                     jaque(jaquePosicionInicial)
@@ -478,16 +502,26 @@ export function Board(props) {
         }
     }
 
-    function isJaqueMate() {
+    //piezas que me puede comer el rival en su proximo turno
+    function misPiezasAmenzadas(letter) {
         for (let i = 0; i < chessBoard.length; i++) {
-            if (chessBoard[i].piece.charAt(0) === "w") {
+            if (chessBoard[i].piece.charAt(0) === letter) {
                 var array = (posiblesMovimientos(chessBoard[i])).death
                 for (let j = 0; j < array.length; j++) {
-                    if (chessBoard[array[j]].piece === "bKing")
+                    if (chessBoard[array[j]].piece === myColor + "King") {
                         jaquemate(chessBoard[i], chessBoard[array[j]])
+                    } else {
+                        if (optMuerte)
+                            casimuerta(chessBoard[array[j]])
+                    }
                 }
             }
         }
+    }
+
+    function casimuerta(data) {
+        chessBoard[data.id].selected = "malo"
+        // chessBoard[data.id].eliminar = "comer"
     }
 
     function jaque(inicial) {
@@ -500,13 +534,13 @@ export function Board(props) {
         // chessBoard[king.id].selected = "jaque"
     }
 
-
     function jaquemate(data, king) {
         chessBoard[data.id].selected = "jaquemate"
         chessBoard[king.id].selected = "jaquemate"
     }
 
 
+    //Parte renderizable
     return (
         <div>
             {/* <h1>{word}</h1> */}
@@ -519,7 +553,6 @@ export function Board(props) {
                             movePiece={movePiece}
                         />
                     ))}
-
                 </div>
 
                 <div className='cementerio' id="white_deaths">
@@ -528,7 +561,6 @@ export function Board(props) {
                             keyy={(Math.random() + 1).toString(36).substring(7)}
                             piece={payload}
                         />
-
                     ))}
                 </div>
 
@@ -538,7 +570,6 @@ export function Board(props) {
                             keyy={(Math.random() + 1).toString(36).substring(7)}
                             piece={payload}
                         />
-
                     ))}
                 </div>
 

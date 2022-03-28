@@ -4,6 +4,9 @@
 
 }
 
+
+/* ////////////////   FONDOS   //////////////////// */
+
 #mainBack {
   background: url("./components/images/home/mainBackground.jpg");
   background-size: cover;
@@ -14,7 +17,7 @@
   background-size: cover;
 }
 
-/* /////////////////////////////////////////////////// */
+/* ////////////////   HEADER  //////////////////// */
 
 #header {
   border: 2px solid black;
@@ -34,6 +37,9 @@
   font-size: 1.4em;
   margin-top: 8px;
 }
+
+
+/* ////////////////   MAIN  //////////////////// */
 
 
 #main {
@@ -68,8 +74,3 @@
   height: 25px;
 
 }
-
-
-/*///////////////   INICIO   //////////////////  */
-
-

@@ -1,0 +1,110 @@
+.light_square,
+.dark_square {
+    flex-basis: 12.3%;
+    height: 12.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -user-drag: none;
+    -webkit-touch-callout: none;
+}
+
+.light_square {
+    background-color: #eeeed2;
+
+}
+
+.dark_square {
+    background-color: #769655;
+
+}
+
+/* ////////////////   ID  //////////////////// */
+
+#id {
+    font-size: 0.5em;
+    margin-top: 70%;
+    position: absolute;
+    margin-bottom: 66.8%;
+    margin-left: -2%;
+}
+
+
+/* ////////////////   PIEZAS  //////////////////// */
+.piece {
+    width: 80%;
+}
+
+#board>img:hover {
+    cursor: pointer;
+}
+
+#board>img:active {
+    cursor: grabbing;
+}
+
+
+/* ////////////////   POSIBLES  //////////////////// */
+
+#selected {
+    background-color: rgb(100, 187, 209);
+    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
+}
+
+/* ////////////////   JAQUE  //////////////////// */
+
+.jaque {
+    position: absolute;
+    margin: 0;
+    width: 3vw;
+    height: 3vw;
+}
+
+#piezaJaque {
+    background: url("../images/avisos/shine.png") center no-repeat;
+    background-size: 100%;
+    opacity: 0.7;
+}
+
+/* ////////////////   ELIMINAR  //////////////////// */
+
+.eliminar {
+    position: absolute;
+    margin: 0;
+    width: 3vw;
+    height: 3vw;
+}
+
+#comer {
+    background: url("../images/avisos/comer.png") center no-repeat;
+    background-size: 100%;
+    opacity: 0.7;
+}
+
+/* ////////////////   PELIGROSAS  //////////////////// */
+
+.peligrosa {
+    position: absolute;
+    margin-bottom: -2.5%;
+    margin-left: 2.5%;
+    width: 1vw;
+    height: 1vw;
+}
+
+#peligro {
+    background: url("../images/avisos/red.png") bottom right no-repeat;
+    background-size: 100%;
+}
+
+
+/*//////////////////// CASI MUERTA ////////////////////// */
+
+#malo {
+    background-color: rgb(240, 58, 58);
+    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
+}

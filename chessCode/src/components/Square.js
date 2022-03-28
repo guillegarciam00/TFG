@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef } from 'react';
+import "./style/Square.css";
 import bBishop from "./images/piezas/bBishop.png";
 import wBishop from "./images/piezas/wBishop.png";
 import bPawn from "./images/piezas/bPawn.png";
@@ -15,13 +15,11 @@ import wRook from "./images/piezas/wRook.png";
 var allPieces = [[wRook, "wRook"], [wKnight, "wKnight"], [wBishop, "wBishop"], [wKing, "wKing"], [wQueen, "wQueen"], [wBishop, "wBishop"], [wKnight, "wKnight"], [wRook, "wRook"], [wPawn, "wPawn"],
 [bPawn, "bPawn"], [bRook, "bRook"], [bKnight, "bKnight"], [bBishop, "bBishop"], [bKing, "bKing"], [bQueen, "bQueen"], [bBishop, "bBishop"], [bKnight, "bKnight"], [bRook, "bRook"], [wPawn, "wPawnn"], [bPawn, "bPawnn"]]
 
-
-
 export const Square = (props) => {
     const {payload} = props
 
 
-
+    //Obtener la imagen de cada pieza
     function getImage(data) {
         for (var i = 0; i < allPieces.length; i++) {
             if (allPieces[i][1] === data) {

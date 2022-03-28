@@ -1,6 +1,5 @@
-import { React, useState } from 'react'
-import ReactDom from 'react-dom'
-import "./Inicio.css";
+import { React} from 'react'
+import "./style/Inicio.css";
 
 export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPopUpInstr }) {
     return (
@@ -18,16 +17,13 @@ export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenP
                 </div>
             }
 
-
             {screenPopUp === "instr" &&
-
                 <div id="popUp">
                     <button id="buttonClose" onClick={screenPopUpPiezas}><b>{'<<'} Elegir piezas</b></button>
-                    <div>
+                    <h1>Como funciona esta guia</h1>
+                    <div id="instr">
                         <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
                         <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
-                        <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
-                        <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
                         <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
                         <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
                     </div>
