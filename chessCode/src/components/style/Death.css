@@ -26,19 +26,3 @@
 
 }
 
-#death {
-    background-color: rgb(192, 78, 78);
-    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
-
-}
-
-#jaquemate{
-    background-color: rgba(238, 255, 0);
-    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
-}
-
-#jaque{
-    background-color: rgb(255, 174, 0);
-    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
-}
-

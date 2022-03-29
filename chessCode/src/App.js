@@ -1,6 +1,7 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import { Board } from "./components/Board";
 import { Inicio } from "./components/Inicio";
+import { Final } from "./components/Final";
 import './App.css';
 
 export default function App() {
@@ -12,6 +13,9 @@ export default function App() {
   // eslint-disable-next-line
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
+
+  const [colorGanador, setColorganador] = useState("");
+  const [resultado, setResultado] = useState("");
 
   const [appId, setAppId] = useState("inicioBack");
 
@@ -54,12 +58,11 @@ export default function App() {
   }
 
   //Una vez que se coma al rey, termina la partida
-  function victoria(color) {
-    if (color === "w") {
-      alert("GANAN LAS BLANCAS")
-    } else {
-      alert("GANAN LAS BLANCAS")
-    }
+  function endGame(color) {
+    color === "w" ? setColorganador("b") : setColorganador("w")
+    color === myColor ? setResultado("derrota") : setResultado("victoria")
+    setScreen("final")
+    setAppId("inicioBack")
   }
 
   //Parte renderizable
@@ -97,7 +100,7 @@ export default function App() {
               optMuerte={optMuerte}
               myColor={myColor}
               rivalColor={rivalColor}
-              victoria={victoria} />
+              endGame={endGame} />
           </div>
           <div id="options">
             <input type="checkbox" name="optPeligro" checked={optPosibles} onChange={(e) => changeOpt("posibles")} id="miElementoCheckbox" ></input>
@@ -113,7 +116,12 @@ export default function App() {
 
       }
 
-
+      {screen === "final" &&
+        <Final
+          color={colorGanador}
+          resultado={resultado}
+        />
+      }
 
 
     </div>
@@ -126,6 +134,8 @@ export default function App() {
 //
 //
 // BUGS
+//
+//     // eslint-disable-next-line
 //
 //
 // si hay una pieza delante del peon que no ha hecho movimientos, se lo salta por encima

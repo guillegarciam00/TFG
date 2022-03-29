@@ -71,16 +71,38 @@
     opacity: 0.7;
 }
 
-/* ////////////////   ELIMINAR  //////////////////// */
+#casillaJaque{
+    background-color: rgb(255, 174, 0);
+    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
+}
 
-.eliminar {
+
+#death {
+    background-color: rgb(192, 78, 78);
+    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
+
+}
+
+/* ////////////////   RIVAL JAQUE  //////////////////// */
+
+#rivalJaque{
+    background-color: rgba(238, 255, 0);
+    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
+}
+
+
+
+
+/* //////////////////   ELIMINAR  ////////////////////// */
+
+.comer {
     position: absolute;
     margin: 0;
     width: 3vw;
     height: 3vw;
 }
 
-#comer {
+#true {
     background: url("../images/avisos/comer.png") center no-repeat;
     background-size: 100%;
     opacity: 0.7;

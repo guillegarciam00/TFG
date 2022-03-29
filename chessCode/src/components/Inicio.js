@@ -1,6 +1,7 @@
 import { React} from 'react'
 import "./style/Inicio.css";
 
+
 export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPopUpInstr }) {
     return (
         <>

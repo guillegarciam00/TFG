@@ -35,7 +35,7 @@ export const Square = (props) => {
             <span id="id" >{payload.id}</span>
             <span id="hide">{payload.coord[0]},{payload.coord[1]}</span>
             <div className='jaque' id={payload.jaque}></div>
-            <div className='eliminar' id={payload.eliminar}></div>
+            <div className='comer' id={payload.comer}></div>
             <div className='peligrosa' id={payload.peligrosa}></div>
         </div>
     );
