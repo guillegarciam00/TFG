@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Board } from "./components/Board";
 import { Inicio } from "./components/Inicio";
 import { Final } from "./components/Final";
+import Switch from "react-switch";
+import { IoMdVolumeOff, IoMdVolumeHigh } from "react-icons/io";
 import './App.css';
+
+
 
 export default function App() {
 
@@ -22,21 +26,24 @@ export default function App() {
   const [screen, setScreen] = useState("inicio");
   const [screenPopUp, setScrenPopUp] = useState("piezas");
 
+  const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
+  const [volume, setVolume] = useState(5);
+  const volState = useRef(1);
 
 
   //controlar los interruptores de los avisos
   function changeOpt(data) {
     switch (data) {
-      case "posibles":
+      case "POSIBLES":
         setOptPosibles(!optPosibles)
         break;
-      case "peligro":
+      case "PELIGRO":
         setOptPeligro(!optPeligro);
         break;
-      case "jaque":
+      case "JAQUE":
         setOptJaque(!optJaque);
         break;
-      case "muerte":
+      case "MUERTE":
         setOptMuerte(!optMuerte);
         break;
       default:
@@ -65,17 +72,76 @@ export default function App() {
     setAppId("inicioBack")
   }
 
+
+  //Generar botones de opciones
+  const options = [[optPosibles, "POSIBLES"], [optPeligro, "PELIGRO"], [optJaque, "JAQUE"], [optMuerte, "MUERTE"]]
+  var switchers = []
+  for (let i = 0; i < 4; i++) {
+    switchers.push(
+      <div className='option'>
+        <label className="switchLabel"> {options[i][1]}</label> <br></br>
+        <Switch
+          className="switchButton"
+          checked={options[i][0]}
+          onChange={(e) => changeOpt(options[i][1])}
+          offColor="#DF0000"
+          // onHandleColor="#2693e6"
+          handleDiameter={28}
+          // uncheckedIcon={false}
+          // checkedIcon={false}
+          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.5)"
+          activeBoxShadow="0px 0px 1px 4px rgba(0, 0, 0, 0.2)"
+        // height={25}
+        // width={50}
+        />
+      </div>
+    )
+  }
+
+
+  ///////////////////
+  //  CHANGE VOLUME
+  ///////////////////
+  function changeVolume(data) {
+    if (data === "iconVolume") {
+      if (volState.current === 0) {
+        setIconVolume(<IoMdVolumeHigh />);
+        volState.current = 1;
+        setVolume(5)
+      } else {
+        setIconVolume(<IoMdVolumeOff />);
+        volState.current = 0;
+        setVolume(0)
+      }
+    } else {
+      var vol = document.getElementById("volume").value;
+      setVolume(vol)
+      console.log(vol)
+      if (vol < 1) {
+        console.log("EY")
+        setIconVolume(<IoMdVolumeOff />);
+      } else {
+        setIconVolume(<IoMdVolumeHigh />);
+      }
+
+    }
+  }
+
+
   //Parte renderizable
   return (
     <div className="App" id={appId}>
       <div id="header">
+        <div>
+          <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
+          <input type="range" id="volume" value={volume} onInput={() => changeVolume("data")} min="0" max="10" step="1"></input>
+        </div>
         <div id="refresh">
           <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>
         </div>
       </div>
 
       {screen === "inicio" &&
-
         <div id="inicio">
           <>
             <Inicio
@@ -100,20 +166,18 @@ export default function App() {
               optMuerte={optMuerte}
               myColor={myColor}
               rivalColor={rivalColor}
-              endGame={endGame} />
+              endGame={endGame}
+              volume={volume / 10}
+            />
           </div>
-          <div id="options">
-            <input type="checkbox" name="optPeligro" checked={optPosibles} onChange={(e) => changeOpt("posibles")} id="miElementoCheckbox" ></input>
-            <label htmlFor="optPeligro"> POSIBLES</label> <br></br>
-            <input type="checkbox" name="optPosible" checked={optPeligro} onChange={(e) => changeOpt("peligro")} id="miElementoCheckbox" ></input>
-            <label htmlFor="optPosible"> PELIGRO</label> <br></br>
-            <input type="checkbox" name="optjaque" checked={optJaque} onChange={(e) => changeOpt("jaque")} id="miElementoCheckbox" ></input>
-            <label htmlFor="optjaque"> JAQUE</label><br></br>
-            <input type="checkbox" name="optMuerte" checked={optMuerte} onChange={(e) => changeOpt("muerte")} id="miElementoCheckbox" ></input>
-            <label htmlFor="optMuerte"> MUERTE</label> <br></br>
+          <div id="AllOptions">
+            {switchers.map((payload, i) => (
+              <div key={i}>
+                {payload}
+              </div>
+            ))}
           </div>
         </div>
-
       }
 
       {screen === "final" &&
@@ -122,13 +186,9 @@ export default function App() {
           resultado={resultado}
         />
       }
-
-
     </div>
   );
 }
-
-
 
 //
 //

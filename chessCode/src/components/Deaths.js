@@ -16,7 +16,7 @@ var allPieces = [[wRook, "wRook"], [wKnight, "wKnight"], [wBishop, "wBishop"], [
 [bPawn, "bPawn"], [wPawn, "wPawnn"], [bPawn, "bPawnn"], [bRook, "bRook"], [bKnight, "bKnight"], [bBishop, "bBishop"], [bKing, "bKing"], [bQueen, "bQueen"], [bBishop, "bBishop"], [bKnight, "bKnight"], [bRook, "bRook"]]
 
 export const Deaths = (props) => {
-    const { piece, keyy } = props
+    const { piece } = props
 
     //Obtener la imagen de cada pieza
     function getImage(data) {
@@ -30,7 +30,7 @@ export const Deaths = (props) => {
 
 
     return (
-        <div key={keyy} id='pieceDeath'>
+        <div id='pieceDeath'>
             <img className="imagePieceDeath" src={getImage(piece)} alt="" />
         </div>
     );

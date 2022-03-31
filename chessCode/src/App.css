@@ -8,12 +8,12 @@
 /* ////////////////   FONDOS   //////////////////// */
 
 #mainBack {
-  background: url("./components/images/home/mainBackground.jpg");
+  background: url("./components/images/main/mainBackground.jpg");
   background-size: cover;
 }
 
 #inicioBack {
-  background: url("./components/images/home/InicioBackground2.jpg");
+  background: url("./components/images/main/InicioBackground2.jpg");
   background-size: cover;
 }
 
@@ -56,7 +56,7 @@
 
 /*//////////// OPTIONS ////////////////// */
 
-#options {
+#AllOptions {
   border: 1px solid blue;
   width: fit-content;
   margin-left: 200px;
@@ -64,13 +64,20 @@
 }
 
 
-#options label {
-  font-size: 2em;
-  background-color: #ffffff86;
+.option {
+  display: flex;
+  align-items: center;
 }
 
-#options input {
-  width: 25px;
-  height: 25px;
 
+.switchLabel {
+  font-size: 2em;
+  font-weight: 600;
+  /* background-color: #ffffff86; */
+  flex: 1 0 10%;
+  /* margin-right: -3vw; */
+}
+
+.switchButton {
+  flex: 1 0 50%;
 }

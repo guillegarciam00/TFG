@@ -10,15 +10,16 @@ import SoundComer from './sounds/comer.wav';
 
 export function Board(props) {
 
+    //Variables del componente padre
+    const { optPosibles, optJaque, optPeligro, optMuerte, endGame, myColor, rivalColor, volume } = props
+
 
     //Sonidos
     // eslint-disable-next-line
-    const [volume, setVolume] = useState(0.1);
     const [playSoundMovePiece] = useSound(SoundMovePiece, { volume });
     const [playSoundComer] = useSound(SoundComer, { volume });
 
-    //Variables del componente padre
-    const { optPosibles, optJaque, optPeligro, optMuerte, endGame, myColor, rivalColor } = props
+
 
     //Constantes
     const [chessBoard, setChessBoard] = useState([]);
@@ -219,7 +220,6 @@ export function Board(props) {
 
             //si pulsamos otra pieza, se cancela el movim. de la ultima pieza y se calculan los nuevos movim.
             if (data.id !== lastSquare.id) {
-                console.log("AAAAA")
                 movePiece(data)
             }
 
@@ -539,20 +539,22 @@ export function Board(props) {
                 </div>
 
                 <div className='cementerio' id="white_deaths">
-                    {wdeathPieces.map((payload) => (
-                        <Deaths
-                            keyy={(Math.random() + 1).toString(36).substring(7)}
-                            piece={payload}
-                        />
+                    {wdeathPieces.map((payload, i) => (
+                        <div key={i}>
+                            <Deaths
+                                piece={payload}
+                            />
+                        </div>
                     ))}
                 </div>
 
                 <div className='cementerio' id="black_deaths">
-                    {bdeathPieces.map((payload) => (
-                        <Deaths
-                            keyy={(Math.random() + 1).toString(36).substring(7)}
-                            piece={payload}
-                        />
+                    {bdeathPieces.map((payload, i) => (
+                        <div key={i}>
+                            <Deaths
+                                piece={payload}
+                            />
+                        </div>
                     ))}
                 </div>
 
