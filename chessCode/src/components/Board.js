@@ -4,20 +4,10 @@ import "./style/Square.css";
 import { Deaths } from "./Deaths";
 import { Square } from './Square';
 // eslint-disable-next-line
-import useSound from 'use-sound';
-import SoundMovePiece from './sounds/move.wav';
-import SoundComer from './sounds/comer.wav';
-
 export function Board(props) {
 
     //Variables del componente padre
-    const { optPosibles, optJaque, optPeligro, optMuerte, endGame, myColor, rivalColor, volume } = props
-
-
-    //Sonidos
-    // eslint-disable-next-line
-    const [playSoundMovePiece] = useSound(SoundMovePiece, { volume });
-    const [playSoundComer] = useSound(SoundComer, { volume });
+    const { optPosibles, optJaque, optPeligro, optMuerte, endGame, myColor, rivalColor, sonar } = props
 
 
 
@@ -189,9 +179,9 @@ export function Board(props) {
                 if (posibles.death.includes(data.id)) {
                     //la casilla nueva no está libre y nos comemos esa pieza
                     eliminarPieza(chessBoard[data.id].piece)
-                    playSoundComer()
+                    sonar("comer")
                 } else {
-                    playSoundMovePiece()
+                    sonar("mover")
                 }
 
                 chessBoard[data.id].image = lastSquare.image

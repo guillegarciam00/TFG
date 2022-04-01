@@ -5,6 +5,13 @@ import { Final } from "./components/Final";
 import Switch from "react-switch";
 import { IoMdVolumeOff, IoMdVolumeHigh } from "react-icons/io";
 import './App.css';
+import useSound from 'use-sound';
+import SoundStart from './components/sounds/start.wav';
+import SoundMover from './components/sounds/mover.wav';
+import SoundComer from './components/sounds/comer.wav';
+import SoundSwitch from './components/sounds/switch.wav';
+import SoundEnd from './components/sounds/end.wav';
+import SoundJaque from './components/sounds/jaque.wav';
 
 
 
@@ -18,6 +25,8 @@ export default function App() {
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
 
+  const [tableColor, setTableColor] = useState("default");
+
   const [colorGanador, setColorganador] = useState("");
   const [resultado, setResultado] = useState("");
 
@@ -27,8 +36,38 @@ export default function App() {
   const [screenPopUp, setScrenPopUp] = useState("piezas");
 
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
-  const [volume, setVolume] = useState(5);
-  const volState = useRef(1);
+  const volume = useRef(1)
+
+  //Sonidos
+  // eslint-disable-next-line
+  const [playSoundStart] = useSound(SoundStart, { volume: volume.current / 10 });
+  const [playSoundMover] = useSound(SoundMover, { volume: volume.current / 10 });
+  const [playSoundComer] = useSound(SoundComer, { volume: volume.current / 10 });
+  const [playSoundSwitch] = useSound(SoundSwitch, { volume: volume.current / 10 });
+  const [playSoundJaque] = useSound(SoundJaque, { volume: volume.current / 10 });
+  const [playSoundEnd] = useSound(SoundEnd, { volume: volume.current / 10 });
+
+
+  function sonar(data) {
+    switch (data) {
+      case "start": playSoundStart()
+        break;
+      case "mover": playSoundMover()
+        break;
+      case "comer": playSoundComer()
+        break;
+      case "switch": playSoundSwitch()
+        break;
+      case "jaque": playSoundJaque()
+        break;
+      case "end": playSoundEnd()
+        break;
+      default:
+        break;
+    }
+  }
+
+
 
 
   //controlar los interruptores de los avisos
@@ -47,12 +86,13 @@ export default function App() {
         setOptMuerte(!optMuerte);
         break;
       default:
-
     }
+    sonar("switch")
   };
 
   //Se elije color y empieza la partida
   function startGame(mine, rival) {
+    sonar("start")
     setMyColor(mine)
     setRivalColor(rival)
     setScreen("main")
@@ -66,6 +106,7 @@ export default function App() {
 
   //Una vez que se coma al rey, termina la partida
   function endGame(color) {
+    sonar("end")
     color === "w" ? setColorganador("b") : setColorganador("w")
     color === myColor ? setResultado("derrota") : setResultado("victoria")
     setScreen("final")
@@ -104,19 +145,16 @@ export default function App() {
   ///////////////////
   function changeVolume(data) {
     if (data === "iconVolume") {
-      if (volState.current === 0) {
+      if (volume.current === 0) {
         setIconVolume(<IoMdVolumeHigh />);
-        volState.current = 1;
-        setVolume(5)
+        volume.current = 5
       } else {
         setIconVolume(<IoMdVolumeOff />);
-        volState.current = 0;
-        setVolume(0)
+        volume.current = 0
       }
     } else {
       var vol = document.getElementById("volume").value;
-      setVolume(vol)
-      console.log(vol)
+      volume.current = vol
       if (vol < 1) {
         console.log("EY")
         setIconVolume(<IoMdVolumeOff />);
@@ -128,16 +166,26 @@ export default function App() {
   }
 
 
+  function changeColor() {
+    //   if(tableColor === "default"){
+    //     setTableColor("brown")
+    //   }
+  }
+
+
   //Parte renderizable
   return (
     <div className="App" id={appId}>
       <div id="header">
         <div>
           <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
-          <input type="range" id="volume" value={volume} onInput={() => changeVolume("data")} min="0" max="10" step="1"></input>
+          <input type="range" id="volume" value={volume.current} onInput={() => changeVolume("data")} min="0" max="10" step="1"></input>
         </div>
         <div id="refresh">
           <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>
+        </div>
+        <div id="">
+          <button type="button" id="buttonRefresh" onClick={() => changeColor()}>Color</button>
         </div>
       </div>
 
@@ -167,7 +215,7 @@ export default function App() {
               myColor={myColor}
               rivalColor={rivalColor}
               endGame={endGame}
-              volume={volume / 10}
+              sonar={sonar}
             />
           </div>
           <div id="AllOptions">

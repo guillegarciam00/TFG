@@ -16,12 +16,19 @@
 
 .light_square {
     background-color: #eeeed2;
-
 }
+
+.light_square_brown {
+    background-color: #E3C16F;
+}
+
 
 .dark_square {
     background-color: #769655;
+}
 
+.dark_square_brown {
+    background-color: #B88B4A;
 }
 
 /* ////////////////   ID  //////////////////// */
