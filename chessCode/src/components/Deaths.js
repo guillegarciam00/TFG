@@ -21,7 +21,7 @@ export const Deaths = (props) => {
     //Obtener la imagen de cada pieza
     function getImage(data) {
         for (var i = 0; i < allPieces.length; i++) {
-            if (allPieces[i][1] === data) {
+            if (data.indexOf(allPieces[i][1]) > -1) {
                 return allPieces[i][0]
             }
         }

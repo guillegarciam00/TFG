@@ -1,4 +1,4 @@
-import { React} from 'react'
+import { React } from 'react'
 import "./style/Inicio.css";
 
 
@@ -12,8 +12,8 @@ export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenP
                     <button id="buttonClose" onClick={screenPopUpInstr}><b>Instrucciones {'>>'}</b></button>
                     <h1>Qué piezas vas a jugar</h1>
                     <div id="opciones">
-                        <div id="whitePieces" onClick={whites}></div>
-                        <div id="blackPieces" onClick={blacks}></div>
+                        <div className='backWhite'><div id="whitePieces" onClick={whites}></div></div>
+                        <div className='backWhite'><div id="blackPieces" onClick={blacks}></div></div>
                     </div>
                 </div>
             }
@@ -22,11 +22,13 @@ export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenP
                 <div id="popUp">
                     <button id="buttonClose" onClick={screenPopUpPiezas}><b>{'<<'} Elegir piezas</b></button>
                     <h1>Como funciona esta guia</h1>
-                    <div id="instr">
-                        <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
-                        <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
-                        <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
-                        <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
+                    <div className='backWhite'>
+                        <div id="instr">
+                            <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
+                            <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
+                            <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
+                            <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
+                        </div>
                     </div>
                 </div>
 

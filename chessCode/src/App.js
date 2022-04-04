@@ -12,7 +12,10 @@ import SoundComer from './components/sounds/comer.wav';
 import SoundSwitch from './components/sounds/switch.wav';
 import SoundEnd from './components/sounds/end.wav';
 import SoundJaque from './components/sounds/jaque.wav';
-
+import SoundMenu from './components/sounds/menu.wav';
+import SoundMenuButton from './components/sounds/menuButton.wav';
+import SoundChangeVolume from './components/sounds/changeVolume.wav';
+import SoundEatKing from './components/sounds/eatKing.wav';
 
 
 export default function App() {
@@ -36,16 +39,19 @@ export default function App() {
   const [screenPopUp, setScrenPopUp] = useState("piezas");
 
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
-  const volume = useRef(1)
+  const volume = useRef(0.5)
 
   //Sonidos
-  // eslint-disable-next-line
-  const [playSoundStart] = useSound(SoundStart, { volume: volume.current / 10 });
-  const [playSoundMover] = useSound(SoundMover, { volume: volume.current / 10 });
-  const [playSoundComer] = useSound(SoundComer, { volume: volume.current / 10 });
-  const [playSoundSwitch] = useSound(SoundSwitch, { volume: volume.current / 10 });
-  const [playSoundJaque] = useSound(SoundJaque, { volume: volume.current / 10 });
-  const [playSoundEnd] = useSound(SoundEnd, { volume: volume.current / 10 });
+  const [playSoundStart] = useSound(SoundStart, { volume: volume.current });
+  const [playSoundMover] = useSound(SoundMover, { volume: volume.current });
+  const [playSoundComer] = useSound(SoundComer, { volume: volume.current });
+  const [playSoundSwitch] = useSound(SoundSwitch, { volume: volume.current });
+  const [playSoundJaque] = useSound(SoundJaque, { volume: volume.current });
+  const [playSoundEnd] = useSound(SoundEnd, { volume: volume.current });
+  const [playMenu] = useSound(SoundMenu, { volume: volume.current });
+  const [playMenuButton] = useSound(SoundMenuButton, { volume: volume.current });
+  const [playChangeVolume] = useSound(SoundChangeVolume, { volume: volume.current });
+  const [playEatKing] = useSound(SoundEatKing, { volume: volume.current });
 
 
   function sonar(data) {
@@ -61,6 +67,14 @@ export default function App() {
       case "jaque": playSoundJaque()
         break;
       case "end": playSoundEnd()
+        break;
+      case "menu": playMenu()
+        break;
+      case "menuButton": playMenuButton()
+        break;
+      case "changeVolume": playChangeVolume()
+        break;
+      case "eatKing": playEatKing()
         break;
       default:
         break;
@@ -101,6 +115,7 @@ export default function App() {
 
   //cambiar la pantalla del pop-up
   function changeScreenPopUp(data) {
+    sonar("menuButton")
     setScrenPopUp(data)
   }
 
@@ -145,9 +160,9 @@ export default function App() {
   ///////////////////
   function changeVolume(data) {
     if (data === "iconVolume") {
-      if (volume.current === 0) {
+      if (volume.current < 0.1) {
         setIconVolume(<IoMdVolumeHigh />);
-        volume.current = 5
+        volume.current = 0.5
       } else {
         setIconVolume(<IoMdVolumeOff />);
         volume.current = 0
@@ -155,14 +170,15 @@ export default function App() {
     } else {
       var vol = document.getElementById("volume").value;
       volume.current = vol
-      if (vol < 1) {
-        console.log("EY")
+      if (vol < 0.1) {
         setIconVolume(<IoMdVolumeOff />);
       } else {
         setIconVolume(<IoMdVolumeHigh />);
       }
-
     }
+    setTimeout(function () {
+      sonar("changeVolume")
+    }, 150);
   }
 
 
@@ -179,7 +195,7 @@ export default function App() {
       <div id="header">
         <div>
           <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
-          <input type="range" id="volume" value={volume.current} onInput={() => changeVolume("data")} min="0" max="10" step="1"></input>
+          <input type="range" id="volume" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
         </div>
         <div id="refresh">
           <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>

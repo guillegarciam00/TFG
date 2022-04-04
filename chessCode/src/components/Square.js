@@ -16,13 +16,13 @@ var allPieces = [[wRook, "wRook"], [wKnight, "wKnight"], [wBishop, "wBishop"], [
 [bPawn, "bPawn"], [bRook, "bRook"], [bKnight, "bKnight"], [bBishop, "bBishop"], [bKing, "bKing"], [bQueen, "bQueen"], [bBishop, "bBishop"], [bKnight, "bKnight"], [bRook, "bRook"], [wPawn, "wPawnn"], [bPawn, "bPawnn"]]
 
 export const Square = (props) => {
-    const {payload} = props
+    const { payload } = props
 
 
     //Obtener la imagen de cada pieza
     function getImage(data) {
         for (var i = 0; i < allPieces.length; i++) {
-            if (allPieces[i][1] === data) {
+            if (data.indexOf(allPieces[i][1]) > -1) {
                 return allPieces[i][0]
             }
         }
@@ -32,8 +32,8 @@ export const Square = (props) => {
     return (
         <div key={props.id} className={payload.color} id={payload.selected} onClick={() => props.movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
-            <span id="id" >{payload.id}</span>
-            <span id="hide">{payload.coord[0]},{payload.coord[1]}</span>
+            <span id="hide" >{payload.id}</span>
+            <span id="id">{payload.coord[0]},{payload.coord[1]}</span>
             <div className='jaque' id={payload.jaque}></div>
             <div className='comer' id={payload.comer}></div>
             <div className='peligrosa' id={payload.peligrosa}></div>

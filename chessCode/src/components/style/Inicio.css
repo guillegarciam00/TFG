@@ -23,10 +23,14 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #FFF;
+
     padding: 50px;
     z-index: 1000;
     border-radius: 8px;
+    background: url("../images/inicio/background.png");
+    background-size: contain;
+
+    box-shadow: inset 0px 0px 20px 1px rgb(0 0 0);
 }
 
 /* ////////////////   TITULO  //////////////////// */
@@ -52,6 +56,12 @@ h1 {
 }
 
 /* ////////////////   ELECCION PIEZAS  //////////////////// */
+
+
+.backWhite {
+    background-color: #FFF;
+}
+
 
 #opciones {
     height: 25vw;
