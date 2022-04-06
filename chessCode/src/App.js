@@ -262,7 +262,7 @@ export default function App() {
 //     // eslint-disable-next-line
 //
 //
-// si hay una pieza delante del peon que no ha hecho movimientos, se lo salta por encima
+// suena el jaque todo el rato si es del rival a mi
 //
 //
 //

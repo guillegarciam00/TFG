@@ -342,18 +342,25 @@ export function Board(props) {
 
         if (data.piece.indexOf('awn') > -1) {
 
+            var obstaculo = false
+
             //casillas que el peon puede moverse
             for (let i = 0; i < setMoves(data)[0].length; i++) {
-                let moveX = data.coord[0] + setMoves(data)[0][i][0]
-                let moveY = data.coord[1] + setMoves(data)[0][i][1]
+                if (!obstaculo) {
+                    let moveX = data.coord[0] + setMoves(data)[0][i][0]
+                    let moveY = data.coord[1] + setMoves(data)[0][i][1]
 
-                for (let j = 0; j < chessBoard.length; j++)
-                    if (chessBoard[j].coord[0] === moveX && chessBoard[j].coord[1] === moveY) {
-                        if (chessBoard[j].piece === undefined || chessBoard[j].piece === "") {
-
-                            array.empty.push(j)
+                    for (let j = 0; j < chessBoard.length; j++) {
+                        if (chessBoard[j].coord[0] === moveX && chessBoard[j].coord[1] === moveY) {
+                            if (chessBoard[j].piece === undefined || chessBoard[j].piece === "") {
+                                array.empty.push(j)
+                                break
+                            } else {
+                                obstaculo = true
+                            }
                         }
                     }
+                }
             }
 
             //piezas que el peon puede comerse
