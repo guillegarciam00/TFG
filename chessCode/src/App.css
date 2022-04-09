@@ -45,11 +45,13 @@
 #main {
   display: flex;
   border: 2px solid red;
+  align-items: center;
 }
 
 
 #mainBoard {
-  width: 40%;
+  width: fit-content;
+  border-color: 2px solid red;
 }
 
 
@@ -58,17 +60,19 @@
 
 #AllOptions {
   border: 1px solid blue;
-  width: fit-content;
-  margin-left: 200px;
+  margin-left: 30px;
   flex: auto;
 }
 
+#AllOptions>div {
+margin-left: 5vw;
+margin-bottom: 15px;
+}
 
 .option {
   display: flex;
   align-items: center;
 }
-
 
 .switchLabel {
   font-size: 2em;

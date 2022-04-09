@@ -454,7 +454,7 @@ export function Board(props) {
                             var arrayFuturo = (posiblesMovimientos(square)).death
                             for (let k = 0; k < arrayFuturo.length; k++) {
                                 if (chessBoard[arrayFuturo[k]].piece === jaqueRival + "King") {
-                                    jaquePosicionInicial = chessBoard[i]
+                                    // hacerJaque(chessBoard[i], square)
                                     posibleJaque(chessBoard[i])
                                 }
                             }
@@ -494,13 +494,15 @@ export function Board(props) {
 
             //mis piezas amenazadas
             if (chessBoard[i].piece.charAt(0) === rivalColor) {
-                var array = (posiblesMovimientos(chessBoard[i])).death
+                let array = (posiblesMovimientos(chessBoard[i])).death
                 for (let j = 0; j < array.length; j++) {
                     if (chessBoard[array[j]].piece === myColor + "King") {
                         //Jaque del rival
                         chessBoard[i].selected = "rivalJaque"
                         chessBoard[array[j]].selected = "rivalJaque"
+                        //////////////////////////////////////////////////////////////////////
                         sonar("jaque")
+                        //////////////////////////////////////////////////////////////////////
                     } else {
                         if (optMuerte)
                             //Piezas que me pueden comer
@@ -511,7 +513,7 @@ export function Board(props) {
 
                 //piezas que me puedo comer
             } else if ((chessBoard[i].piece.charAt(0) === myColor)) {
-                var array = posiblesMovimientos(chessBoard[i]).death
+                let array = posiblesMovimientos(chessBoard[i]).death
                 for (let j = 0; j < array.length; j++) {
                     if (chessBoard[array[j]].piece === rivalColor + "King") {
 
@@ -543,24 +545,27 @@ export function Board(props) {
                     ))}
                 </div>
 
-                <div className='cementerio' id="white_deaths">
-                    {wdeathPieces.map((payload, i) => (
-                        <div key={i}>
-                            <Deaths
-                                piece={payload}
-                            />
-                        </div>
-                    ))}
-                </div>
+                <div id="cementerios">
 
-                <div className='cementerio' id="black_deaths">
-                    {bdeathPieces.map((payload, i) => (
-                        <div key={i}>
-                            <Deaths
-                                piece={payload}
-                            />
-                        </div>
-                    ))}
+                    <div className='cementerio' id="white_deaths">
+                        {wdeathPieces.map((payload, i) => (
+                            <div key={i}>
+                                <Deaths
+                                    piece={payload}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className='cementerio' id="black_deaths">
+                        {bdeathPieces.map((payload, i) => (
+                            <div key={i}>
+                                <Deaths
+                                    piece={payload}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
             </div>

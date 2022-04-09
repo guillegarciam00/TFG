@@ -1,28 +1,10 @@
-
-.cementerio {
-    /* flex: 0 0 40%; */
-    border: 1px solid black;
-    margin-top: 5%;
-    /* width: 200px;
-    height: 60px; */
-
-    width: 30vw;
-    height: 8vw;
-    background-color: #769655;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    align-content: center;
-}
-
 #pieceDeath {
-    flex: 0 0 20%;
+    /* flex: 0 0 20%;
     margin-right: -8%;
-    margin-left: 5%;
+    margin-left: 5%; */
+    width: 5vw;
 }
 
 .imagePieceDeath {
-    width: 40%;
-
+    width: 30%;
 }
-
