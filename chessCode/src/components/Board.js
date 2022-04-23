@@ -19,7 +19,6 @@ export function Board(props) {
     const [wdeathPieces, setWDeathPieces] = useState([]);
     const [bdeathPieces, setBDeathPieces] = useState([]);
     const [lastSquare, setLastSquare] = useState("");
-    // eslint-disable-next-line
     const [word, setWord] = useState("-");
 
     const moviendo = useRef(0); //  0 --> seleccionar pieza  ||  1 --> mover pieza/cancelar movimiento 
@@ -98,6 +97,7 @@ export function Board(props) {
                     "piece": allPi,
                     "jaque": "",
                     "comer": "",
+                    "mal": "",
                     "peligrosa": ""
                 }
                 auxArray.push(square)
@@ -112,6 +112,7 @@ export function Board(props) {
                     "piece": allPi,
                     "jaque": "",
                     "comer": "",
+                    "mal": "",
                     "peligrosa": ""
                 }
                 auxArray.push(square)
@@ -120,7 +121,6 @@ export function Board(props) {
             lett++
         }
         setChessBoard(auxArray)
-        // eslint-disable-next-line
     }, []);
 
     //Dado unas coordenadas, devulve el id del cuadrado que lo contiene
@@ -284,7 +284,6 @@ export function Board(props) {
                 chessBoard[array.empty[i]].selected = "selected"
             }
             for (let i = 0; i < array.death.length; i++) {
-                chessBoard[array.death[i]].selected = "selected"
                 chessBoard[array.death[i]].comer = "true"
             }
         }
@@ -303,7 +302,6 @@ export function Board(props) {
     function casillasPeligrosas(data) {
         if (optPeligro && data.piece.charAt(0) === myColor) {
             var rivals = []
-            var array = []
             var mines = []
 
             for (let i = 0; i < chessBoard.length; i++) {
@@ -469,8 +467,10 @@ export function Board(props) {
 
     function limpiarisJaque() {
         for (var i = 0; i < chessBoard.length; i++) {
-            if (chessBoard[i].selected === "jaque") {
+            if (chessBoard[i].selected === "jaque" || chessBoard[i].mal === "malo") {
                 chessBoard[i].selected = ""
+                chessBoard[i].peligro = ""
+                chessBoard[i].mal = ""
             } else if (chessBoard[i].jaque === "piezaJaque") {
                 chessBoard[i].jaque = ""
             }
@@ -498,15 +498,15 @@ export function Board(props) {
                 for (let j = 0; j < array.length; j++) {
                     if (chessBoard[array[j]].piece === myColor + "King") {
                         //Jaque del rival
-                        chessBoard[i].selected = "rivalJaque"
-                        chessBoard[array[j]].selected = "rivalJaque"
+                        chessBoard[i].mal = "rivalJaque"
+                        chessBoard[array[j]].mal = "rivalJaque"
                         //////////////////////////////////////////////////////////////////////
                         sonar("jaque")
                         //////////////////////////////////////////////////////////////////////
                     } else {
                         if (optMuerte)
                             //Piezas que me pueden comer
-                            chessBoard[chessBoard[array[j]].id].selected = "malo"
+                            chessBoard[chessBoard[array[j]].id].mal = "malo"
                         // chessBoard[chessBoard[array[j]].id].eliminar = "comer"
                     }
                 }
@@ -518,11 +518,12 @@ export function Board(props) {
                     if (chessBoard[array[j]].piece === rivalColor + "King") {
 
                         chessBoard[i].jaque = ""
-                        chessBoard[i].selected = "rivalJaque"
-                        chessBoard[array[j]].selected = "rivalJaque"
+                        chessBoard[i].mal = "rivalJaque"
+                        chessBoard[array[j]].mal = "rivalJaque"
                         // hacer que suene "jaque" si me muevo a esa posicion
                     } else {
-                        chessBoard[array[j]].comer = "true"
+                        chessBoard[array[j]].selected = ""
+                        // chessBoard[array[j]].comer = "true"
                     }
                 }
             }

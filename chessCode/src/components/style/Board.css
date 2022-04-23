@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-        border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 #hide {
@@ -9,7 +9,7 @@
 }
 
 #GameBoard {
-    
+
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -23,8 +23,8 @@
     margin: 20px;
     padding: 3px;
     border-radius: 8px;
-    width: 35vw;
-    height: 35vw;
+    width: 40vw;
+    height: 40vw;
     background-color: rgb(94, 94, 94);
     display: flex;
     flex-wrap: wrap;
@@ -35,7 +35,7 @@
 
 /* ////////////////   CEMENTERIO  //////////////////// */
 
-#cementerios{
+#cementerios {
     width: 20vw;
     margin-left: 10px;
     display: flex;

@@ -24,7 +24,6 @@ export default function App() {
   const [optPeligro, setOptPeligro] = useState(true);
   const [optJaque, setOptJaque] = useState(true);
   const [optMuerte, setOptMuerte] = useState(true);
-  // eslint-disable-next-line
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
 
@@ -192,7 +191,9 @@ export default function App() {
   //Parte renderizable
   return (
     <div className="App" id={appId}>
+
       <div id="header">
+
         <div>
           <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
           <input type="range" id="volume" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
@@ -203,6 +204,7 @@ export default function App() {
         <div id="">
           <button type="button" id="buttonRefresh" onClick={() => changeColor()}>Color</button>
         </div>
+        
       </div>
 
       {screen === "inicio" &&
@@ -259,7 +261,7 @@ export default function App() {
 //
 // BUGS
 //
-//     // eslint-disable-next-line
+//  
 //
 //
 // suena el jaque todo el rato si es del rival a mi

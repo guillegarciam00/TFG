@@ -58,9 +58,19 @@
 
 /* ////////////////   POSIBLES  //////////////////// */
 
+.movimiento {
+    position: absolute;
+    margin: 0;
+    width: 3vw;
+    height: 3vw;
+}
+
 #selected {
-    background-color: rgb(100, 187, 209);
-    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
+    /* background-color: rgb(100, 187, 209);
+    box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0); */
+    background: url("../images/avisos/selected.png") center no-repeat;
+    background-size: 100%;
+    /* opacity: 0.7; */
 }
 
 /* ////////////////   JAQUE  //////////////////// */
@@ -78,7 +88,7 @@
     opacity: 0.7;
 }
 
-#casillaJaque{
+#casillaJaque {
     background-color: rgb(255, 174, 0);
     box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
 }
@@ -90,14 +100,13 @@
 
 }
 
+
 /* ////////////////   RIVAL JAQUE  //////////////////// */
 
-#rivalJaque{
+#rivalJaque {
     background-color: rgba(238, 255, 0);
     box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
 }
-
-
 
 
 /* //////////////////   ELIMINAR  ////////////////////// */
@@ -115,14 +124,15 @@
     opacity: 0.7;
 }
 
+
 /* ////////////////   PELIGROSAS  //////////////////// */
 
 .peligrosa {
     position: absolute;
     margin-bottom: -2.5%;
     margin-left: 2.5%;
-    width: 1vw;
-    height: 1vw;
+    width: 3vw;
+    height: 3vw;
 }
 
 #peligro {
