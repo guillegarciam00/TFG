@@ -61,8 +61,8 @@
 .movimiento {
     position: absolute;
     margin: 0;
-    width: 3vw;
-    height: 3vw;
+    width: 2vw;
+    height: 2vw;
 }
 
 #selected {

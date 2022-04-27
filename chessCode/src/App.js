@@ -4,6 +4,8 @@ import { Inicio } from "./components/Inicio";
 import { Final } from "./components/Final";
 import Switch from "react-switch";
 import { IoMdVolumeOff, IoMdVolumeHigh } from "react-icons/io";
+import { BiRefresh } from "react-icons/bi";
+
 import './App.css';
 import useSound from 'use-sound';
 import SoundStart from './components/sounds/start.wav';
@@ -14,8 +16,10 @@ import SoundEnd from './components/sounds/end.wav';
 import SoundJaque from './components/sounds/jaque.wav';
 import SoundMenu from './components/sounds/menu.wav';
 import SoundMenuButton from './components/sounds/menuButton.wav';
+import SoundMenuButton2 from './components/sounds/menuButton2.wav';
 import SoundChangeVolume from './components/sounds/changeVolume.wav';
 import SoundEatKing from './components/sounds/eatKing.wav';
+import SoundPeonReina from './components/sounds/peonReina.wav';
 
 
 export default function App() {
@@ -49,8 +53,11 @@ export default function App() {
   const [playSoundEnd] = useSound(SoundEnd, { volume: volume.current });
   const [playMenu] = useSound(SoundMenu, { volume: volume.current });
   const [playMenuButton] = useSound(SoundMenuButton, { volume: volume.current });
+  const [playMenuButton2] = useSound(SoundMenuButton2, { volume: volume.current });
   const [playChangeVolume] = useSound(SoundChangeVolume, { volume: volume.current });
   const [playEatKing] = useSound(SoundEatKing, { volume: volume.current });
+  const [playPeonReina] = useSound(SoundPeonReina, { volume: volume.current });
+
 
 
   function sonar(data) {
@@ -69,7 +76,11 @@ export default function App() {
         break;
       case "menu": playMenu()
         break;
+      case "peonReina": playPeonReina()
+        break;
       case "menuButton": playMenuButton()
+        break;
+      case "menuButton2": playMenuButton2()
         break;
       case "changeVolume": playChangeVolume()
         break;
@@ -188,23 +199,55 @@ export default function App() {
   }
 
 
+  function toggleFunction() {
+    var element = document.getElementById("sidebar");
+    element.classList.toggle("active");
+    sonar("menuButton2")
+  }
+
+  function toggleVolFunction() {
+    var element = document.getElementById("volumBar");
+    element.classList.toggle("active");
+  }
+
+  function Refresh() {
+    sonar("end")
+    setTimeout(function () {
+      window.location.reload()
+  }, 500);
+
+  }
+
   //Parte renderizable
   return (
     <div className="App" id={appId}>
 
       <div id="header">
 
-        <div>
-          <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
-          <input type="range" id="volume" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
+        <div id="title">
+          <h1 id="nombre">TITULO</h1>
         </div>
-        <div id="refresh">
-          <button type="button" id="buttonRefresh" onClick={() => window.location.reload()}>REFRESH</button>
+
+        <div id="rightHeader">
+          <div id="headerRefresh">
+            <button type="button" id="buttonRefresh" onClick={() => Refresh()}><BiRefresh /></button>
+          </div>
+
+          <div id="headerVolumen">
+            <button type="button" id="buttonVolume" onClick={() => toggleVolFunction()}><IoMdVolumeHigh /></button>
+          </div>
+
+          <div id="volumBar">
+            <input type="range" id="volume" orient="vertical" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
+            <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
+          </div>
         </div>
-        <div id="">
-          <button type="button" id="buttonRefresh" onClick={() => changeColor()}>Color</button>
-        </div>
-        
+
+
+        {/* <div id="">
+          <button type="button" id="buttonRefresh" onClick={() => toggleFunction()}>Color</button>
+        </div> */}
+
       </div>
 
       {screen === "inicio" &&
@@ -236,23 +279,42 @@ export default function App() {
               sonar={sonar}
             />
           </div>
-          <div id="AllOptions">
-            {switchers.map((payload, i) => (
-              <div key={i}>
-                {payload}
-              </div>
-            ))}
+          <div id="rightPanel">
+            <div id="AllOptions">
+              {switchers.map((payload, i) => (
+                <div key={i}>
+                  {payload}
+                </div>
+              ))}
+            </div>
+            <div id="leyendaOptions">
+              <button onClick={() => toggleFunction()}>LEYENDAS</button>
+            </div>
           </div>
+
+          <div id="sidebar">
+            <div id="explicaciones">
+              <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
+              <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
+              <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
+              <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
+            </div>
+            <div id="leyendaOptions">
+              <button onClick={() => toggleFunction()}>CERRAR</button>
+            </div>
+          </div>
+
         </div>
       }
 
-      {screen === "final" &&
+      {
+        screen === "final" &&
         <Final
           color={colorGanador}
           resultado={resultado}
         />
       }
-    </div>
+    </div >
   );
 }
 
@@ -261,7 +323,7 @@ export default function App() {
 //
 // BUGS
 //
-//  
+//
 //
 //
 // suena el jaque todo el rato si es del rival a mi

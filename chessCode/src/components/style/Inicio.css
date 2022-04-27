@@ -2,7 +2,7 @@
 
 #fondo {
     position: fixed;
-    top: 60px;
+    top: 70px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -111,3 +111,75 @@ h1 {
 #instr {
     border: 1px solid red;
 }
+
+/* From uiverse.io by @NorthFishHasNa */
+.buttonInicio {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #3d405b;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 13px;
+    padding: 15px;
+    width: 140px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    position: absolute;
+   }
+
+
+   #buttonInicio1{
+    bottom: 10px;
+    right: 5px;
+   }
+
+   #buttonInicio2{
+    bottom: 10px;
+    left: 5px;
+   }
+   
+   .buttonInicio span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+   }
+   
+   #buttonInicio1 span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -15px;
+    transition: 0.5s;
+   }
+
+   #buttonInicio2 span:after {
+    content: '«';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -15px;
+    transition: 0.5s;
+   }
+   
+   #buttonInicio1:hover span {
+    padding-right: 15px;
+   }
+
+   #buttonInicio2:hover span {
+    padding-left: 15px;
+   }
+   
+   
+   #buttonInicio1:hover span:after {
+    opacity: 1;
+    right: 0;
+   }
+
+   #buttonInicio2:hover span:after {
+    opacity: 1;
+    left: 0;
+   }

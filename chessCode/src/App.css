@@ -19,24 +19,93 @@
 
 /* ////////////////   HEADER  //////////////////// */
 
+
+#title {
+  margin: auto 30px;
+  /* float: left; */
+  width: 50vw;
+}
+
+#nombre {
+  float: left;
+  margin: auto;
+}
+
 #header {
   border: 2px solid black;
-  height: 60px;
+  height: 70px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #282c34;
 }
 
-#refresh {
+#rightHeader {
+  display: flex;
+}
+
+#headerRefresh {
   margin: 0;
 }
 
-#buttonRefresh {
-  padding: 10px;
+#buttonRefresh,
+#buttonVolume {
+padding-top: 5px;
   border-radius: 5px;
-  font-size: 1.4em;
+  font-size: 1.8em;
   margin-top: 8px;
+  height: 3vw;
+  width: 3.5vw;
+  margin-right: 5px;
 }
+
+#headerVolumen {
+  margin: 0;
+}
+
+#buttonRefresh:hover,
+#buttonVolume:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.072);
+  color: white;
+  box-shadow: inset 0px 0px 5px 1px rgb(255, 255, 255);
+  
+}
+
+
+#volumBar {
+  border-radius: 5px;
+  background: rgb(173, 216, 230);
+  width: 5vw;
+  height: max-content;
+  position: fixed;
+  top: 73px;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  transform: translateY(-5px);
+  opacity: 0;
+  border: 2px solid black;
+  transition: transform .3s, opacity .3s;
+}
+
+#volumBar.active {
+  transform: translateX(0px);
+  opacity: 1;
+}
+
+#volIcon {
+  margin: 10px 0px;
+  margin-left: 6px;
+  font-size: 1.4em;
+}
+
+#volume {
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
+  margin-left: -20px;
+  margin-top: 10px;
+}
+
 
 
 /* ////////////////   MAIN  //////////////////// */
@@ -44,29 +113,46 @@
 
 #main {
   display: flex;
-  border: 2px solid red;
   align-items: center;
 }
 
 
 #mainBoard {
   width: fit-content;
-  border-color: 2px solid red;
 }
 
 
 
-/*//////////// OPTIONS ////////////////// */
+/*////////////   RIGHT PANEL  ////////////////// */
+
+#rightPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 #AllOptions {
-  border: 1px solid blue;
-  margin-left: 30px;
+  margin: 0px 100px 0px 200px;
   flex: auto;
+  width: max-content;
+  height: max-content;
+  border-radius: 10px;
+  background: rgb(88, 88, 228);
+  box-shadow: rgba(0, 0, 0, 0.544) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+#AllOptions:hover {
+  transition: 300ms;
+  box-shadow: rgba(0, 0, 0, 0.7) 0px 5px 7px,
+    rgba(0, 0, 0, 0.5) 0px 10px 14px -5px,
+    rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
 }
 
 #AllOptions>div {
-margin-left: 5vw;
-margin-bottom: 15px;
+  margin: 1vw 1vw 2vw 3vw;
 }
 
 .option {
@@ -77,11 +163,75 @@ margin-bottom: 15px;
 .switchLabel {
   font-size: 2em;
   font-weight: 600;
-  /* background-color: #ffffff86; */
   flex: 1 0 10%;
-  /* margin-right: -3vw; */
 }
 
-.switchButton {
-  flex: 1 0 50%;
+
+#leyendaOptions {
+  margin: 50px 100px 0px 200px;
+}
+
+/* From uiverse.io by @alexroumi */
+#leyendaOptions button {
+  padding: 15px 25px;
+  border: unset;
+  z-index: 1;
+  border-radius: 15px;
+  color: #212121;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 300ms;
+  overflow: hidden;
+}
+
+#leyendaOptions button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 300ms
+}
+
+#leyendaOptions button:hover {
+  color: #e8e8e8;
+}
+
+#leyendaOptions button:hover::before {
+  width: 100%;
+}
+
+
+/*////////////   LEYENDAS  ////////////////// */
+
+
+#sidebar {
+  border-radius: 5px 0px 0px 5px;
+  background: lightblue;
+  width: 60vh;
+  min-height: 700px;
+  height: max-content;
+  position: fixed;
+  top: 75px;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  transform: translateX(500px);
+  opacity: 0;
+  transition: transform .6s, opacity .6s;
+}
+
+#sidebar.active {
+  transform: translateX(0px);
+  opacity: 1;
 }

@@ -191,9 +191,11 @@ export function Board(props) {
                     chessBoard[data.id].piece = data.piece.charAt(0) + "Pawn"
                 }
 
+                //si un peon llega al limite se convierte en reina
                 if (data.piece.indexOf('awn') > -1 && (data.coord[1] === 0 || data.coord[1] === 7)) {
                     chessBoard[data.id].piece = data.piece.charAt(0) + "Queen" + queenNumber.current
                     queenNumber.current = queenNumber.current + 1
+                    sonar("peonReina")
                 }
 
                 //cambio turno
