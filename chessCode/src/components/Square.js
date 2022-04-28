@@ -23,7 +23,7 @@ export const Square = (props) => {
     function getImage(data) {
         for (var i = 0; i < allPieces.length; i++) {
             if (data.indexOf(allPieces[i][1]) > -1) {
-                return allPieces[i][0]
+                // return allPieces[i][0]
             }
         }
         return "error"

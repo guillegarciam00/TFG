@@ -10,7 +10,7 @@ export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenP
             {screenPopUp === "piezas" &&
                 <div id="popUp">
                     <button className="buttonInicio" id="buttonInicio1" onClick={screenPopUpInstr}> <span><b>Instrucciones</b></span></button>
-                    <h1>Qué piezas vas a jugar</h1>
+                    <h1 id="h1Inicio">Qué piezas vas a jugar</h1>
                     <div id="opciones">
                         <div className='backWhite'><div id="whitePieces" onClick={whites}></div></div>
                         <div className='backWhite'><div id="blackPieces" onClick={blacks}></div></div>
@@ -21,7 +21,7 @@ export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenP
             {screenPopUp === "instr" &&
                 <div id="popUp">
                     <button className="buttonInicio" id="buttonInicio2" onClick={screenPopUpPiezas}> <span><b>Elegir piezas</b></span></button>
-                    <h1>Como funciona esta guia</h1>
+                    <h1 id="h1Inicio">Cómo funciona esta guia</h1>
                     <div className='backWhite'>
                         <div id="instr">
                             <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>

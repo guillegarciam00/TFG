@@ -92,25 +92,47 @@ export default function App() {
   }
 
 
-
-
   //controlar los interruptores de los avisos
   function changeOpt(data) {
+    var opacidad = true
     switch (data) {
       case "POSIBLES":
         setOptPosibles(!optPosibles)
+        if (optPosibles)
+          opacidad = true
+        else
+          opacidad = false
         break;
       case "PELIGRO":
         setOptPeligro(!optPeligro);
+        if (optPeligro)
+          opacidad = true
+        else
+          opacidad = false
         break;
       case "JAQUE":
         setOptJaque(!optJaque);
+        if (optJaque)
+          opacidad = true
+        else
+          opacidad = false
         break;
       case "MUERTE":
         setOptMuerte(!optMuerte);
+        if (optMuerte)
+          opacidad = true
+        else
+          opacidad = false
         break;
       default:
     }
+
+    if (opacidad) {
+      document.getElementById(data).style.opacity = 0.2
+    } else {
+      document.getElementById(data).style.opacity = 1
+    }
+
     sonar("switch")
   };
 
@@ -145,7 +167,7 @@ export default function App() {
   for (let i = 0; i < 4; i++) {
     switchers.push(
       <div className='option'>
-        <label className="switchLabel"> {options[i][1]}</label> <br></br>
+        <label className="switchLabel" id={options[i][1]}> {options[i][1]}</label> <br></br>
         <Switch
           className="switchButton"
           checked={options[i][0]}
@@ -214,7 +236,7 @@ export default function App() {
     sonar("end")
     setTimeout(function () {
       window.location.reload()
-  }, 500);
+    }, 500);
 
   }
 
@@ -225,7 +247,7 @@ export default function App() {
       <div id="header">
 
         <div id="title">
-          <h1 id="nombre">TITULO</h1>
+          <h1 id="h1appjs">CHESSGAME</h1>
         </div>
 
         <div id="rightHeader">
@@ -234,11 +256,11 @@ export default function App() {
           </div>
 
           <div id="headerVolumen">
-            <button type="button" id="buttonVolume" onClick={() => toggleVolFunction()}><IoMdVolumeHigh /></button>
+            <button type="button" id="buttonVolume" onClick={() => toggleVolFunction()}>{iconVolume}</button>
           </div>
 
           <div id="volumBar">
-            <input type="range" id="volume" orient="vertical" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
+            <input type="range" className='barra' id="volume" orient="vertical" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
             <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
           </div>
         </div>
@@ -281,14 +303,16 @@ export default function App() {
           </div>
           <div id="rightPanel">
             <div id="AllOptions">
+              <div id="AllOptionsTitle"><h2>AYUDAS</h2></div>
               {switchers.map((payload, i) => (
                 <div key={i}>
                   {payload}
                 </div>
               ))}
+              <br></br>
             </div>
             <div id="leyendaOptions">
-              <button onClick={() => toggleFunction()}>LEYENDAS</button>
+              <button onClick={() => toggleFunction()}>Más información</button>
             </div>
           </div>
 
@@ -300,7 +324,7 @@ export default function App() {
               <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
             </div>
             <div id="leyendaOptions">
-              <button onClick={() => toggleFunction()}>CERRAR</button>
+              <button id="leyendasCerrar" onClick={() => toggleFunction()}>CERRAR</button>
             </div>
           </div>
 

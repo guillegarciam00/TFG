@@ -40,6 +40,12 @@ h1 {
     text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
+#h1Inicio {
+    font-size: 3em;
+    margin-top: .1vw;
+    font-family: 'Orbitron', sans-serif;
+}
+
 
 /* ////////////////   BOTON  //////////////////// */
 
@@ -69,6 +75,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    margin-top: 1.3vw;
 }
 
 #whitePieces,
@@ -127,59 +134,59 @@ h1 {
     cursor: pointer;
     margin: 5px;
     position: absolute;
-   }
+}
 
 
-   #buttonInicio1{
+#buttonInicio1 {
     bottom: 10px;
     right: 5px;
-   }
+}
 
-   #buttonInicio2{
+#buttonInicio2 {
     bottom: 10px;
     left: 5px;
-   }
-   
-   .buttonInicio span {
+}
+
+.buttonInicio span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
-   }
-   
-   #buttonInicio1 span:after {
+}
+
+#buttonInicio1 span:after {
     content: '»';
     position: absolute;
     opacity: 0;
     top: 0;
     right: -15px;
     transition: 0.5s;
-   }
+}
 
-   #buttonInicio2 span:after {
+#buttonInicio2 span:after {
     content: '«';
     position: absolute;
     opacity: 0;
     top: 0;
     left: -15px;
     transition: 0.5s;
-   }
-   
-   #buttonInicio1:hover span {
-    padding-right: 15px;
-   }
+}
 
-   #buttonInicio2:hover span {
+#buttonInicio1:hover span {
+    padding-right: 15px;
+}
+
+#buttonInicio2:hover span {
     padding-left: 15px;
-   }
-   
-   
-   #buttonInicio1:hover span:after {
+}
+
+
+#buttonInicio1:hover span:after {
     opacity: 1;
     right: 0;
-   }
+}
 
-   #buttonInicio2:hover span:after {
+#buttonInicio2:hover span:after {
     opacity: 1;
     left: 0;
-   }
+}
