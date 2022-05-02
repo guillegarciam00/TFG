@@ -130,6 +130,7 @@ export function Board(props) {
                 return i
     }
 
+
     //Funcion principal que controla el movimiento de las piezas 
     function movePiece(data) {
 
@@ -211,8 +212,13 @@ export function Board(props) {
                 movePiece(data)
             }
 
+           
+
             //si despues es mi turno, se calculan las piezas que tengo amenazadas, y todos mis posibles movimientos
             if (turno.current === myColor) {
+                for (var i = 0; i < chessBoard.length; i++) {
+                    chessBoard[i].mal = ""
+                }
                 piezasQueSePuedenComer()
             }
         }
@@ -436,9 +442,6 @@ export function Board(props) {
         var jaqueRival = "b"
         for (let count = 0; count < 2; count++) {
             if (optJaque) {
-                var jaquePosicionInicial
-                var jaquePosicionFinal
-                var jaqueking
                 for (let i = 0; i < chessBoard.length; i++) {
                     if (chessBoard[i].piece.charAt(0) === jaqueColor) {
                         var array = []
@@ -480,15 +483,10 @@ export function Board(props) {
     }
 
     function posibleJaque(inicial) {
-        chessBoard[inicial.id].jaque = "piezaJaque"
+        if (chessBoard[inicial.id].mal !== "rivalJaque")
+            chessBoard[inicial.id].jaque = "piezaJaque"
     }
-
-    function hacerJaque(inicial, final, king) {
-        chessBoard[inicial.id].jaque = "piezaJaque"
-        chessBoard[final.id].selected = "casillaJaque"
-        setJaque([inicial.id, final.id])
-        // chessBoard[king.id].selected = "jaque"
-    }
+    
 
     //piezas que me puede comer el rival en su proximo turno
     function piezasQueSePuedenComer() {
@@ -508,6 +506,7 @@ export function Board(props) {
                     } else {
                         if (optMuerte)
                             //Piezas que me pueden comer
+                            if(opt)
                             chessBoard[chessBoard[array[j]].id].mal = "malo"
                         // chessBoard[chessBoard[array[j]].id].eliminar = "comer"
                     }
