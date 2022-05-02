@@ -30,6 +30,9 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
+    box-shadow: rgba(0, 0, 0, 0.544) 0px 0px 15px,
+    rgba(0, 0, 0, 0.3) 0px 0px 5px 3px,
+    rgba(0, 0, 0, 0.2) 0px 0px 15px inset;
 }
 
 
@@ -44,6 +47,7 @@
 
 .cementerio {
     border: 1px solid black;
+    border-radius: 5px;
     margin: 1vw 0;
     width: 15vw;
     height: 10vw;
@@ -54,4 +58,7 @@
     align-items: center;
     /* align-content: center; */
     padding: -5px;
+    box-shadow: rgba(0, 0, 0, 0.544) 8px 10px 10px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 10px inset;
 }

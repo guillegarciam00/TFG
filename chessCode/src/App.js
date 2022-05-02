@@ -162,7 +162,7 @@ export default function App() {
 
 
   //Generar botones de opciones
-  const options = [[optPosibles, "POSIBLES"], [optPeligro, "PELIGRO"], [optJaque, "JAQUE"], [optMuerte, "MUERTE"]]
+  const options = [[optPosibles, "POSIBLES"], [optPeligro, "PELIGRO"], [optMuerte, "MUERTE"], [optJaque, "JAQUE"]]
   var switchers = []
   for (let i = 0; i < 4; i++) {
     switchers.push(
@@ -230,6 +230,7 @@ export default function App() {
   function toggleVolFunction() {
     var element = document.getElementById("volumBar");
     element.classList.toggle("active");
+    sonar("changeVolume")
   }
 
   function Refresh() {
@@ -318,6 +319,7 @@ export default function App() {
 
           <div id="sidebar">
             <div id="explicaciones">
+              <h2 id="guiaTitle">GUIA</h2>
               <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
               <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
               <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
