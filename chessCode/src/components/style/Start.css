@@ -27,7 +27,7 @@
     padding: 50px;
     z-index: 1000;
     border-radius: 8px;
-    background: url("../images/inicio/background.png");
+    background: url("../images/start/background.png");
     background-size: contain;
     z-index: 50;
 
@@ -106,7 +106,7 @@ h1 {
 
 #whitePieces {
 
-    background: url("../images/inicio/white.png") no-repeat;
+    background: url("../images/start/white.png") no-repeat;
     background-size: 93%;
     background-color: rgba(0, 0, 0, 0.411);
     background-position: center;
@@ -115,7 +115,7 @@ h1 {
 
 
 #blackPieces {
-    background: url("../images/inicio/black.png") no-repeat;
+    background: url("../images/start/black.png") no-repeat;
     background-size: 93%;
     background-color: rgba(0, 0, 0, 0.411);
     background-position: center;

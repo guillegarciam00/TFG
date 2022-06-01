@@ -1,8 +1,8 @@
 import { React } from 'react'
-import "./style/Inicio.css";
+import "./style/Start.css";
 
 
-export function Inicio({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPopUpInstr }) {
+export function Start({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPopUpInstr }) {
     return (
         <>
             <div id="fondo"> </div>

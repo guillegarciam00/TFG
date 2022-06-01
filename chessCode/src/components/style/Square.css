@@ -59,7 +59,7 @@
 
 /* ////////////////   POSIBLES  //////////////////// */
 
-.movimiento {
+.movement {
     position: absolute;
     margin: 0;
     width: 2vw;
@@ -69,14 +69,14 @@
 #selected {
     /* background-color: rgb(100, 187, 209);
     box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0); */
-    background: url("../images/avisos/selected.png") center no-repeat;
+    background: url("../images/notif/selected.png") center no-repeat;
     background-size: 100%;
     /* opacity: 0.7; */
 }
 
 /* ////////////////   JAQUE  //////////////////// */
 
-.jaque {
+.check {
     position: absolute;
     margin: 0;
     width: 3vw;
@@ -84,7 +84,7 @@
 }
 
 #piezaJaque {
-    /* background: url(../images/avisos/shine.png) center no-repeat; */
+    /* background: url(../images/notif/shine.png) center no-repeat; */
     -webkit-box-shadow: 0 0 20px 13px rgb(246 255 0 / 80%);
     background-size: 100%;
     opacity: 0.7;
@@ -108,7 +108,7 @@
 
 /* ////////////////   RIVAL JAQUE  //////////////////// */
 
-#rivalJaque {
+#rivalCheck {
     background-color: rgba(238, 255, 0);
     box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
 }
@@ -116,7 +116,7 @@
 
 /* //////////////////   ELIMINAR  ////////////////////// */
 
-.comer {
+.eat {
     position: absolute;
     margin: 0;
     width: 3vw;
@@ -124,7 +124,7 @@
 }
 
 #true {
-    background: url("../images/avisos/comer.png") center no-repeat;
+    background: url("../images/notif/comer.png") center no-repeat;
     background-size: 100%;
     opacity: 0.7;
 }
@@ -132,7 +132,7 @@
 
 /* ////////////////   PELIGROSAS  //////////////////// */
 
-.peligrosa {
+.warning {
     position: absolute;
     margin-bottom: -2.5%;
     margin-left: 2.5%;
@@ -141,7 +141,7 @@
 }
 
 #peligro {
-    background: url("../images/avisos/red.png") bottom right no-repeat;
+    background: url("../images/notif/red.png") bottom right no-repeat;
     background-size: 100%;
 }
 

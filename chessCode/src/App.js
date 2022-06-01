@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Board } from "./components/Board";
-import { Inicio } from "./components/Inicio";
+import { Start } from "./components/Start";
 import { Final } from "./components/Final";
 import Switch from "react-switch";
 import { IoMdVolumeOff, IoMdVolumeHigh } from "react-icons/io";
@@ -25,9 +25,9 @@ import SoundPeonReina from './components/sounds/peonReina.wav';
 export default function App() {
 
   const [optPosibles, setOptPosibles] = useState(true);
-  const [optPeligro, setOptPeligro] = useState(true);
-  const [optJaque, setOptJaque] = useState(true);
-  const [optMuerte, setOptMuerte] = useState(true);
+  const [optWarning, setOptPeligro] = useState(true);
+  const [optCheck, setOptJaque] = useState(true);
+  const [optDeath, setOptMuerte] = useState(true);
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
 
@@ -38,7 +38,7 @@ export default function App() {
 
   const [appId, setAppId] = useState("inicioBack");
 
-  const [screen, setScreen] = useState("inicio");
+  const [screen, setScreen] = useState("start");
   const [screenPopUp, setScrenPopUp] = useState("piezas");
 
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
@@ -60,17 +60,17 @@ export default function App() {
 
 
 
-  function sonar(data) {
+  function sound(data) {
     switch (data) {
       case "start": playSoundStart()
         break;
       case "mover": playSoundMover()
         break;
-      case "comer": playSoundComer()
+      case "eat": playSoundComer()
         break;
       case "switch": playSoundSwitch()
         break;
-      case "jaque": playSoundJaque()
+      case "check": playSoundJaque()
         break;
       case "end": playSoundEnd()
         break;
@@ -94,51 +94,51 @@ export default function App() {
 
   //controlar los interruptores de los avisos
   function changeOpt(data) {
-    var opacidad = true
+    var opacity = true
     switch (data) {
       case "POSIBLES":
         setOptPosibles(!optPosibles)
         if (optPosibles)
-          opacidad = true
+          opacity = true
         else
-          opacidad = false
+          opacity = false
         break;
       case "PELIGRO":
-        setOptPeligro(!optPeligro);
-        if (optPeligro)
-          opacidad = true
+        setOptPeligro(!optWarning);
+        if (optWarning)
+          opacity = true
         else
-          opacidad = false
+          opacity = false
         break;
       case "JAQUE":
-        setOptJaque(!optJaque);
-        if (optJaque)
-          opacidad = true
+        setOptJaque(!optCheck);
+        if (optCheck)
+          opacity = true
         else
-          opacidad = false
+          opacity = false
         break;
       case "MUERTE":
-        setOptMuerte(!optMuerte);
-        if (optMuerte)
-          opacidad = true
+        setOptMuerte(!optDeath);
+        if (optDeath)
+          opacity = true
         else
-          opacidad = false
+          opacity = false
         break;
       default:
     }
 
-    if (opacidad) {
+    if (opacity) {
       document.getElementById(data).style.opacity = 0.2
     } else {
       document.getElementById(data).style.opacity = 1
     }
 
-    sonar("switch")
+    sound("switch")
   };
 
   //Se elije color y empieza la partida
   function startGame(mine, rival) {
-    sonar("start")
+    sound("start")
     setMyColor(mine)
     setRivalColor(rival)
     setScreen("main")
@@ -147,13 +147,13 @@ export default function App() {
 
   //cambiar la pantalla del pop-up
   function changeScreenPopUp(data) {
-    sonar("menuButton")
+    sound("menuButton")
     setScrenPopUp(data)
   }
 
   //Una vez que se coma al rey, termina la partida
   function endGame(color) {
-    sonar("end")
+    sound("end")
     color === "w" ? setColorganador("b") : setColorganador("w")
     color === myColor ? setResultado("derrota") : setResultado("victoria")
     setScreen("final")
@@ -162,7 +162,7 @@ export default function App() {
 
 
   //Generar botones de opciones
-  const options = [[optPosibles, "POSIBLES"], [optPeligro, "PELIGRO"], [optMuerte, "MUERTE"], [optJaque, "JAQUE"]]
+  const options = [[optPosibles, "POSIBLES"], [optWarning, "PELIGRO"], [optDeath, "MUERTE"], [optCheck, "JAQUE"]]
   var switchers = []
   for (let i = 0; i < 4; i++) {
     switchers.push(
@@ -187,9 +187,9 @@ export default function App() {
   }
 
 
-  ///////////////////
-  //  CHANGE VOLUME
-  ///////////////////
+
+  //Cambiar volumen
+
   function changeVolume(data) {
     if (data === "iconVolume") {
       if (volume.current < 0.1) {
@@ -209,7 +209,7 @@ export default function App() {
       }
     }
     setTimeout(function () {
-      sonar("changeVolume")
+      sound("changeVolume")
     }, 150);
   }
 
@@ -224,21 +224,20 @@ export default function App() {
   function toggleFunction() {
     var element = document.getElementById("sidebar");
     element.classList.toggle("active");
-    sonar("menuButton2")
+    sound("menuButton2")
   }
 
   function toggleVolFunction() {
     var element = document.getElementById("volumBar");
     element.classList.toggle("active");
-    sonar("changeVolume")
+    sound("changeVolume")
   }
 
-  function Refresh() {
-    sonar("end")
+  function refresh() {
+    sound("end")
     setTimeout(function () {
       window.location.reload()
     }, 500);
-
   }
 
   //Parte renderizable
@@ -253,7 +252,7 @@ export default function App() {
 
         <div id="rightHeader">
           <div id="headerRefresh">
-            <button type="button" id="buttonRefresh" onClick={() => Refresh()}><BiRefresh /></button>
+            <button type="button" id="buttonRefresh" onClick={() => refresh()}><BiRefresh /></button>
           </div>
 
           <div id="headerVolumen">
@@ -273,10 +272,10 @@ export default function App() {
 
       </div>
 
-      {screen === "inicio" &&
-        <div id="inicio">
+      {screen === "start" &&
+        <div id="start">
           <>
-            <Inicio
+            <Start
               whites={() => startGame("w", "b")}
               blacks={() => startGame("b", "w")}
               screenPopUp={screenPopUp}
@@ -293,13 +292,13 @@ export default function App() {
           <div id="mainBoard">
             <Board
               optPosibles={optPosibles}
-              optPeligro={optPeligro}
-              optJaque={optJaque}
-              optMuerte={optMuerte}
+              optWarning={optWarning}
+              optCheck={optCheck}
+              optDeath={optDeath}
               myColor={myColor}
               rivalColor={rivalColor}
               endGame={endGame}
-              sonar={sonar}
+              sound={sound}
             />
           </div>
           <div id="rightPanel">
@@ -352,7 +351,7 @@ export default function App() {
 //
 //
 //
-// suena el jaque todo el rato si es del rival a mi
+// suena el check todo el rato si es del rival a mi
 //
 //
 //
