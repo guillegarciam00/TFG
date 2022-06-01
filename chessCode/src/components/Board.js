@@ -212,7 +212,7 @@ export function Board(props) {
                 movePiece(data)
             }
 
-           
+
 
             //si despues es mi turno, se calculan las piezas que tengo amenazadas, y todos mis posibles movimientos
             if (turno.current === myColor) {
@@ -432,18 +432,17 @@ export function Board(props) {
                 endGame(piece.charAt(0))
             }, 2000);
         }
-
     }
 
     //Calcula si tengo posibilidad de hacer jaque en la proxima jugada
     function isJaque() {
         limpiarisJaque()
-        var jaqueColor = "w"
+        var checkColor = "w"
         var jaqueRival = "b"
         for (let count = 0; count < 2; count++) {
             if (optJaque) {
                 for (let i = 0; i < chessBoard.length; i++) {
-                    if (chessBoard[i].piece.charAt(0) === jaqueColor) {
+                    if (chessBoard[i].piece.charAt(0) === checkColor) {
                         var array = []
                         array = array.concat((posiblesMovimientos(chessBoard[i])).death)
                         array = array.concat((posiblesMovimientos(chessBoard[i])).empty)
@@ -465,7 +464,7 @@ export function Board(props) {
                     }
                 }
             }
-            jaqueColor = "b"
+            checkColor = "b"
             jaqueRival = "w"
         }
     }
@@ -486,7 +485,7 @@ export function Board(props) {
         if (chessBoard[inicial.id].mal !== "rivalJaque")
             chessBoard[inicial.id].jaque = "piezaJaque"
     }
-    
+
 
     //piezas que me puede comer el rival en su proximo turno
     function piezasQueSePuedenComer() {
@@ -506,9 +505,7 @@ export function Board(props) {
                     } else {
                         if (optMuerte)
                             //Piezas que me pueden comer
-                            if(opt)
                             chessBoard[chessBoard[array[j]].id].mal = "malo"
-                        // chessBoard[chessBoard[array[j]].id].eliminar = "comer"
                     }
                 }
 
