@@ -9,7 +9,6 @@
 }
 
 #GameBoard {
-
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -38,14 +37,14 @@
 
 /* ////////////////   CEMENTERIO  //////////////////// */
 
-#cementerios {
+#cemeteries {
     width: 20vw;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
 }
 
-.cementerio {
+.cemetery {
     border: 1px solid black;
     border-radius: 5px;
     margin: 1vw 0;
