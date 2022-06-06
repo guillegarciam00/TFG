@@ -3,7 +3,8 @@
   min-height: 100vh;
 }
 
-html,body{
+html,
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -161,12 +162,13 @@ html,body{
 
 
 #AllOptions {
-  margin: 0px 100px 0px 200px;
+  margin: 0px 0px 0px 140px;
   flex: auto;
   width: max-content;
   height: max-content;
   border-radius: 10px;
-  background: rgba(88, 88, 228, 0.944);
+  background-color: #282c34;
+  /* background: rgba(88, 88, 228, 0.944); */
   box-shadow: rgba(0, 0, 0, 0.544) 8px 10px 10px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
     rgba(0, 0, 0, 0.2) 0px -3px 10px inset;
@@ -178,7 +180,8 @@ html,body{
     rgba(0, 0, 0, 0.4) 0px -3px 0px inset;
 } */
 
-#AllOptionsTitle{
+#AllOptionsTitle {
+  color: white;
   font-size: 2em;
   text-decoration: underline;
   font-family: 'Orbitron', sans-serif;
@@ -189,6 +192,7 @@ html,body{
 }
 
 .option {
+
   display: flex;
   align-items: center;
   margin-bottom: -1.5vw;
@@ -196,6 +200,7 @@ html,body{
 }
 
 .switchLabel {
+  color: white;
   font-size: 2em;
   font-weight: 600;
   flex: 1 0 10%;
@@ -203,12 +208,12 @@ html,body{
   font-family: 'Jost', sans-serif;
 }
 
-.switchButton{
+.switchButton {
   margin-right: -1vw;
 }
 
 #leyendaOptions {
-  margin: 50px 100px 0px 200px;
+  margin: 50px 100px 0px 250px;
 }
 
 #leyendaOptions button {
@@ -279,22 +284,34 @@ html,body{
   opacity: 1;
 }
 
+#guiaTitle {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-size: 3em;
+  color: white;
+  text-decoration: underline;
+  font-family: 'Orbitron', sans-serif;
+}
 
 
-#leyendasCerrar{
+#guiaImagen {
+  background: url("./components/images/notif/all.png");
+  background-size: 96%;
+  background-repeat: no-repeat;
+  width: 450px;
+  height: 600px;
+  margin: -30px 0px -130px 20px;
+}
+
+
+#leyendasCerrar {
   position: fixed;
   bottom: 0;
+  margin-left: -90px;
 }
 
 
-#guiaTitle{
-margin-top: 30px;
-margin-bottom: 50px;
-font-size: 3em;
-color: white;
-text-decoration: underline;
-font-family: 'Orbitron', sans-serif;
-}
+
 
 
 /* 

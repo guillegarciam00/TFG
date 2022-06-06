@@ -8,16 +8,10 @@ export function Final({ color, resultado }) {
 
             <div id="popUp">
 
-                <h1>{resultado}</h1>
-                <h2>{color}</h2>
-
+                {/* <h1>{resultado}</h1>
+                <h2>{color}</h2> */}
+                <div className="finalImage" id={resultado}></div>
             </div>
-
         </>
-
     )
 }
-
-
-
-

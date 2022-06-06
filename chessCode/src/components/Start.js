@@ -22,14 +22,8 @@ export function Start({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPo
                 <div id="popUp">
                     <button className="buttonInicio" id="buttonInicio2" onClick={screenPopUpPiezas}> <span><b>Elegir piezas</b></span></button>
                     <h1 id="h1Inicio">Cómo funciona esta guia</h1>
-                    <div className='backWhite'>
-                        <div id="instr">
-                            <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
-                            <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
-                            <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
-                            <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
-                        </div>
-                    </div>
+              
+                    <div className="startImage"></div>
                 </div>
 
 

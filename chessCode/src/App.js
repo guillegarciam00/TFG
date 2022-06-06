@@ -26,12 +26,13 @@ export default function App() {
 
   const [optPosibles, setOptPosibles] = useState(true);
   const [optWarning, setOptPeligro] = useState(true);
+  const [optEatables, setOptEatables] = useState(true);
   const [optCheck, setOptJaque] = useState(true);
   const [optDeath, setOptMuerte] = useState(true);
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
 
-  const [tableColor, setTableColor] = useState("default");
+  // const [tableColor, setTableColor] = useState("default");
 
   const [colorGanador, setColorganador] = useState("");
   const [resultado, setResultado] = useState("");
@@ -41,10 +42,19 @@ export default function App() {
   const [screen, setScreen] = useState("start");
   const [screenPopUp, setScrenPopUp] = useState("piezas");
 
+
+
+  //Botones
+  const buttonPosibles = "Casillas Posibles"
+  const buttonWarning = "Casillas Peligrosas"
+  const buttonDeath = "Piezas en Peligro"
+  const buttonEatables = "Piezas Comibles"
+  const buttonCheck = "Jaque y Jaquemate"
+
+  //Sonidos
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
   const volume = useRef(0.5)
 
-  //Sonidos
   const [playSoundStart] = useSound(SoundStart, { volume: volume.current });
   const [playSoundMover] = useSound(SoundMover, { volume: volume.current });
   const [playSoundComer] = useSound(SoundComer, { volume: volume.current });
@@ -91,33 +101,39 @@ export default function App() {
     }
   }
 
-
   //controlar los interruptores de los avisos
   function changeOpt(data) {
     var opacity = true
     switch (data) {
-      case "POSIBLES":
+      case buttonPosibles:
         setOptPosibles(!optPosibles)
         if (optPosibles)
           opacity = true
         else
           opacity = false
         break;
-      case "PELIGRO":
+      case buttonWarning:
         setOptPeligro(!optWarning);
         if (optWarning)
           opacity = true
         else
           opacity = false
         break;
-      case "JAQUE":
+      case buttonCheck:
         setOptJaque(!optCheck);
         if (optCheck)
           opacity = true
         else
           opacity = false
         break;
-      case "MUERTE":
+      case buttonEatables:
+        setOptEatables(!optEatables);
+        if (optEatables)
+          opacity = true
+        else
+          opacity = false
+        break;
+      case buttonDeath:
         setOptMuerte(!optDeath);
         if (optDeath)
           opacity = true
@@ -160,11 +176,10 @@ export default function App() {
     setAppId("inicioBack")
   }
 
-
   //Generar botones de opciones
-  const options = [[optPosibles, "POSIBLES"], [optWarning, "PELIGRO"], [optDeath, "MUERTE"], [optCheck, "JAQUE"]]
+  const options = [[optPosibles, buttonPosibles], [optEatables, buttonEatables], [optWarning, buttonWarning], [optDeath, buttonDeath], [optCheck, buttonCheck]]
   var switchers = []
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < options.length; i++) {
     switchers.push(
       <div className='option'>
         <label className="switchLabel" id={options[i][1]}> {options[i][1]}</label> <br></br>
@@ -214,11 +229,11 @@ export default function App() {
   }
 
 
-  function changeColor() {
-    //   if(tableColor === "default"){
-    //     setTableColor("brown")
-    //   }
-  }
+  // function changeColor() {
+  //     if(tableColor === "default"){
+  //       setTableColor("brown")
+  //     }
+  // }
 
 
   function toggleFunction() {
@@ -295,6 +310,7 @@ export default function App() {
               optWarning={optWarning}
               optCheck={optCheck}
               optDeath={optDeath}
+              optEatables={optEatables}
               myColor={myColor}
               rivalColor={rivalColor}
               endGame={endGame}
@@ -319,10 +335,7 @@ export default function App() {
           <div id="sidebar">
             <div id="explicaciones">
               <h2 id="guiaTitle">GUIA</h2>
-              <p>~~ ~~~ ~~~~ ~~ ~~ ~~~ ~~~~ ~~</p><br></br>
-              <p>~~~ ~~~ ~~~~ ~ ~~ ~~~ ~~~~ ~~</p><br></br>
-              <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
-              <p>~~ ~~~~  ~~~ ~~ ~~ ~~~~  ~~~ ~~</p><br></br>
+              <div id="guiaImagen"></div>
             </div>
             <div id="leyendaOptions">
               <button id="leyendasCerrar" onClick={() => toggleFunction()}>CERRAR</button>

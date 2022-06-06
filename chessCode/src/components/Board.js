@@ -7,7 +7,7 @@ import { Square } from './Square';
 export function Board(props) {
 
     //Variables del componente padre
-    const { optPosibles, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound } = props
+    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound } = props
 
     //Constantes
     const [chessBoard, setChessBoard] = useState([]);
@@ -290,7 +290,8 @@ export function Board(props) {
                 chessBoard[array.empty[i]].selected = "selected"
             }
             for (let i = 0; i < array.death.length; i++) {
-                chessBoard[array.death[i]].eat = "true"
+                if (optEatables)
+                    chessBoard[array.death[i]].eat = "true"
             }
         }
     }
