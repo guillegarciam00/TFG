@@ -32,8 +32,9 @@ export const Square = (props) => {
     return (
         <div key={props.id} className={payload.color} id={payload.mal} onClick={() => props.movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
-            <span id="hide" >{payload.id}</span>
-            <span id="hide">{payload.coord[0]},{payload.coord[1]}</span>
+            <span id="id" >{payload.id}</span>
+            <span id="coordNum" className="coord">{payload.coordNum}</span>
+            <span id="coordLet" className="coord">{payload.coordLet}</span>
             <div className='check' id={payload.check}></div>
             <div className='eat' id={payload.eat}></div>
             <div className='movement' id={payload.selected}></div>

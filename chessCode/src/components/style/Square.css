@@ -39,8 +39,47 @@
     margin-top: 70%;
     position: absolute;
     margin-bottom: 66.8%;
-    margin-left: -2%;
+    margin-left: 3%;
 }
+
+/* ////////////////   COORD  //////////////////// */
+
+.coord {
+    font-size: 0.8em;
+    margin-top: 70%;
+    position: absolute;
+    font-weight: bolder;
+}
+
+#coordNum {
+    margin-bottom: 73%;
+    margin-left: -3%;
+}
+
+#coordLet {
+    margin-bottom: 66%;
+    margin-left: -3%;
+}
+
+/*
+#coordNum:nth-child(odd) {
+    color: #769655; 
+    color: red
+}
+#coordNum:nth-child(even) {
+    color: #eeeed2; 
+    color: blue
+}
+
+#coordLet:nth-child(odd) {
+    color: #769655; 
+    color: red
+}
+#coordLet:nth-child(n+3) {
+    color: #eeeed2; 
+    color: blue
+}
+*/
 
 
 /* ////////////////   PIEZAS  //////////////////// */
@@ -108,7 +147,7 @@
 
 /* ////////////////   RIVAL JAQUE  //////////////////// */
 
-#rivalCheck {
+#checkmate {
     background-color: rgba(238, 255, 0);
     box-shadow: inset 0px 0px 0px .5px rgb(0, 0, 0);
 }

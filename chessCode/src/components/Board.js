@@ -55,13 +55,23 @@ export function Board(props) {
     useEffect(() => {
 
         var auxArray = []
+        var coorX = 0
+        var coorY = 0
+        var aux = 1
         var lett = 0
         var numb = 0
-        var aux = 1
-        // var letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
-        // var numbers = [8, 7, 6, 5, 4, 3, 2, 1]
-        var letters = [0, 1, 2, 3, 4, 5, 6, 7]
-        var numbers = [7, 6, 5, 4, 3, 2, 1, 0]
+        var num = 0
+
+        var coordX = [0, 1, 2, 3, 4, 5, 6, 7]
+        var coordY = [7, 6, 5, 4, 3, 2, 1, 0]
+
+        if (myColor === "w") {
+            var letters = ["a", "b", "c", "d", "e", "f", "g", "h", ""]
+            var numbers = ["8", "7", "6", "5", "4", "3", "2", "1", ""]
+        } else {
+            letters = ["h", "g", "f", "e", "d", "c", "b", "a", ""]
+            numbers = ["1", "2", "3", "4", "5", "6", "7", "8", ""]
+        }
 
         var allPieces = ["wRook", "wKnight", "wBishop", "wKing", "wQueen", "wBishop", "wKnight", "wRook", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn", "wPawnn",
             "", "", "", "", "", "", "", "",
@@ -73,10 +83,21 @@ export function Board(props) {
         for (let i = 0; i < 64; i++) {
 
             if (i % 8 === 0 && i !== 0) {
+                coorX = 0
+                coorY++
+                aux--
+
                 lett = 0
                 numb++
-                aux--
+                num++
             }
+
+            if (i < 56)
+                lett = 8
+
+            if (i % 8 !== 0)
+                numb = 8
+
 
             if (myColor === "w") {
                 var allPi = allPieces.pop()
@@ -90,7 +111,9 @@ export function Board(props) {
                     "id": i,
                     "color": "light_square",
                     "selected": "none",
-                    "coord": [letters[lett], numbers[numb]],
+                    "coord": [coordX[coorX], coordY[coorY]],
+                    "coordLet": letters[lett],
+                    "coordNum": numbers[numb],
                     "image": "",
                     "piece": allPi,
                     "check": "",
@@ -105,7 +128,9 @@ export function Board(props) {
                     "id": i,
                     "color": "dark_square",
                     "selected": "none",
-                    "coord": [letters[lett], numbers[numb]],
+                    "coord": [coordX[coorX], coordY[coorY]],
+                    "coordLet": letters[lett],
+                    "coordNum": numbers[numb],
                     "image": "",
                     "piece": allPi,
                     "check": "",
@@ -116,7 +141,9 @@ export function Board(props) {
                 auxArray.push(square)
             }
             aux++
+            coorX++
             lett++
+            numb = num
         }
         setChessBoard(auxArray)
     }, []);
@@ -132,7 +159,7 @@ export function Board(props) {
     //Funcion principal que controla el movimiento de las piezas 
     function movePiece(data) {
 
-        cleanPosiblesWarningsEatables()
+        cleanAll()
 
         //Primera parte del movimiento al clickar en una pieza
         if (moving.current === 0) {
@@ -296,12 +323,13 @@ export function Board(props) {
         }
     }
 
-    function cleanPosiblesWarningsEatables() {
+    function cleanAll() {
         for (var i = 0; i < chessBoard.length; i++) {
             chessBoard[i].selected = ""
             chessBoard[i].warning = ""
             chessBoard[i].eat = ""
             chessBoard[i].check = ""
+            chessBoard[i].mal = ""
         }
     }
 
@@ -481,7 +509,7 @@ export function Board(props) {
     }
 
     function posibleCheck(inicial) {
-        if (chessBoard[inicial.id].mal !== "rivalCheck")
+        if (chessBoard[inicial.id].mal !== "checkmate")
             chessBoard[inicial.id].check = "piezaJaque"
     }
 
@@ -496,8 +524,8 @@ export function Board(props) {
                 for (let j = 0; j < array.length; j++) {
                     if (chessBoard[array[j]].piece === myColor + "King") {
                         //Jaque del rival
-                        chessBoard[i].mal = "rivalCheck"
-                        chessBoard[array[j]].mal = "rivalCheck"
+                        chessBoard[i].mal = "checkmate"
+                        chessBoard[array[j]].mal = "checkmate"
                         //////////////////////////////////////////////////////////////////////
                         sound("check")
                         //////////////////////////////////////////////////////////////////////
@@ -515,9 +543,10 @@ export function Board(props) {
                     if (chessBoard[array[j]].piece === rivalColor + "King") {
 
                         chessBoard[i].check = ""
-                        chessBoard[i].mal = "rivalCheck"
-                        chessBoard[array[j]].mal = "rivalCheck"
-                        // hacer que suene "check" si me muevo a esa posicion
+                        chessBoard[i].mal = "checkmate"
+                        chessBoard[array[j]].mal = "checkmate"
+                        console.log(i, array[j])
+                        //////////////////////// hacer que suene "check" si me muevo a esa posicion
                     } else {
                         chessBoard[array[j]].selected = ""
                         // chessBoard[array[j]].eat = "true"

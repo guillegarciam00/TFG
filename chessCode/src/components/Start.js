@@ -19,14 +19,12 @@ export function Start({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPo
             }
 
             {screenPopUp === "instr" &&
-                <div id="popUp">
+                <div id="popUp" className='popUpInstr'>
                     <button className="buttonInicio" id="buttonInicio2" onClick={screenPopUpPiezas}> <span><b>Elegir piezas</b></span></button>
                     <h1 id="h1Inicio">Cómo funciona esta guia</h1>
-              
+
                     <div className="startImage"></div>
                 </div>
-
-
             }
 
         </>
