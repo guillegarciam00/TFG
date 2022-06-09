@@ -30,7 +30,7 @@ export const Square = (props) => {
     }
 
     return (
-        <div key={props.id} className={payload.color} id={payload.mal} onClick={() => props.movePiece(payload)}>
+        <div key={props.id} className={payload.color} id={payload.squareColor} onClick={() => props.movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
             <span id="id" >{payload.id}</span>
             <span id="coordNum" className="coord">{payload.coordNum}</span>

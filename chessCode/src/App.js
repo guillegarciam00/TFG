@@ -32,6 +32,9 @@ export default function App() {
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
 
+  const [dark, setDark] = useState("dark_square");
+  const [light, setLight] = useState("light_square");
+
   // const [tableColor, setTableColor] = useState("default");
 
   const [colorGanador, setColorganador] = useState("");
@@ -101,54 +104,33 @@ export default function App() {
     }
   }
 
+
   //controlar los interruptores de los avisos
   function changeOpt(data) {
-    var opacity = true
+    var dataStyle = document.getElementById(data).style
     switch (data) {
       case buttonPosibles:
         setOptPosibles(!optPosibles)
-        if (optPosibles)
-          opacity = true
-        else
-          opacity = false
+        optPosibles ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonWarning:
         setOptPeligro(!optWarning);
-        if (optWarning)
-          opacity = true
-        else
-          opacity = false
+        optWarning ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonCheck:
         setOptJaque(!optCheck);
-        if (optCheck)
-          opacity = true
-        else
-          opacity = false
+        optCheck ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonEatables:
         setOptEatables(!optEatables);
-        if (optEatables)
-          opacity = true
-        else
-          opacity = false
+        optEatables ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonDeath:
         setOptMuerte(!optDeath);
-        if (optDeath)
-          opacity = true
-        else
-          opacity = false
+        optDeath ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       default:
     }
-
-    if (opacity) {
-      document.getElementById(data).style.opacity = 0.2
-    } else {
-      document.getElementById(data).style.opacity = 1
-    }
-
     sound("switch")
   };
 
@@ -190,7 +172,7 @@ export default function App() {
           offColor="#DF0000"
           // onHandleColor="#2693e6"
           handleDiameter={28}
-          // uncheckedIcon={false}
+          uncheckedIcon={false}
           // checkedIcon={false}
           boxShadow="0px 1px 5px rgba(0, 0, 0, 0.5)"
           activeBoxShadow="0px 0px 1px 4px rgba(0, 0, 0, 0.2)"
@@ -201,10 +183,7 @@ export default function App() {
     )
   }
 
-
-
   //Cambiar volumen
-
   function changeVolume(data) {
     if (data === "iconVolume") {
       if (volume.current < 0.1) {
@@ -255,6 +234,13 @@ export default function App() {
     }, 500);
   }
 
+  function undo() {
+    sound("end")
+    setDark("dark_square_brown")
+    setLight("light_square_brown")
+    //llamar funcion hijo
+  }
+
   //Parte renderizable
   return (
     <div className="App" id={appId}>
@@ -266,6 +252,11 @@ export default function App() {
         </div>
 
         <div id="rightHeader">
+
+          <div id="headerVolumen">
+            <button type="button" id="buttonVolume" onClick={() => undo()}>{"C"}</button>
+          </div>
+
           <div id="headerRefresh">
             <button type="button" id="buttonRefresh" onClick={() => refresh()}><BiRefresh /></button>
           </div>
@@ -315,6 +306,8 @@ export default function App() {
               rivalColor={rivalColor}
               endGame={endGame}
               sound={sound}
+              dark={dark}
+              light={light}
             />
           </div>
           <div id="rightPanel">
