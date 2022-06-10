@@ -7,7 +7,7 @@ import { Square } from './Square';
 export function Board(props) {
 
     //Variables del componente padre
-    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, dark, light } = props
+    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, dark, light, chessPieces} = props
 
     //Constantes
     const [chessBoard, setChessBoard] = useState([]);
@@ -297,8 +297,6 @@ export function Board(props) {
                 chessBoard[array.empty[i]].selected = "selected"
             }
             for (let i = 0; i < array.death.length; i++) {
-                console.log(kingPosition.current)
-                console.log(array.death[i])
                 if (optEatables)
                     kingPosition.current === array.death[i] ? chessBoard[array.death[i]].eat = "trueKing" : chessBoard[array.death[i]].eat = "true"
             }
@@ -312,17 +310,6 @@ export function Board(props) {
             chessBoard[i].eat = ""
             chessBoard[i].check = ""
             chessBoard[i].squareColor = ""
-
-            if (i===53)
-                console.log(chessBoard[i].color)
-
-            if (chessBoard[i].color === "dark_square" || chessBoard[i].color === "dark_square_brown") {
-                chessBoard[i].color = dark
-            } else {
-                chessBoard[i].color = light
-            }
-            setWord("c")
-
         }
     }
 
@@ -561,6 +548,7 @@ export function Board(props) {
                             key={payload.id}
                             payload={payload}
                             movePiece={movePiece}
+                            chessPieces={chessPieces}
                         />
                     ))}
                 </div>
@@ -571,6 +559,7 @@ export function Board(props) {
                             <div key={i}>
                                 <Deaths
                                     piece={payload}
+                                    chessPieces={chessPieces}
                                 />
                             </div>
                         ))}
@@ -581,6 +570,7 @@ export function Board(props) {
                             <div key={i}>
                                 <Deaths
                                     piece={payload}
+                                    chessPieces={chessPieces}
                                 />
                             </div>
                         ))}

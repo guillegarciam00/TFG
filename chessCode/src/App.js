@@ -32,6 +32,13 @@ export default function App() {
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
 
+  //PIEZAS
+  const [chessPieces, setChessPieces] = useState("classic");
+  // const [dark, setDark] = useState("dark_square");
+  // const [light, setLight] = useState("light_square");
+
+  //COLOR TABLERO
+  const [chessColor, setChessColor] = useState("whiteGreen");
   const [dark, setDark] = useState("dark_square");
   const [light, setLight] = useState("light_square");
 
@@ -141,6 +148,8 @@ export default function App() {
     setRivalColor(rival)
     setScreen("main")
     setAppId("mainBack")
+    document.getElementById("headerColor").style.display = "none"
+    document.getElementById("headerPieces").style.display = "none"
   }
 
   //cambiar la pantalla del pop-up
@@ -224,7 +233,7 @@ export default function App() {
   function toggleVolFunction() {
     var element = document.getElementById("volumBar");
     element.classList.toggle("active");
-    sound("changeVolume")
+    sound("menuButton2")
   }
 
   function refresh() {
@@ -234,11 +243,34 @@ export default function App() {
     }, 500);
   }
 
-  function undo() {
-    sound("end")
-    setDark("dark_square_brown")
-    setLight("light_square_brown")
-    //llamar funcion hijo
+  function changePieces() {
+    sound("menuButton2")
+
+    if (chessPieces === "classic") {
+      setChessPieces("vector")
+    } else if (chessPieces === "vector") {
+      setChessPieces("_3d")
+    } else {
+      setChessPieces("classic")
+    }
+  }
+
+  function changeColor() {
+    sound("menuButton2")
+
+    if (dark === "dark_square") {
+      setDark("dark_square_brown")
+      setLight("light_square_brown")
+      setChessColor("brown")
+    } else if (dark === "dark_square_brown") {
+      setDark("dark_square_blue")
+      setLight("light_square_blue")
+      setChessColor("blue")
+    } else {
+      setDark("dark_square")
+      setLight("light_square")
+      setChessColor("whiteGreen")
+    }
   }
 
   //Parte renderizable
@@ -253,8 +285,14 @@ export default function App() {
 
         <div id="rightHeader">
 
-          <div id="headerVolumen">
-            <button type="button" id="buttonVolume" onClick={() => undo()}>{"C"}</button>
+          <div id="headerPieces">
+            <button type="button" id="buttonPiece" onClick={() => changePieces()}>{"Piezas"}</button>
+            <div className="colorPieces" id={chessPieces} onClick={() => changePieces()}></div>
+          </div>
+
+          <div id="headerColor">
+            <button type="button" id="buttonColor" onClick={() => changeColor()}>{"Color"}</button>
+            <div className="colorChess" id={chessColor} onClick={() => changeColor()}></div>
           </div>
 
           <div id="headerRefresh">
@@ -308,6 +346,7 @@ export default function App() {
               sound={sound}
               dark={dark}
               light={light}
+              chessPieces={chessPieces}
             />
           </div>
           <div id="rightPanel">

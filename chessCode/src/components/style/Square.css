@@ -1,7 +1,9 @@
 .light_square,
 .dark_square,
 .light_square_brown,
-.dark_square_brown {
+.dark_square_brown,
+.dark_square_blue,
+.light_square_blue {
     flex-basis: 12.3%;
     height: 12.3%;
     display: flex;
@@ -21,18 +23,28 @@
     background-color: #eeeed2;
 }
 
-.light_square_brown {
-    background-color: #E3C16F;
+.dark_square {
+    background-color: #769655;
 }
 
 
-.dark_square {
-    background-color: #769655;
+.light_square_brown {
+    background-color: #E3C16F;
 }
 
 .dark_square_brown {
     background-color: #B88B4A;
 }
+
+
+.light_square_blue {
+    background-color: #EEF1F1;
+}
+
+.dark_square_blue {
+    background-color: #4b64a8;
+}
+
 
 /* ////////////////   ID  //////////////////// */
 
@@ -50,11 +62,13 @@
     font-size: 0.8em;
     margin-top: 70%;
     position: absolute;
-    font-family: fantasy;
+    font-weight: bold;
+    font-family: Raleway;
 }
 
+
 #coordNum {
-    margin-bottom: 73%;
+    margin-bottom: 73.2%;
     margin-left: -3%;
 }
 
