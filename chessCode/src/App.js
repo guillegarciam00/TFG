@@ -34,13 +34,13 @@ export default function App() {
 
   //PIEZAS
   const [chessPieces, setChessPieces] = useState("classic");
-  // const [dark, setDark] = useState("dark_square");
-  // const [light, setLight] = useState("light_square");
 
   //COLOR TABLERO
   const [chessColor, setChessColor] = useState("whiteGreen");
-  const [dark, setDark] = useState("dark_square");
-  const [light, setLight] = useState("light_square");
+  const [piecesDark, setPiecesDark] = useState("dark_square");
+  const [piecesLight, setLight] = useState("light_square");
+
+  const [chessBackground, setChessBackground] = useState("wood");
 
   // const [tableColor, setTableColor] = useState("default");
 
@@ -48,6 +48,8 @@ export default function App() {
   const [resultado, setResultado] = useState("");
 
   const [appId, setAppId] = useState("inicioBack");
+  const [appIdTemp, setAppIdTemp] = useState("backWood");
+
 
   const [screen, setScreen] = useState("start");
   const [screenPopUp, setScrenPopUp] = useState("piezas");
@@ -147,9 +149,9 @@ export default function App() {
     setMyColor(mine)
     setRivalColor(rival)
     setScreen("main")
-    setAppId("mainBack")
-    document.getElementById("headerColor").style.display = "none"
-    document.getElementById("headerPieces").style.display = "none"
+    setAppId(appIdTemp)
+    // document.getElementById("headerColor").style.display = "none"
+    // document.getElementById("headerPieces").style.display = "none"
   }
 
   //cambiar la pantalla del pop-up
@@ -217,13 +219,6 @@ export default function App() {
   }
 
 
-  // function changeColor() {
-  //     if(tableColor === "default"){
-  //       setTableColor("brown")
-  //     }
-  // }
-
-
   function toggleFunction() {
     var element = document.getElementById("sidebar");
     element.classList.toggle("active");
@@ -245,33 +240,62 @@ export default function App() {
 
   function changePieces() {
     sound("menuButton2")
+    switch (chessPieces) {
+      case "classic":
+        setChessPieces("vector")
+        break;
 
-    if (chessPieces === "classic") {
-      setChessPieces("vector")
-    } else if (chessPieces === "vector") {
-      setChessPieces("_3d")
-    } else {
-      setChessPieces("classic")
+      case "vector":
+        setChessPieces("_3d")
+        break;
+
+      case "_3d":
+        setChessPieces("classic")
+        break;
     }
   }
 
   function changeColor() {
     sound("menuButton2")
-
-    if (dark === "dark_square") {
-      setDark("dark_square_brown")
-      setLight("light_square_brown")
-      setChessColor("brown")
-    } else if (dark === "dark_square_brown") {
-      setDark("dark_square_blue")
-      setLight("light_square_blue")
-      setChessColor("blue")
-    } else {
-      setDark("dark_square")
-      setLight("light_square")
-      setChessColor("whiteGreen")
+    switch (piecesDark) {
+      case "dark_square":
+        setPiecesDark("dark_square_brown")
+        setLight("light_square_brown")
+        setChessColor("brown")
+        break;
+      case "dark_square_brown":
+        setPiecesDark("dark_square_blue")
+        setLight("light_square_blue")
+        setChessColor("blue")
+        break;
+      case "dark_square_blue":
+        setPiecesDark("dark_square")
+        setLight("light_square")
+        setChessColor("whiteGreen")
+        break;
     }
   }
+
+  function changeBack() {
+    sound("menuButton2")
+
+    switch (chessBackground) {
+      case "wood":
+        appId === "inicioBack" ? setAppIdTemp("backLightWood") : setAppId("backLightWood")
+        setChessBackground("lightWood")
+        break;
+      case "lightWood":
+        appId === "inicioBack" ? setAppIdTemp("backBlack") : setAppId("backBlack")
+        setChessBackground("black")
+        break;
+      case "black":
+        appId === "inicioBack" ? setAppIdTemp("backWood") : setAppId("backWood")
+        setChessBackground("wood")
+        break;
+    }
+  }
+
+
 
   //Parte renderizable
   return (
@@ -287,12 +311,17 @@ export default function App() {
 
           <div id="headerPieces">
             <button type="button" id="buttonPiece" onClick={() => changePieces()}>{"Piezas"}</button>
-            <div className="colorPieces" id={chessPieces} onClick={() => changePieces()}></div>
+            <div className="colorPieces" id={chessPieces}></div>
           </div>
 
           <div id="headerColor">
             <button type="button" id="buttonColor" onClick={() => changeColor()}>{"Color"}</button>
-            <div className="colorChess" id={chessColor} onClick={() => changeColor()}></div>
+            <div className="colorChess" id={chessColor} ></div>
+          </div>
+
+          <div id="headerBack">
+            <button type="button" id="buttonBack" onClick={() => changeBack()}>{"Fondo"}</button>
+            <div className="colorBack" id={chessBackground}></div>
           </div>
 
           <div id="headerRefresh">
@@ -344,8 +373,8 @@ export default function App() {
               rivalColor={rivalColor}
               endGame={endGame}
               sound={sound}
-              dark={dark}
-              light={light}
+              piecesDark={piecesDark}
+              piecesLight={piecesLight}
               chessPieces={chessPieces}
             />
           </div>

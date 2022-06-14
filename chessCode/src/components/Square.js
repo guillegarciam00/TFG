@@ -47,7 +47,12 @@ var allPieces3d = [[wRook3d, "wRook"], [wKnight3d, "wKnight"], [wBishop3d, "wBis
 
 
 export const Square = (props) => {
-    const { payload, movePiece, chessPieces } = props
+    const { payload, movePiece, chessPieces, piecesDark, piecesLight, } = props
+    var colorSquare = piecesDark
+
+    if(payload.color === "light"){
+        colorSquare = piecesLight
+    }
 
 
     //Obtener la imagen de cada pieza
@@ -75,7 +80,7 @@ export const Square = (props) => {
     }
 
     return (
-        <div key={props.id} className={payload.color} id={payload.squareColor} onClick={() => movePiece(payload)}>
+        <div key={props.id} className={colorSquare} id={payload.squareColor} onClick={() => movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
             <span id="hide" >{payload.id}</span>
             <span id="coordNum" className="coord">{payload.coordNum}</span>

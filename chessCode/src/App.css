@@ -19,13 +19,23 @@ body {
 
 /* ////////////////   FONDOS   //////////////////// */
 
-#mainBack {
-  background: url("./components/images/main/mainBackground.jpg");
+#backWood {
+  background: url("./components/images/main/backWood.jpg");
+  background-size: cover;
+}
+
+#backLightWood {
+  background: url("./components/images/main/backLightWood.jpg");
+  background-size: cover;
+}
+
+#backBlack {
+  background: url("./components/images/main/backBlack.jpg");
   background-size: cover;
 }
 
 #inicioBack {
-  background: url("./components/images/main/InicioBackground2.jpg");
+  background: url("./components/images/main/InicioBackground.jpg");
   background-size: cover;
 }
 
@@ -79,7 +89,8 @@ body {
 #buttonRefresh:hover,
 #buttonVolume:hover,
 #buttonColor:hover,
-#buttonPiece:hover {
+#buttonPiece:hover,
+#buttonBack:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.072);
   color: white;
@@ -87,10 +98,10 @@ body {
   transition: all .1s;
 }
 
-.colorPieces:hover,
+/* .colorPieces:hover,
 .colorChess:hover {
   cursor: pointer;
-}
+} */
 
 
 
@@ -146,7 +157,8 @@ body {
 
 
 #buttonColor,
-#buttonPiece {
+#buttonPiece,
+#buttonBack {
   font-family: 'Orbitron', sans-serif;
   border-radius: 10px;
   font-size: 1.1em;
@@ -158,35 +170,7 @@ body {
   padding-left: 11px;
 }
 
-.colorChess {
-  position: fixed;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 38px;
-  height: 38px;
-  top: 15px;
-  right: 145px;
-}
-
-#whiteGreen {
-  background: url("./components/images/start/whiteGreen.png");
-  background-size: 102%;
-  background-repeat: no-repeat;
-}
-
-#brown {
-  background: url("./components/images/start/brown.png");
-  background-size: 102%;
-  background-repeat: no-repeat;
-}
-
-#blue {
-  background: url("./components/images/start/blue.png");
-  background-size: 102%;
-  background-repeat: no-repeat;
-}
-
-
+/* /////////////////////////////////////////// */
 .colorPieces {
   position: fixed;
   border: 1px solid black;
@@ -194,24 +178,115 @@ body {
   width: 38px;
   height: 38px;
   top: 15px;
-  right: 282px;
+  right: 420px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -user-drag: none;
+  -webkit-touch-callout: none;
 }
 
 #classic {
   background: url("./components/images/start/classic.png");
   background-size: 102%;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
 #vector {
   background: url("./components/images/start/vector.png");
   background-size: 102%;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
 #_3d {
   background: url("./components/images/start/3d.png");
   background-size: 102%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* /////////////////////////////////////////// */
+
+.colorChess {
+  position: fixed;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 38px;
+  height: 38px;
+  top: 15px;
+  right: 280px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+#whiteGreen {
+  background: url("./components/images/start/whiteGreen.png");
+  background-size: 102%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#brown {
+  background: url("./components/images/start/brown.png");
+  background-size: 102%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#blue {
+  background: url("./components/images/start/blue.png");
+  background-size: 102%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* /////////////////////////////////////////// */
+
+.colorBack {
+  position: fixed;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 38px;
+  height: 38px;
+  top: 15px;
+  right: 142px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+
+#wood {
+  background: url("./components/images/main/backWood.jpg");
+  background-size: 102%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#lightWood {
+  background: url("./components/images/main/backLightWood.jpg");
+  background-size: 200%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#black {
+  background: url("./components/images/main/backBlack.jpg");
+  background-size: 200%;
+  background-position: center;
   background-repeat: no-repeat;
 }
 

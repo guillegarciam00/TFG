@@ -7,7 +7,7 @@ import { Square } from './Square';
 export function Board(props) {
 
     //Variables del componente padre
-    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, dark, light, chessPieces} = props
+    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, piecesDark, piecesLight, chessPieces } = props
 
     //Constantes
     const [chessBoard, setChessBoard] = useState([]);
@@ -104,7 +104,7 @@ export function Board(props) {
                 numb = 8
 
             myColor === "w" ? allPi = allPieces.pop() : allPi = allPieces[i]
-            aux % 2 !== 0 ? sqcolor = light : sqcolor = dark
+            aux % 2 !== 0 ? sqcolor = "light" : sqcolor = "dark"
 
             let square = {
                 "id": i,
@@ -161,7 +161,7 @@ export function Board(props) {
                         }
                     }
                     moving.current = 1
-                    document.getElementById(data.id).style.opacity = 0.25
+                    document.getElementById(data.id).style.opacity = 0.35
                 }
             }
 
@@ -549,6 +549,8 @@ export function Board(props) {
                             payload={payload}
                             movePiece={movePiece}
                             chessPieces={chessPieces}
+                            piecesDark={piecesDark}
+                            piecesLight={piecesLight}
                         />
                     ))}
                 </div>
