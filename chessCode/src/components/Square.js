@@ -47,11 +47,25 @@ var allPieces3d = [[wRook3d, "wRook"], [wKnight3d, "wKnight"], [wBishop3d, "wBis
 
 
 export const Square = (props) => {
-    const { payload, movePiece, chessPieces, piecesDark, piecesLight, } = props
-    var colorSquare = piecesDark
+    const { payload, movePiece, chessPieces, squareDark, squareLight, coordDark, coordLight } = props
+    var colorSquare = squareDark
+    var colorNumCoord
+    var colorLetCoord
 
-    if(payload.color === "light"){
-        colorSquare = piecesLight
+    if (payload.color === "light") {
+        colorSquare = squareLight
+    }
+
+    if (payload.coordNumColor === "coordDark") {
+        colorNumCoord = coordDark
+    } else if(payload.coordNumColor === "coordLight") {
+        colorNumCoord = coordLight
+    }
+
+    if (payload.coordLetColor === "coordDark") {
+        colorLetCoord = coordDark
+    } else if(payload.coordLetColor === "coordLight") {
+        colorLetCoord = coordLight
     }
 
 
@@ -83,8 +97,8 @@ export const Square = (props) => {
         <div key={props.id} className={colorSquare} id={payload.squareColor} onClick={() => movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
             <span id="hide" >{payload.id}</span>
-            <span id="coordNum" className="coord">{payload.coordNum}</span>
-            <span id="coordLet" className="coord">{payload.coordLet}</span>
+            <span className="coordNum" id={colorNumCoord}>{payload.coordNum}</span>
+            <span className="coordLet" id={colorLetCoord}>{payload.coordLet}</span>
             <div className='check' id={payload.check}></div>
             <div className='eat' id={payload.eat}></div>
             <div className='movement' id={payload.selected}></div>

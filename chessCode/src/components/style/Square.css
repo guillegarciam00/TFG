@@ -58,44 +58,52 @@
 
 /* ////////////////   COORD  //////////////////// */
 
-.coord {
-    font-size: 0.8em;
+#coordWhite {
+    color: #eeeed2
+}
+
+#coordGreen {
+    color: #769655;
+}
+
+
+#coordBrown {
+    color: #efcc79;
+}
+
+#coordBrownDark {
+    color: #a47a3f;
+}
+
+
+#coordWhiteBlue {
+    color: #EEF1F1;
+}
+
+#coordBlue {
+    color: #4b64a8;
+}
+
+
+.coordNum {
+    font-size: .9em;
     margin-top: 70%;
     position: absolute;
-    font-family: fantasy;
-}
-
-
-#coordNum {
     margin-bottom: 73.2%;
     margin-left: -3%;
+    font-family: Raleway;
+    font-weight: bold;
 }
 
-#coordLet {
-    margin-bottom: 66%;
+.coordLet {
+    font-size: .9em;
+    margin-top: 70%;
+    position: absolute;
+    margin-bottom: 66.3%;
     margin-left: -3%;
+    font-family: Raleway;
+    font-weight: bold;
 }
-
-/*
-#coordNum:nth-child(odd) {
-    color: #769655; 
-    color: red
-}
-#coordNum:nth-child(even) {
-    color: #eeeed2; 
-    color: blue
-}
-
-#coordLet:nth-child(odd) {
-    color: #769655; 
-    color: red
-}
-#coordLet:nth-child(n+3) {
-    color: #eeeed2; 
-    color: blue
-}
-*/
-
 
 /* ////////////////   PIEZAS  //////////////////// */
 .piece {

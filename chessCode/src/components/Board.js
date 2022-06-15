@@ -7,7 +7,7 @@ import { Square } from './Square';
 export function Board(props) {
 
     //Variables del componente padre
-    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, piecesDark, piecesLight, chessPieces } = props
+    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, squareDark, squareLight, chessPieces, coordDark, coordLight } = props
 
     //Constantes
     const [chessBoard, setChessBoard] = useState([]);
@@ -106,13 +106,23 @@ export function Board(props) {
             myColor === "w" ? allPi = allPieces.pop() : allPi = allPieces[i]
             aux % 2 !== 0 ? sqcolor = "light" : sqcolor = "dark"
 
+            if (aux % 2 !== 0) {
+                var letcolor = "coordDark"
+                var numColor = "coordDark"
+            } else {
+                letcolor = "coordLight"
+                numColor = "coordLight"
+            }
+
             let square = {
                 "id": i,
                 "color": sqcolor,
                 "selected": "none",
                 "coord": [coordX[coorX], coordY[coorY]],
                 "coordLet": letters[lett],
+                "coordLetColor": letcolor,
                 "coordNum": numbers[numb],
+                "coordNumColor": numColor,
                 "image": "",
                 "piece": allPi,
                 "check": "",
@@ -549,8 +559,10 @@ export function Board(props) {
                             payload={payload}
                             movePiece={movePiece}
                             chessPieces={chessPieces}
-                            piecesDark={piecesDark}
-                            piecesLight={piecesLight}
+                            squareDark={squareDark}
+                            squareLight={squareLight}
+                            coordLight={coordLight}
+                            coordDark={coordDark}
                         />
                     ))}
                 </div>

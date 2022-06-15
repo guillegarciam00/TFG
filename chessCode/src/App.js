@@ -37,8 +37,11 @@ export default function App() {
 
   //COLOR TABLERO
   const [chessColor, setChessColor] = useState("whiteGreen");
-  const [piecesDark, setPiecesDark] = useState("dark_square");
-  const [piecesLight, setLight] = useState("light_square");
+  const [squareDark, setPiecesDark] = useState("dark_square");
+  const [squareLight, setLight] = useState("light_square");
+
+  const [coordDark, setCoordDark] = useState("coordGreen");
+  const [coordLight, setCoordLight] = useState("coordWhite");
 
   const [chessBackground, setChessBackground] = useState("wood");
 
@@ -150,8 +153,6 @@ export default function App() {
     setRivalColor(rival)
     setScreen("main")
     setAppId(appIdTemp)
-    // document.getElementById("headerColor").style.display = "none"
-    // document.getElementById("headerPieces").style.display = "none"
   }
 
   //cambiar la pantalla del pop-up
@@ -183,7 +184,7 @@ export default function App() {
           offColor="#DF0000"
           // onHandleColor="#2693e6"
           handleDiameter={28}
-          uncheckedIcon={false}
+          // uncheckedIcon={false}
           // checkedIcon={false}
           boxShadow="0px 1px 5px rgba(0, 0, 0, 0.5)"
           activeBoxShadow="0px 0px 1px 4px rgba(0, 0, 0, 0.2)"
@@ -257,21 +258,27 @@ export default function App() {
 
   function changeColor() {
     sound("menuButton2")
-    switch (piecesDark) {
+    switch (squareDark) {
       case "dark_square":
         setPiecesDark("dark_square_brown")
         setLight("light_square_brown")
         setChessColor("brown")
+        setCoordDark("coordBrownDark")
+        setCoordLight("coordBrown")
         break;
       case "dark_square_brown":
         setPiecesDark("dark_square_blue")
         setLight("light_square_blue")
         setChessColor("blue")
+        setCoordDark("coordBlue")
+        setCoordLight("coordWhiteBlue")
         break;
       case "dark_square_blue":
         setPiecesDark("dark_square")
         setLight("light_square")
         setChessColor("whiteGreen")
+        setCoordDark("coordGreen")
+        setCoordLight("coordWhite")
         break;
     }
   }
@@ -315,7 +322,7 @@ export default function App() {
           </div>
 
           <div id="headerColor">
-            <button type="button" id="buttonColor" onClick={() => changeColor()}>{"Color"}</button>
+            <button type="button" id="buttonColor" onClick={() => changeColor()}>{"Tablero"}</button>
             <div className="colorChess" id={chessColor} ></div>
           </div>
 
@@ -373,9 +380,11 @@ export default function App() {
               rivalColor={rivalColor}
               endGame={endGame}
               sound={sound}
-              piecesDark={piecesDark}
-              piecesLight={piecesLight}
+              squareDark={squareDark}
+              squareLight={squareLight}
               chessPieces={chessPieces}
+              coordDark={coordDark}
+              coordLight={coordLight}
             />
           </div>
           <div id="rightPanel">
