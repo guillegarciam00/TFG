@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, refs } from 'react';
 import { Board } from "./components/Board";
 import { Start } from "./components/Start";
 import { Final } from "./components/Final";
@@ -24,6 +24,10 @@ import SoundPeonReina from './components/sounds/peonReina.wav';
 
 export default function App() {
 
+  const [chessBoard, setChessBoard] = useState([]);
+  const [prevChessBoard, setPrevChessBoard] = useState([]);
+  const [auxChessBoard, setAuxChessBoard] = useState([]);
+
   const [optPosibles, setOptPosibles] = useState(true);
   const [optWarning, setOptPeligro] = useState(true);
   const [optEatables, setOptEatables] = useState(true);
@@ -31,6 +35,10 @@ export default function App() {
   const [optDeath, setOptMuerte] = useState(true);
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
+
+  const [designText, setDesignText] = useState("< Diseño");
+  const [buttonDesignId, setButtonDesignId] = useState("buttonDesign");
+  const designTextt = useRef(0)
 
   //PIEZAS
   const [chessPieces, setChessPieces] = useState("classic");
@@ -220,7 +228,7 @@ export default function App() {
   }
 
 
-  function toggleFunction() {
+  function toggleHelpFunction() {
     var element = document.getElementById("sidebar");
     element.classList.toggle("active");
     sound("menuButton2")
@@ -228,6 +236,22 @@ export default function App() {
 
   function toggleVolFunction() {
     var element = document.getElementById("volumBar");
+    element.classList.toggle("active");
+    sound("menuButton2")
+  }
+
+  function toggleDesign() {
+    var element = document.getElementById("design");
+
+    if (designTextt.current === 0) {
+      setDesignText("Diseño >")
+      setButtonDesignId("buttonDesign2")
+    } else {
+      setDesignText("< Diseño")
+      setButtonDesignId("buttonDesign")
+    }
+    designTextt.current = 1 - designTextt.current
+
     element.classList.toggle("active");
     sound("menuButton2")
   }
@@ -303,6 +327,20 @@ export default function App() {
   }
 
 
+  function copyActualBoard() {
+  //   console.log("ACTUAL",chessBoard)
+  //   setAuxChessBoard(chessBoard)
+  }
+
+  function copyPrevBoard(data) {
+  //   console.log("PREV",data)
+  //   setPrevChessBoard(data)
+  }
+
+  function returnBoard() {
+  //   console.log("RETURN",prevChessBoard)
+  //   setChessBoard(prevChessBoard)
+  }
 
   //Parte renderizable
   return (
@@ -316,19 +354,28 @@ export default function App() {
 
         <div id="rightHeader">
 
-          <div id="headerPieces">
-            <button type="button" id="buttonPiece" onClick={() => changePieces()}>{"Piezas"}</button>
-            <div className="colorPieces" id={chessPieces}></div>
+          {/* <div id="headerReturn">
+            <button type="button" id="buttonReturn" onClick={() => returnBoard()}>{"<--"}</button>
+          </div> */}
+
+
+          <div id="design">
+            <div id="headerPieces">
+              <button type="button" id="buttonPiece" onClick={() => changePieces()}>{"Piezas"}</button>
+              <div className="colorPieces" id={chessPieces}></div>
+            </div>
+            <div id="headerColor">
+              <button type="button" id="buttonColor" onClick={() => changeColor()}>{"Tablero"}</button>
+              <div className="colorChess" id={chessColor} ></div>
+            </div>
+            <div id="headerBack">
+              <button type="button" id="buttonBack" onClick={() => changeBack()}>{"Fondo"}</button>
+              <div className="colorBack" id={chessBackground}></div>
+            </div>
           </div>
 
-          <div id="headerColor">
-            <button type="button" id="buttonColor" onClick={() => changeColor()}>{"Tablero"}</button>
-            <div className="colorChess" id={chessColor} ></div>
-          </div>
-
-          <div id="headerBack">
-            <button type="button" id="buttonBack" onClick={() => changeBack()}>{"Fondo"}</button>
-            <div className="colorBack" id={chessBackground}></div>
+          <div id="headerDesign">
+            <button type="button" id={buttonDesignId} onClick={() => toggleDesign()}>{designText}</button>
           </div>
 
           <div id="headerRefresh">
@@ -344,11 +391,6 @@ export default function App() {
             <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
           </div>
         </div>
-
-
-        {/* <div id="">
-          <button type="button" id="buttonRefresh" onClick={() => toggleFunction()}>Color</button>
-        </div> */}
 
       </div>
 
@@ -371,6 +413,10 @@ export default function App() {
         <div id="main">
           <div id="mainBoard">
             <Board
+              copyActualBoard={copyActualBoard}
+              copyPrevBoard={copyPrevBoard}
+              chessBoard={chessBoard}
+              setChessBoard={setChessBoard}
               optPosibles={optPosibles}
               optWarning={optWarning}
               optCheck={optCheck}
@@ -398,7 +444,7 @@ export default function App() {
               <br></br>
             </div>
             <div id="leyendaOptions">
-              <button onClick={() => toggleFunction()}>Más información</button>
+              <button onClick={() => toggleHelpFunction()}>Más información</button>
             </div>
           </div>
 
@@ -408,7 +454,7 @@ export default function App() {
               <div id="guiaImagen"></div>
             </div>
             <div id="leyendaOptions">
-              <button id="leyendasCerrar" onClick={() => toggleFunction()}>CERRAR</button>
+              <button id="leyendasCerrar" onClick={() => toggleHelpFunction()}>CERRAR</button>
             </div>
           </div>
 

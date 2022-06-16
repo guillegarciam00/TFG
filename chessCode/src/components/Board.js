@@ -7,13 +7,9 @@ import { Square } from './Square';
 export function Board(props) {
 
     //Variables del componente padre
-    const { optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, squareDark, squareLight, chessPieces, coordDark, coordLight } = props
+    const { copyPrevBoard, copyActualBoard, chessBoard, setChessBoard, optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, squareDark, squareLight, chessPieces, coordDark, coordLight } = props
 
     //Constantes
-    const [chessBoard, setChessBoard] = useState([]);
-    const [prevChessBoard, setPrevChessBoard] = useState([]);
-    // const [auxChessBoard, setAuxChessBoard] = useState([]);
-
     const [mineDeathPieces, setMineDeathPieces] = useState([]);
     const [rivalDeathPieces, setRivalDeathPieces] = useState([]);
     const [lastSquare, setLastSquare] = useState("");
@@ -155,6 +151,8 @@ export function Board(props) {
         //Primera parte del movimiento al clickar en una pieza
         if (moving.current === 0) {
 
+            // copyActualBoard()
+
             isCheck()
 
             if (chessBoard[data.id].piece !== undefined && chessBoard[data.id].piece !== "") {
@@ -216,6 +214,8 @@ export function Board(props) {
 
                 //cambio turno
                 turno.current === "w" ? turno.current = "b" : turno.current = "w"
+
+          
             }
 
             setWord("-")
@@ -226,8 +226,6 @@ export function Board(props) {
             if (data.id !== lastSquare.id) {
                 movePiece(data)
             }
-
-
 
             //si despues es mi turno, se calculan las piezas que tengo amenazadas, y todos mis posibles movimientos
             if (turno.current === myColor) {
@@ -504,7 +502,7 @@ export function Board(props) {
     }
 
 
-    //pieces que me puede comer el rival en su proximo turno
+    //pieces que se pueden comer en el proximo turno
     function eatablesPieces() {
         for (let i = 0; i < chessBoard.length; i++) {
 
@@ -527,7 +525,7 @@ export function Board(props) {
                     }
                 }
 
-                //pieces que me puedo comer
+            //pieces que me puedo comer
             } else if ((chessBoard[i].piece.charAt(0) === myColor)) {
                 let array = posibleMovements(chessBoard[i]).death
                 for (let j = 0; j < array.length; j++) {

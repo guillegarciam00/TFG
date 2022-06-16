@@ -31,7 +31,3 @@ export function Start({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPo
 
     )
 }
-
-
-
-

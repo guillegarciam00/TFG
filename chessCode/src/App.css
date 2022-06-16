@@ -89,9 +89,7 @@ body {
 
 #buttonRefresh:hover,
 #buttonVolume:hover,
-#buttonColor:hover,
-#buttonPiece:hover,
-#buttonBack:hover {
+#buttonDesign:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.072);
   color: white;
@@ -100,12 +98,17 @@ body {
   transition: all .3s;
 }
 
-/* .colorPieces:hover,
-.colorChess:hover {
+
+#buttonColor:hover,
+#buttonPiece:hover,
+#buttonBack:hover {
   cursor: pointer;
-} */
-
-
+  background-color: rgba(0, 0, 0, 0.039);
+  color: white;
+  /* box-shadow: inset 0px 0px 8px 1px rgb(255, 255, 255); */
+  border: 2px solid white;
+  transition: all .3s;
+}
 
 #volumBar {
   border-radius: 5px 0px 0px 5px;
@@ -173,6 +176,61 @@ body {
   border: 2px solid black;
 }
 
+
+#buttonDesign {
+  border-radius: 10px;
+  font-size: 1em;
+  margin-top: 10px;
+  height: 3vw;
+  width: 5.8vw;
+  margin-right: 5px;
+  font-family: 'Orbitron', sans-serif;
+
+}
+
+#buttonDesign2 {
+  border-radius: 10px;
+  font-size: 1em;
+  margin-top: 10px;
+  height: 3vw;
+  width: 5.8vw;
+  margin-right: 5px;
+  font-family: 'Orbitron', sans-serif;
+  background-color: rgba(0, 0, 0, 0.072);
+  color: white;
+  border: 2px solid white;
+}
+
+#buttonDesign2 {
+  cursor: pointer;
+}
+
+/* /////////////////////////////////////////// */
+
+#design {
+  border-radius: 5px 0px 0px 5px;
+  width: max-content;
+  height: max-content;
+  position: fixed;
+  top: 2px;
+  right: 0;
+  bottom: 0;
+  z-index: 100000;
+  transform: translateX(800px);
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  transition: all .3s;
+  transition: opacity .5s;
+}
+
+#design.active {
+  transform: translateX(-230px);
+  opacity: 1;
+  transition: opacity .5s;
+}
+
+
 /* /////////////////////////////////////////// */
 .colorPieces {
   position: fixed;
@@ -180,8 +238,8 @@ body {
   border-radius: 5px;
   width: 38px;
   height: 38px;
-  top: 17px;
-  right: 420px;
+  top: 15.5px;
+  right: 290px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -220,8 +278,8 @@ body {
   border-radius: 5px;
   width: 38px;
   height: 38px;
-  top: 17px;
-  right: 280px;
+  top: 15.5px;
+  right: 152px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -260,8 +318,8 @@ body {
   border-radius: 5px;
   width: 38px;
   height: 38px;
-  top: 17px;
-  right: 142px;
+  top: 15.5px;
+  right: 15px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -292,8 +350,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
-
-
 
 
 
