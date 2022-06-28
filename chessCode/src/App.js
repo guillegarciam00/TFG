@@ -31,7 +31,8 @@ export default function App() {
   const [optPosibles, setOptPosibles] = useState(true);
   const [optWarning, setOptPeligro] = useState(true);
   const [optEatables, setOptEatables] = useState(true);
-  const [optCheck, setOptJaque] = useState(true);
+  const [optCheck, setOptCheck] = useState(true);
+  const [optCheckMate, setOptCheckMate] = useState(true);
   const [optDeath, setOptMuerte] = useState(true);
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
@@ -72,7 +73,9 @@ export default function App() {
   const buttonWarning = "Casillas Peligrosas"
   const buttonDeath = "Piezas en Peligro"
   const buttonEatables = "Piezas Comibles"
-  const buttonCheck = "Jaque y Jaquemate"
+  const buttonPosibleCheck = "Jaques"
+  const buttonCheckMate = "Jaquemates"
+
 
   //Sonidos
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
@@ -137,13 +140,17 @@ export default function App() {
         setOptPeligro(!optWarning);
         optWarning ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
-      case buttonCheck:
-        setOptJaque(!optCheck);
-        optCheck ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
+      case buttonCheckMate:
+        setOptCheckMate(!optCheckMate);
+        optCheckMate ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonEatables:
         setOptEatables(!optEatables);
         optEatables ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
+        break;
+      case buttonPosibleCheck:
+        setOptCheck(!optCheck);
+        optCheck ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonDeath:
         setOptMuerte(!optDeath);
@@ -179,7 +186,7 @@ export default function App() {
   }
 
   //Generar botones de opciones
-  const options = [[optPosibles, buttonPosibles], [optEatables, buttonEatables], [optWarning, buttonWarning], [optDeath, buttonDeath], [optCheck, buttonCheck]]
+  const options = [[optPosibles, buttonPosibles], [optEatables, buttonEatables], [optWarning, buttonWarning], [optDeath, buttonDeath], [optCheck, buttonPosibleCheck], [optCheckMate, buttonCheckMate]]
   var switchers = []
   for (let i = 0; i < options.length; i++) {
     switchers.push(
@@ -328,18 +335,18 @@ export default function App() {
 
 
   function copyActualBoard() {
-  //   console.log("ACTUAL",chessBoard)
-  //   setAuxChessBoard(chessBoard)
+    //   console.log("ACTUAL",chessBoard)
+    //   setAuxChessBoard(chessBoard)
   }
 
   function copyPrevBoard(data) {
-  //   console.log("PREV",data)
-  //   setPrevChessBoard(data)
+    //   console.log("PREV",data)
+    //   setPrevChessBoard(data)
   }
 
   function returnBoard() {
-  //   console.log("RETURN",prevChessBoard)
-  //   setChessBoard(prevChessBoard)
+    //   console.log("RETURN",prevChessBoard)
+    //   setChessBoard(prevChessBoard)
   }
 
   //Parte renderizable
@@ -419,9 +426,10 @@ export default function App() {
               setChessBoard={setChessBoard}
               optPosibles={optPosibles}
               optWarning={optWarning}
-              optCheck={optCheck}
+              optCheckMate={optCheckMate}
               optDeath={optDeath}
               optEatables={optEatables}
+              optCheck={optCheck}
               myColor={myColor}
               rivalColor={rivalColor}
               endGame={endGame}
@@ -444,7 +452,8 @@ export default function App() {
               <br></br>
             </div>
             <div id="leyendaOptions">
-              <button onClick={() => toggleHelpFunction()}>Más información</button>
+              {/* <button onClick={() => toggleHelpFunction()}>Más información</button> */}
+              <button className="buttonGuia" id="buttonGuia1" onClick={() => toggleHelpFunction()}> <span><b>Más información</b></span></button>
             </div>
           </div>
 
@@ -454,7 +463,9 @@ export default function App() {
               <div id="guiaImagen"></div>
             </div>
             <div id="leyendaOptions">
-              <button id="leyendasCerrar" onClick={() => toggleHelpFunction()}>CERRAR</button>
+              {/* <button id="leyendasCerrar" onClick={() => toggleHelpFunction()}>CERRAR</button> */}
+              <button className="buttonGuiaa" id="buttonGuia2" onClick={() => toggleHelpFunction()}> <span><b>CERRAR</b></span></button>
+           
             </div>
           </div>
 

@@ -7,7 +7,7 @@ import { Square } from './Square';
 export function Board(props) {
 
     //Variables del componente padre
-    const { copyPrevBoard, copyActualBoard, chessBoard, setChessBoard, optPosibles, optEatables, optCheck, optWarning, optDeath, endGame, myColor, rivalColor, sound, squareDark, squareLight, chessPieces, coordDark, coordLight } = props
+    const { chessBoard, setChessBoard, optPosibles, optEatables, optCheck, optCheckMate, optWarning, optDeath, endGame, myColor, rivalColor, sound, squareDark, squareLight, chessPieces, coordDark, coordLight } = props
 
     //Constantes
     const [mineDeathPieces, setMineDeathPieces] = useState([]);
@@ -22,7 +22,7 @@ export function Board(props) {
 
     const kingPosition = useRef("");
 
-    const [Jaque, setJaque] = useState([0, 0]);
+    // const [Jaque, setJaque] = useState([0, 0]);
 
     //Movimientos de las piezas
     if (myColor === "w") {
@@ -215,7 +215,7 @@ export function Board(props) {
                 //cambio turno
                 turno.current === "w" ? turno.current = "b" : turno.current = "w"
 
-          
+
             }
 
             setWord("-")
@@ -455,25 +455,23 @@ export function Board(props) {
         var checkColor = "w"
         var checkRival = "b"
         for (let count = 0; count < 2; count++) {
-            if (optCheck) {
-                for (let i = 0; i < chessBoard.length; i++) {
-                    if (chessBoard[i].piece.charAt(0) === checkColor) {
-                        var array = []
-                        array = array.concat((posibleMovements(chessBoard[i])).death)
-                        array = array.concat((posibleMovements(chessBoard[i])).empty)
+            for (let i = 0; i < chessBoard.length; i++) {
+                if (chessBoard[i].piece.charAt(0) === checkColor) {
+                    var array = []
+                    array = array.concat((posibleMovements(chessBoard[i])).death)
+                    array = array.concat((posibleMovements(chessBoard[i])).empty)
 
-                        for (let j = 0; j < array.length; j++) {
-                            var square = {
-                                "id": chessBoard[array[j]].id,
-                                "coord": chessBoard[array[j]].coord,
-                                "piece": chessBoard[i].piece,
-                            }
-                            var arrayFuturo = (posibleMovements(square)).death
-                            for (let k = 0; k < arrayFuturo.length; k++) {
-                                if (chessBoard[arrayFuturo[k]].piece === checkRival + "King") {
-                                    // hacerJaque(chessBoard[i], square)
-                                    posibleCheck(chessBoard[i])
-                                }
+                    for (let j = 0; j < array.length; j++) {
+                        var square = {
+                            "id": chessBoard[array[j]].id,
+                            "coord": chessBoard[array[j]].coord,
+                            "piece": chessBoard[i].piece,
+                        }
+                        var arrayFuturo = (posibleMovements(square)).death
+                        for (let k = 0; k < arrayFuturo.length; k++) {
+                            if (chessBoard[arrayFuturo[k]].piece === checkRival + "King") {
+                                // hacerJaque(chessBoard[i], square)
+                                posibleCheck(chessBoard[i])
                             }
                         }
                     }
@@ -490,15 +488,15 @@ export function Board(props) {
                 chessBoard[i].selected = ""
                 chessBoard[i].peligro = ""
                 chessBoard[i].squareColor = ""
-            } else if (chessBoard[i].check === "piezaJaque") {
+            } else if (chessBoard[i].check === "posibleJaque") {
                 chessBoard[i].check = ""
             }
         }
     }
 
     function posibleCheck(inicial) {
-        if (chessBoard[inicial.id].squareColor !== "checkmate")
-            chessBoard[inicial.id].check = "piezaJaque"
+        if (chessBoard[inicial.id].squareColor !== "checkmate" && optCheck)
+            chessBoard[inicial.id].check = "posibleJaque"
     }
 
 
@@ -510,7 +508,7 @@ export function Board(props) {
             if (chessBoard[i].piece.charAt(0) === rivalColor) {
                 let array = (posibleMovements(chessBoard[i])).death
                 for (let j = 0; j < array.length; j++) {
-                    if (chessBoard[array[j]].piece === myColor + "King") {
+                    if (chessBoard[array[j]].piece === myColor + "King" && optCheckMate) {
                         //Jaque del rival
                         chessBoard[i].squareColor = "checkmate"
                         chessBoard[array[j]].squareColor = "checkmate"
@@ -525,16 +523,17 @@ export function Board(props) {
                     }
                 }
 
-            //pieces que me puedo comer
+                //pieces que me puedo comer
             } else if ((chessBoard[i].piece.charAt(0) === myColor)) {
                 let array = posibleMovements(chessBoard[i]).death
                 for (let j = 0; j < array.length; j++) {
                     if (chessBoard[array[j]].piece === rivalColor + "King") {
-
                         chessBoard[i].check = ""
-                        chessBoard[i].squareColor = "checkmate"
-                        chessBoard[array[j]].squareColor = "checkmate"
-                        kingPosition.current = array[j]
+                        if (optCheckMate) {
+                            chessBoard[i].squareColor = "checkmate"
+                            chessBoard[array[j]].squareColor = "checkmate"
+                            kingPosition.current = array[j]
+                        }
                         //////////////////////// hacer que suene "check" si me muevo a esa posicion
                     } else {
                         chessBoard[array[j]].selected = ""

@@ -431,6 +431,7 @@ body {
   margin: 50px 100px 0px 250px;
 }
 
+/*
 #leyendaOptions button {
   padding: 15px 25px;
   border: unset;
@@ -470,7 +471,7 @@ body {
 #leyendaOptions button:hover::before {
   width: 100%;
   cursor: pointer;
-}
+} */
 
 
 
@@ -541,3 +542,102 @@ body {
   -user-drag: none;
   -webkit-touch-callout: none;
 } */
+
+
+
+
+/* From uiverse.io by @NorthFishHasNa */
+.buttonGuia {
+  padding: 15px 25px;
+  width: 210px;
+  border: unset;
+  z-index: 1;
+  border-radius: 15px;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  overflow: hidden;
+  display: inline-block;
+  background-color: #282c34;
+  border: 3px solid white;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 15px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.buttonGuiaa {
+  padding: 15px 25px;
+  width: 150px;
+  z-index: 1;
+  border-radius: 15px;
+  position: relative;
+  font-weight: 1000;
+  font-size: 15px;
+  overflow: hidden;
+  display: inline-block;
+  background-color: #282c34;
+  border: 3px solid white;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 15px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+
+#buttonGuia1 {
+  bottom: 10px;
+  right: 5px;
+}
+
+#buttonGuia2 {
+  bottom: 10px;
+  right: 80px;
+}
+
+.buttonGuia span,
+.buttonGuiaa span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#buttonGuia1 span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -15px;
+  transition: 0.5s;
+}
+
+#buttonGuia2 span:after {
+  content: '«';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -15px;
+  transition: 0.5s;
+}
+
+#buttonGuia1:hover span {
+  padding-right: 15px;
+}
+
+#buttonGuia2:hover span {
+  padding-left: 15px;
+}
+
+
+#buttonGuia1:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#buttonGuia2:hover span:after {
+  opacity: 1;
+  left: 0;
+}

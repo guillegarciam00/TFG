@@ -142,7 +142,7 @@
     height: 3vw;
 }
 
-#piezaJaque {
+#posibleJaque {
     /* background: url(../images/notif/shine.png) center no-repeat; */
     -webkit-box-shadow: 0 0 20px 13px rgb(246 255 0 / 80%);
     background-size: 100%;
