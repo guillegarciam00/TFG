@@ -28,11 +28,23 @@ export default function App() {
   const [prevChessBoard, setPrevChessBoard] = useState([]);
   const [auxChessBoard, setAuxChessBoard] = useState([]);
 
+
+
+  //Botones
+  const buttonPosibles = "Casillas Posibles"
+  const buttonWarning = "Casillas Peligrosas"
+  const buttonDeath = "Piezas en Peligro"
+  const buttonEatables = "Piezas Comibles"
+  const buttonPosibleCheck = "Posible Jaque"
+  const buttonCheck = "Jaque"
+  const buttonCheckMate = "Jaquemate"
+
   const [optPosibles, setOptPosibles] = useState(true);
   const [optWarning, setOptPeligro] = useState(true);
   const [optEatables, setOptEatables] = useState(true);
-  const [optCheck, setOptCheck] = useState(true);
-  const [optCheckMate, setOptCheckMate] = useState(true);
+  const [optPosibleCheck, setoptPosibleCheck] = useState(true);
+  const [optCheck, setoptCheck] = useState(true);
+  const [optCheckMate, setoptCheckMate] = useState(true);
   const [optDeath, setOptMuerte] = useState(true);
   const [myColor, setMyColor] = useState("");
   const [rivalColor, setRivalColor] = useState("");
@@ -68,18 +80,11 @@ export default function App() {
 
 
 
-  //Botones
-  const buttonPosibles = "Casillas Posibles"
-  const buttonWarning = "Casillas Peligrosas"
-  const buttonDeath = "Piezas en Peligro"
-  const buttonEatables = "Piezas Comibles"
-  const buttonPosibleCheck = "Jaques"
-  const buttonCheckMate = "Jaquemates"
 
 
   //Sonidos
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
-  const volume = useRef(0.5)
+  const volume = useRef(0.1)
 
   const [playSoundStart] = useSound(SoundStart, { volume: volume.current });
   const [playSoundMover] = useSound(SoundMover, { volume: volume.current });
@@ -141,7 +146,7 @@ export default function App() {
         optWarning ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonCheckMate:
-        setOptCheckMate(!optCheckMate);
+        setoptCheckMate(!optCheckMate);
         optCheckMate ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonEatables:
@@ -149,7 +154,11 @@ export default function App() {
         optEatables ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonPosibleCheck:
-        setOptCheck(!optCheck);
+        setoptPosibleCheck(!optPosibleCheck);
+        optPosibleCheck ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
+        break;
+      case buttonCheck:
+        setoptCheck(!optCheck);
         optCheck ? dataStyle.opacity = 0.3 : dataStyle.opacity = 1
         break;
       case buttonDeath:
@@ -186,7 +195,7 @@ export default function App() {
   }
 
   //Generar botones de opciones
-  const options = [[optPosibles, buttonPosibles], [optEatables, buttonEatables], [optWarning, buttonWarning], [optDeath, buttonDeath], [optCheck, buttonPosibleCheck], [optCheckMate, buttonCheckMate]]
+  const options = [[optPosibles, buttonPosibles], [optEatables, buttonEatables], [optWarning, buttonWarning], [optDeath, buttonDeath],[optPosibleCheck, buttonPosibleCheck], [optCheck, buttonCheck], [optCheckMate, buttonCheckMate]]
   var switchers = []
   for (let i = 0; i < options.length; i++) {
     switchers.push(
@@ -429,6 +438,7 @@ export default function App() {
               optCheckMate={optCheckMate}
               optDeath={optDeath}
               optEatables={optEatables}
+              optPosibleCheck={optPosibleCheck}
               optCheck={optCheck}
               myColor={myColor}
               rivalColor={rivalColor}
@@ -465,7 +475,7 @@ export default function App() {
             <div id="leyendaOptions">
               {/* <button id="leyendasCerrar" onClick={() => toggleHelpFunction()}>CERRAR</button> */}
               <button className="buttonGuiaa" id="buttonGuia2" onClick={() => toggleHelpFunction()}> <span><b>CERRAR</b></span></button>
-           
+
             </div>
           </div>
 

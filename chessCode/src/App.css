@@ -377,9 +377,9 @@ body {
 
 
 #AllOptions {
-  margin: 0px 0px 0px 140px;
+  margin: 60px 0px 0px 50px;
   flex: auto;
-  width: max-content;
+  width: 480px;
   height: max-content;
   border-radius: 10px;
   background-color: #282c34;
@@ -482,7 +482,7 @@ body {
   border-radius: 5px 0px 0px 5px;
   /* background: lightblue; */
   background-color: #282c34;
-  width: 60vh;
+  width: 69vh;
   min-height: 91vh;
   height: max-content;
   border-left: 3px solid black;
@@ -493,7 +493,8 @@ body {
   z-index: 5;
   transform: translateX(800px);
   opacity: 0;
-  transition: all .5s;
+  transition: opacity .1s;
+  transition: all .6s;
 }
 
 #sidebar.active {
@@ -513,17 +514,17 @@ body {
 
 #guiaImagen {
   background: url("./components/images/notif/all.png");
-  background-size: 96%;
+  background-size: 103%;
   background-repeat: no-repeat;
-  width: 450px;
+  width: 510px;
   height: 600px;
-  margin: -30px 0px -130px 20px;
+  margin: -41px 0px -130px 20px;
 }
 
 
 #leyendasCerrar {
   position: fixed;
-  bottom: 0;
+  bottom: 10;
   margin-left: -90px;
 }
 
@@ -582,18 +583,18 @@ body {
   color: #FFFFFF;
   text-align: center;
   padding: 15px;
-  transition: all 0.5s;
+  transition: all 0.3s;
   cursor: pointer;
 }
 
 
 #buttonGuia1 {
-  bottom: 10px;
-  right: 5px;
+  bottom: 15px;
+  right: 40px;
 }
 
 #buttonGuia2 {
-  bottom: 10px;
+  bottom: -10px;
   right: 80px;
 }
 
@@ -602,7 +603,7 @@ body {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 #buttonGuia1 span:after {
@@ -611,16 +612,16 @@ body {
   opacity: 0;
   top: 0;
   right: -15px;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 #buttonGuia2 span:after {
-  content: '«';
+  content: '«  ';
   position: absolute;
   opacity: 0;
   top: 0;
   left: -15px;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 #buttonGuia1:hover span {
