@@ -403,8 +403,8 @@ export default function App() {
           </div>
 
           <div id="volumBar">
-            <input type="range" className='barra' id="volume" orient="vertical" value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
-            <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p>
+            <input type="range" className='barra' id="volume"  value={volume.current} onInput={() => changeVolume("data")} min="0" max="1" step="0.1"></input>
+            {/* <p id="volIcon" onClick={() => changeVolume("iconVolume")}>{iconVolume}</p> */}
           </div>
         </div>
 
@@ -487,6 +487,7 @@ export default function App() {
         <Final
           color={colorGanador}
           resultado={resultado}
+          refresh={refresh}
         />
       }
     </div >

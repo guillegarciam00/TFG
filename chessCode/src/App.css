@@ -58,6 +58,7 @@ body {
 #header {
   border: 2px solid black;
   border-bottom: 3px solid black;
+  
   height: 70px;
   display: flex;
   justify-content: space-between;
@@ -114,8 +115,8 @@ body {
   border-radius: 5px 0px 0px 5px;
   /* background: rgb(173, 216, 230); */
   background-color: #282c34;
-  width: 4vw;
-  height: max-content;
+  width: 10vw;
+  height: 2.2vw;
   position: fixed;
   top: 70.5px;
   right: 0;
@@ -124,6 +125,9 @@ body {
   transform: translateX(800px);
   opacity: 0;
   border: 2px solid black;
+  margin-right: -20px;
+  margin-top: 1px;
+  padding-top: 2px;
   transition: all .3s;
 }
 
@@ -154,8 +158,8 @@ body {
 }
 
 #volume {
-  writing-mode: bt-lr;
-  -webkit-appearance: slider-vertical;
+  /* writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical; */
   margin-left: -28px;
   margin-top: 10px;
 }
@@ -377,11 +381,12 @@ body {
 
 
 #AllOptions {
-  margin: 60px 0px 0px 50px;
+  margin: 60px 0px 0px 80px;
   flex: auto;
   width: 480px;
   height: max-content;
-  border-radius: 10px;
+  border: 3px solid white;
+  border-radius: 15px;
   background-color: #282c34;
   /* background: rgba(88, 88, 228, 0.944); */
   box-shadow: rgba(0, 0, 0, 0.544) 8px 10px 10px,
@@ -514,7 +519,7 @@ body {
 
 #guiaImagen {
   background: url("./components/images/notif/all.png");
-  background-size: 103%;
+  background-size: 104%;
   background-repeat: no-repeat;
   width: 510px;
   height: 600px;
@@ -553,6 +558,7 @@ body {
   width: 210px;
   border: unset;
   z-index: 1;
+  border: 3px solid white;
   border-radius: 15px;
   position: relative;
   font-weight: 1000;
@@ -560,7 +566,6 @@ body {
   overflow: hidden;
   display: inline-block;
   background-color: #282c34;
-  border: 3px solid white;
   color: #FFFFFF;
   text-align: center;
   padding: 15px;
@@ -589,12 +594,12 @@ body {
 
 
 #buttonGuia1 {
-  bottom: 15px;
-  right: 40px;
+  bottom: 17px;
+  right: 20px;
 }
 
 #buttonGuia2 {
-  bottom: -10px;
+  bottom: -18px;
   right: 80px;
 }
 
@@ -606,16 +611,24 @@ body {
   transition: 0.3s;
 }
 
-#buttonGuia1 span:after {
-  content: '»';
+#buttonGuia2 span:after {
+  content: ' »';
   position: absolute;
   opacity: 0;
   top: 0;
   right: -15px;
   transition: 0.3s;
 }
+#buttonGuia2:hover span {
+  padding-right: 15px;
+}
+#buttonGuia2:hover span:after {
+  opacity: 1;
+  right: 0;
+}
 
-#buttonGuia2 span:after {
+
+#buttonGuia1 span:after {
   content: '«  ';
   position: absolute;
   opacity: 0;
@@ -623,22 +636,10 @@ body {
   left: -15px;
   transition: 0.3s;
 }
-
 #buttonGuia1:hover span {
-  padding-right: 15px;
-}
-
-#buttonGuia2:hover span {
   padding-left: 15px;
 }
-
-
 #buttonGuia1:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
-#buttonGuia2:hover span:after {
   opacity: 1;
   left: 0;
 }

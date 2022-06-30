@@ -1,17 +1,21 @@
 import { React } from 'react'
 import "./style/Final.css";
 
-export function Final({ color, resultado }) {
-    return (
-        <>
-            <div id="fondo"> </div>
+export function Final({ color, resultado, refresh }) {
 
-            <div id="popUp">
+return (
+    <>
+        <div id="fondo"> </div>
 
-                {/* <h1>{resultado}</h1>
+        <div id="popUp">
+
+            {/* <h1>{resultado}</h1>
                 <h2>{color}</h2> */}
-                <div className="finalImage" id={resultado}></div>
-            </div>
-        </>
-    )
+            <div className="finalImage" id={resultado}></div>
+
+            <button className="buttonFinal" id="buttonFinal1" onClick={() => refresh()}> <span><b>Volver a jugar</b></span></button>
+
+        </div>
+    </>
+)
 }

@@ -96,7 +96,7 @@ export const Square = (props) => {
     return (
         <div key={props.id} className={colorSquare} id={payload.squareColor} onClick={() => movePiece(payload)}>
             <img className="piece" id={payload.id} src={getImage(payload.piece)} alt="" />
-            <span id="id" >{payload.id}</span>
+            <span id="hide" >{payload.id}</span>
             <span className="coordNum" id={colorNumCoord}>{payload.coordNum}</span>
             <span className="coordLet" id={colorLetCoord}>{payload.coordLet}</span>
             <div className='check' id={payload.check}></div>

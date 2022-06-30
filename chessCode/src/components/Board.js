@@ -21,6 +21,8 @@ export function Board(props) {
     const queenNumber = useRef(0);
 
     const kingPosition = useRef("");
+    const checkPosition = useRef("");
+    const checkPiece = useRef("") 
 
     // const [Jaque, setJaque] = useState([0, 0]);
 
@@ -296,7 +298,12 @@ export function Board(props) {
         var array = posibleMovements(data)
         if (optPosibles && turno.current === myColor) {
             for (let i = 0; i < array.empty.length; i++) {
-                chessBoard[array.empty[i]].selected = "selected"
+
+                if (array.empty[i] === checkPosition.current && data.piece === checkPiece.current) {
+                    chessBoard[array.empty[i]].selected = "selectedCheck"
+                } else {
+                    chessBoard[array.empty[i]].selected = "selected"
+                }
             }
             for (let i = 0; i < array.death.length; i++) {
                 if (optEatables)
@@ -476,7 +483,8 @@ export function Board(props) {
                         for (let k = 0; k < arrayFuturo.length; k++) {
                             if (chessBoard[arrayFuturo[k]].piece === checkRival + "King") {
                                 // hacerJaque(chessBoard[i], square)
-                                posibleCheck(chessBoard[i])
+                                posibleCheck(chessBoard[i], chessBoard[array[j]].id)
+
                             }
                         }
                     }
@@ -499,9 +507,13 @@ export function Board(props) {
         }
     }
 
-    function posibleCheck(inicial) {
-        if ((!(chessBoard[inicial.id].squareColor === "checkmate" || chessBoard[inicial.id].squareColor === "casillaJaque")) && optPosibleCheck)
+    function posibleCheck(inicial, casilla) {
+        if ((!(chessBoard[inicial.id].squareColor === "checkmate" || chessBoard[inicial.id].squareColor === "casillaJaque")) && optPosibleCheck) {
             chessBoard[inicial.id].check = "posibleJaque"
+            checkPosition.current = casilla
+            checkPiece.current = chessBoard[inicial.id].piece
+            console.log(checkPosition)
+        }
     }
 
 
