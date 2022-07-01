@@ -10,7 +10,7 @@ export function Start({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPo
             {screenPopUp === "piezas" &&
                 <div id="popUp">
                     <button className="buttonInicio" id="buttonInicio1" onClick={screenPopUpInstr}> <span><b>Instrucciones</b></span></button>
-                    <h1 id="h1Inicio">¿Qué piezas vas a jugar?</h1>
+                    <h1 id="h1Inicio">¿QUÉ PIEZAS VAS A JUGAR?</h1>
                     <div id="opciones">
                         <div className='backWhite'><div id="whitePieces" onClick={whites}></div></div>
                         <div className='backWhite'><div id="blackPieces" onClick={blacks}></div></div>
@@ -26,7 +26,6 @@ export function Start({ whites, blacks, screenPopUp, screenPopUpPiezas, screenPo
                     <div className="startImage"></div>
                 </div>
             }
-
         </>
 
     )

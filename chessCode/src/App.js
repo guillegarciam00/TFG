@@ -84,7 +84,7 @@ export default function App() {
 
   //Sonidos
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
-  const volume = useRef(0.1)
+  const volume = useRef(0.8)
 
   const [playSoundStart] = useSound(SoundStart, { volume: volume.current });
   const [playSoundMover] = useSound(SoundMover, { volume: volume.current });
@@ -365,7 +365,7 @@ export default function App() {
       <div id="header">
 
         <div id="title">
-          <h1 id="h1appjs">CHESSGAME</h1>
+          <h1 id="h1appjs">ChessLearn</h1>
         </div>
 
         <div id="rightHeader">
@@ -469,12 +469,12 @@ export default function App() {
 
           <div id="sidebar">
             <div id="explicaciones">
-              <h2 id="guiaTitle">GUIA</h2>
+              <h2 id="guiaTitle">GUÍA</h2>
               <div id="guiaImagen"></div>
             </div>
             <div id="leyendaOptions">
               {/* <button id="leyendasCerrar" onClick={() => toggleHelpFunction()}>CERRAR</button> */}
-              <button className="buttonGuiaa" id="buttonGuia2" onClick={() => toggleHelpFunction()}> <span><b>CERRAR</b></span></button>
+              <button className="buttonGuiaa" id="buttonGuia2" onClick={() => toggleHelpFunction()}> <span><b>Cerrar</b></span></button>
 
             </div>
           </div>

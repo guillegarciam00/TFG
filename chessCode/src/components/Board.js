@@ -22,7 +22,9 @@ export function Board(props) {
 
     const kingPosition = useRef("");
     const checkPosition = useRef("");
-    const checkPiece = useRef("") 
+    const checkPiece = useRef("")
+
+    const checkSound = useRef("")
 
     // const [Jaque, setJaque] = useState([0, 0]);
 
@@ -217,6 +219,7 @@ export function Board(props) {
                 //cambio turno
                 turno.current === "w" ? turno.current = "b" : turno.current = "w"
                 cleanAll(2)
+                checkSound.current = 0
 
             }
 
@@ -531,8 +534,10 @@ export function Board(props) {
                         if (turno.current === myColor && optCheck) {
                             chessBoard[i].squareColor = "casillaJaque"
                             chessBoard[array[j]].squareColor = "casillaJaque"
-                            sound("check")
-
+                            if (checkSound.current === 0) {
+                                sound("check")
+                                checkSound.current = 1
+                            }
                         } else {
                             if (optCheckMate) {
                                 chessBoard[i].squareColor = "checkmate"
@@ -572,7 +577,10 @@ export function Board(props) {
                                 chessBoard[i].squareColor = "casillaJaque"
                                 chessBoard[array[j]].squareColor = "casillaJaque"
                                 kingPosition.current = array[j]
-                                sound("check")
+                                if (checkSound.current === 0) {
+                                    sound("check")
+                                    checkSound.current = 1
+                                }
                             }
                         }
                         //////////////////////// hacer que suene "check" si me muevo a esa posicion
