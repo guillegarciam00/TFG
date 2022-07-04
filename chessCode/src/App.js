@@ -25,10 +25,6 @@ import SoundPeonReina from './components/sounds/peonReina.wav';
 export default function App() {
 
   const [chessBoard, setChessBoard] = useState([]);
-  const [prevChessBoard, setPrevChessBoard] = useState([]);
-  const [auxChessBoard, setAuxChessBoard] = useState([]);
-
-
 
   //Botones
   const buttonPosibles = "Casillas Posibles"
@@ -80,11 +76,9 @@ export default function App() {
 
 
 
-
-
   //Sonidos
   const [iconVolume, setIconVolume] = useState(<IoMdVolumeHigh />);
-  const volume = useRef(0.8)
+  const volume = useRef(0.1)
 
   const [playSoundStart] = useSound(SoundStart, { volume: volume.current });
   const [playSoundMover] = useSound(SoundMover, { volume: volume.current });

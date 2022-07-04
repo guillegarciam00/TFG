@@ -3,6 +3,7 @@ import "./style/Board.css";
 import "./style/Square.css";
 import { Deaths } from "./Deaths";
 import { Square } from './Square';
+import { array } from 'i/lib/util';
 
 export function Board(props) {
 
@@ -21,8 +22,8 @@ export function Board(props) {
     const queenNumber = useRef(0);
 
     const kingPosition = useRef("");
-    const checkPosition = useRef("");
-    const checkPiece = useRef("")
+    const checkPosition = useRef(new Array());
+    const checkPiece = useRef(new Array())
 
     const checkSound = useRef("")
 
@@ -162,6 +163,10 @@ export function Board(props) {
             if (chessBoard[data.id].piece !== undefined && chessBoard[data.id].piece !== "") {
 
                 if ((turno.current === chessBoard[data.id].piece.charAt(0))) {
+
+                    checkPosition.current.splice(0, checkPosition.length);
+                    checkPiece.current.splice(0, checkPiece.length);
+
                     squaresPosiblesEatables(data)
                     squareWarnings(data)
 
@@ -302,7 +307,7 @@ export function Board(props) {
         if (optPosibles && turno.current === myColor) {
             for (let i = 0; i < array.empty.length; i++) {
 
-                if (array.empty[i] === checkPosition.current && data.piece === checkPiece.current) {
+                if (checkPosition.current.includes(array.empty[i]) && checkPiece.current.includes(data.piece)) {
                     chessBoard[array.empty[i]].selected = "selectedCheck"
                 } else {
                     chessBoard[array.empty[i]].selected = "selected"
@@ -513,9 +518,9 @@ export function Board(props) {
     function posibleCheck(inicial, casilla) {
         if ((!(chessBoard[inicial.id].squareColor === "checkmate" || chessBoard[inicial.id].squareColor === "casillaJaque")) && optPosibleCheck) {
             chessBoard[inicial.id].check = "posibleJaque"
-            checkPosition.current = casilla
-            checkPiece.current = chessBoard[inicial.id].piece
-            console.log(checkPosition)
+            checkPosition.current.push(casilla)
+            checkPiece.current.push(chessBoard[inicial.id].piece)
+            console.log(checkPosition.current)
         }
     }
 
